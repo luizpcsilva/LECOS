@@ -40,6 +40,7 @@ Aqui podemos citar:
 **TODO**
 Definição mais detalhada desses modelos. Abaixo os softwares que fazem isso
 Abordaremos a metodologia, limitações, características, features, métricas usadas e etc.
+
 ## Scaphandre
 
 **TODO**
@@ -69,6 +70,10 @@ Abordaremos a metodologia, limitações, características, features, métricas u
 ## Green Metrics Tool
 
 **TODO**
+
+# Boas práticas para medição energética de aplicações
+**TODO**
+
 # Emissões de carbono
 **TODO**
 Explicar um pouco sobre a natureza dessas emissões e etc. 
