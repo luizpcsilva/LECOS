@@ -36,47 +36,17 @@ Aqui podemos citar:
 - que os sensores existentes dentro do computador apenas fornecem dados brutos do consumo total da máquina e não dividem esse gasto entre as aplicações. 
 - Da dificuldade de estimar o custo energético exato de aplicações
 - Diferença breve dos softwares do tipo: Modelos de Divisão de Energia e Modelos de Isolamento de Energia
-# Modelos de Divisão de Potência
+# Modelos de Divisão de Energia
 **TODO**
-- [ ] Explicar diferença modelos de potencia e energia (artigo protocolo dos power models)
-- [ ] falar das Limitações conhecidas desses modelos e do erro
-- [ ] Listar softwares explorados
-	- [ ] SCAPHANDRE
-	- [ ] muitos outros
+Definição mais detalhada desses modelos. Abaixo os softwares que fazem isso
+Abordaremos a metodologia, limitações, características, features, métricas usadas e etc.
 
-São softwares que utilizam sensores em bare-metal para obter o consumo energético total de um dispositivo e, em seguida, consultam métricas de sistemas para dividir esse consumo entre as aplicações que estão sendo executadas no dispositivo [^1] .  Veremos a seguir alguns softwares para medição energética de aplicações que adotaram essa metodologia como base.
+## Scaphandre
 
-
-
-
-
-## Scaphandre [^2]
-
-O Scaphandre é um agente de monitoramento escrito em RUST, com foco em obter o consumo energético específico de processos, máquinas virtuais e containers (kubernetes).
-
-### Técnica utilizada
-
-Para calcular o consumo energético de aplicações, o Scaphandre coleta continuamente dados dos sensores RAPL durante a execução do programa, com foco no domínio de energia PSYS por cobrir a maioria dos componentes. Se esse domínio não estiver disponível, são somados os dados do domínio PKG + DRAM.
-
-A cada dado coletado do RAPL, são lidos os valores do tempo de uso da CPU de cada processo sendo executado na máquina naquele intervalo.
-
-Em seguida, é calculada uma estimativa para o gasto por meio de uma proporção entre o consumo energético total do processador no intervalo e a fatia de tempo de cpu que um processo utilizou.
-
-Note que alguns serviços e programas são executados em diversos processos diferentes ao mesmo tempo. Nesse caso, é recomendado exportar os dados para um Banco de Dados de Séries Temporais, como o do software Prometheus, por exemplo. Assim, é possível agregar o consumo energético dos processos e obter o gasto total da aplicação.
-
-### Particuliaridades
-
-O Scaphandre foi pensado em ser extensível, basicamente se limitando a duas tarefas: **coletar/pré-computar** as métricas de consumo energético e **exporta-lás**. Logo, é possível utilizar diversos softwares diferentes para visualizar os dados de energia, como o [Grafana](https://github.com/grafana/grafana) e [Prometheus](https://github.com/prometheus/prometheus), por exemplo. 
-- [ ] Acrescentar terminologia dos Jiffies
-- [ ] Mencionar o sistema de arquivos proc/pid/stats da onde vem o tempo de cpu
-- [ ] mencionar oq o scaphandre faz para quebrar a virtualização das VMs e calcular o gasto energético
-
-
-
-
+**TODO**
 ## CEEMS
 
-**TODO para cada processo sendo executado na máquina **
+**TODO**
 ## CodeCarbon
 
 **TODO**
@@ -121,6 +91,4 @@ Explicar um pouco sobre a natureza dessas emissões e etc. 
   **TODO**
 # Referências
 
-[1]: CADOREL, Emile; SAINGRE, Dimitri. A protocol to assess the accuracy of process-level power models. In: **2024 IEEE International Conference on Cluster Computing (CLUSTER)**. IEEE, 2024. p. 74-84.
-[^2]: HUBBLO. **Scaphandre documentation**. [S. l.], 2026. Disponível em: [https://hubblo-org.github.io/scaphandre-documentation](https://hubblo-org.github.io/scaphandre-documentation). Acesso em: 22 abr. 2026.
 
