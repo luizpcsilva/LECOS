@@ -20,8 +20,8 @@ Uma seçao para dar um leve histórico da medição energética no computador e 
 começar a enumerar algumas ferramentas importantes que fazem essa medição
 
 ## RAPL
-
-**TODO**
+- [ ] Algumas informações boas:
+AMD RAPL Characteristics e Key Takeaways for RAPL Measurements em [^2]**TODO**
 ## IPMI
 
 **TODO**
@@ -51,7 +51,7 @@ São softwares que utilizam sensores em bare-metal para obter o consumo energét
 
 
 ## Scaphandre [^2]
-
+- [ ] Detalhar como os dados sao obtidos em SOs diferentes
 O Scaphandre é um agente de monitoramento escrito em RUST, com foco em obter o consumo energético específico de processos, máquinas virtuais e containers (kubernetes).
 
 ### Técnica utilizada
@@ -77,7 +77,35 @@ O Scaphandre foi pensado em ser extensível, basicamente se limitando a duas tar
 ## CEEMS
 
 **TODO para cada processo sendo executado na máquina **
-## CodeCarbon
+## CodeCarbon[^2]
+
+É uma biblioteca em Python open source, com o objetivo de monitorar as emissões de carbono provenientes da computação realizada em um computador local. Para calcular essas emissões, é necessário calcular o gasto energético associado ao alvo da observação.
+
+Nesse sentido,  a bilbioteca se propõe a estimar o consumo energético de trechos específicos de códigos em Python e, além disso, permite também obter medições de energia do sistema total ou durante a execução de algum comando 
+- [ ] (**verificar se no segundo caso há técnicas de cpu usage**).
+### Técnica Utilizada
+
+Atualmente, Codecaarbon tem suporte para obter o consumo energético dos seguintes hardwares:
+- GPU, via biblioteca nvidia-ml-py 
+- [ ] verificar se essa biblioteca consulta a NVML
+- RAM, via heurísticas baseadas no tamanho da RAM. Por mais que o RAPL forneça dados de consumo energético da DRAM, a ferramenta optou por não utilizar por não ter certeza da acurácia dos dados.
+- [ ] Detalhar essa heurística
+- CPU, via Intel Power Gadget no Windows/Mac, `powermetrics`em processadores Apple Silicon Chips e arquivos do RAPL no Linux.
+
+
+Note que, caso não seja possível acessar as métricas de consumo de energia da CPU, o Codecarbon passa a realizar aproximações com base no tipo da CPU e seus valores de [Thermal Design Powers](https://en.wikipedia.org/wiki/Thermal_design_power).
+### Utilização do RAPL
+
+O codecarbon faz uma seleção inteligente dos domínios de energia do RAPL que serão utilizados para fornecer as métricas do consumo energético da CPU. 
+
+Em primeiro lugar, o Codecarbon prioriza o package domain. Esse domínio de energia  fornece dados dos núcleos da CPU e GPU integrada. Segundo a ferramenta, esse domínio possui uma taxa de atualização confiável quando a CPU está sobrecarregada, fornece dados consistentes entre diversas gerações Intel e pode ser integrado ao domínio da DRAM para obter gastos da memória.
+
+Entretanto, pode-se customizar a biblioteca para utilizar o domínio PSYs
+- [ ] Falar talvez dos bonus de utilizar ele e estudar essa conexão coom o PCIe
+- [ ]falar tambem dos dados do Last-level cache �LLC� • Memory controller • System agent/uncore que vem no package domain.
+
+
+- [ ] Continuar leitura a partir de How Power Estimation WOrks in CodeCarbon
 
 **TODO**
 ## Tracarbon
@@ -123,4 +151,9 @@ Explicar um pouco sobre a natureza dessas emissões e etc. 
 
 [1]: CADOREL, Emile; SAINGRE, Dimitri. A protocol to assess the accuracy of process-level power models. In: **2024 IEEE International Conference on Cluster Computing (CLUSTER)**. IEEE, 2024. p. 74-84.
 [^2]: HUBBLO. **Scaphandre documentation**. [S. l.], 2026. Disponível em: [https://hubblo-org.github.io/scaphandre-documentation](https://hubblo-org.github.io/scaphandre-documentation). Acesso em: 22 abr. 2026.
+[^3]: CODECARBON. **CodeCarbon documentation**. [S. l.], 2026. Disponível em: https://docs.codecarbon.io. Acesso em: 26 abr. 2026.
 
+[^1]: 
+
+[^2]: [^2]:CODECARBON. **CodeCarbon documentation**. [S. l.], 2026. Disponível em: https://docs.codecarbon.io. Acesso em: 26 abr. 2026.
+	
