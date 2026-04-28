@@ -36,12 +36,15 @@ Aqui podemos citar:
 - que os sensores existentes dentro do computador apenas fornecem dados brutos do consumo total da máquina e não dividem esse gasto entre as aplicações. 
 - Da dificuldade de estimar o custo energético exato de aplicações
 - Diferença breve dos softwares do tipo: Modelos de Divisão de Energia e Modelos de Isolamento de Energia
+- Um breve histórico de como essa medição é/era feita (Seção Related Work de [^1] e artigo RAPL in Action
+- Iremos focar inicialmente no consumo da CPU) 
+
 # Modelos de Divisão de Potência
 **TODO**
 - [ ] Explicar diferença modelos de potencia e energia (artigo protocolo dos power models)
 - [ ] falar das Limitações conhecidas desses modelos e do erro
 
-São softwares que utilizam sensores em bare-metal para obter o consumo energético total de um dispositivo e, em seguida, consultam métricas de sistemas para dividir esse consumo entre as aplicações que estão sendo executadas no dispositivo [^1] .  Veremos a seguir alguns softwares para medição energética de aplicações que adotaram essa metodologia como base.
+São softwares que consultam sensores em bare-metal via interfaces específicas, para obter o consumo energético total de um dispositivo e, em seguida, consultam métricas de sistema para dividir esse consumo entre as aplicações que estão sendo executadas no dispositivo [^1] .  
 
 Note que as interfaces utilizadas para obter dados de sensores de hardware sobre o consumo de energia (e.g RAPL, NVML) fornecem valores em Joules (Energia). Entretanto, como a consulta desses dados é feita de forma periódica, veremos que os modelos a seguir frequentemente realizam a conversão desses valores para Joules (Potência), com base no intervalo de tempo em que o consumo de energia foi observado. Segundo [^2], essa prática ;e importante para ajudar os usuários a compreender o consumo instantâneo de suas aplicações.
 
