@@ -21,7 +21,7 @@ começar a enumerar algumas ferramentas importantes que fazem essa medição
 
 ## RAPL
 - [ ] Algumas informações boas:
-AMD RAPL Characteristics e Key Takeaways for RAPL Measurements em [^2]**TODO**
+"AMD RAPL Characteristics", "Key Takeaways for RAPL Measurements" e "Challenges and Edge Cases" em[^2]**TODO**
 ## IPMI
 
 **TODO**
@@ -40,17 +40,23 @@ Aqui podemos citar:
 **TODO**
 - [ ] Explicar diferença modelos de potencia e energia (artigo protocolo dos power models)
 - [ ] falar das Limitações conhecidas desses modelos e do erro
-- [ ] Listar softwares explorados
-	- [ ] SCAPHANDRE
-	- [ ] muitos outros
 
 São softwares que utilizam sensores em bare-metal para obter o consumo energético total de um dispositivo e, em seguida, consultam métricas de sistemas para dividir esse consumo entre as aplicações que estão sendo executadas no dispositivo [^1] .  Veremos a seguir alguns softwares para medição energética de aplicações que adotaram essa metodologia como base.
 
+Note que as interfaces utilizadas para obter dados de sensores de hardware sobre o consumo de energia (e.g RAPL, NVML) fornecem valores em Joules (Energia). Entretanto, como a consulta desses dados é feita de forma periódica, veremos que os modelos a seguir frequentemente realizam a conversão desses valores para Joules (Potência), com base no intervalo de tempo em que o consumo de energia foi observado. Segundo [^2], essa prática ;e importante para ajudar os usuários a compreender o consumo instantâneo de suas aplicações.
+
+- [ ] verificar oq o [^1] fala sobre isso, confirmando as informações e analisando anovamente a crítica deles com relaç~ao a isso
+- [ ] Falar sobre essa citaçao do codecarbon
+> [!PDF|255, 208, 0] [[CodeCarbon documentacao.pdf#page=27&annotation=1323R]]
+> > The most accurate tracking methods rely on built-in hardware energy counters rather than instantaneous power draw. 
+> 
+> 
 
 
 
 
-## Scaphandre [^2]
+
+## Scaphandre [^3]
 - [ ] Detalhar como os dados sao obtidos em SOs diferentes
 O Scaphandre é um agente de monitoramento escrito em RUST, com foco em obter o consumo energético específico de processos, máquinas virtuais e containers (kubernetes).
 
@@ -77,13 +83,34 @@ O Scaphandre foi pensado em ser extensível, basicamente se limitando a duas tar
 ## CEEMS
 
 **TODO para cada processo sendo executado na máquina **
+
+
+**TODO**
+## Tracarbon
+
+**TODO**
+## JoularJX
+
+**TODO**
+## Cloud Carbon Footprint
+
+**TODO**
+## Kepler
+
+**TODO**
+## PowerAPI
+
+**TODO**
+# Modelos de Isolamento
+**TODO**
+
 ## CodeCarbon[^2]
 
 É uma biblioteca em Python open source, com o objetivo de monitorar as emissões de carbono provenientes da computação realizada em um computador local. Para calcular essas emissões, é necessário calcular o gasto energético associado ao alvo da observação.
 
 Nesse sentido,  a bilbioteca se propõe a estimar o consumo energético de trechos específicos de códigos em Python e, além disso, permite também obter medições de energia do sistema total ou durante a execução de algum comando 
 - [ ] (**verificar se no segundo caso há técnicas de cpu usage**).
-### Técnica Utilizada
+### Métricas de energia utilizadas
 
 Atualmente, Codecaarbon tem suporte para obter o consumo energético dos seguintes hardwares:
 - GPU, via biblioteca nvidia-ml-py 
@@ -104,27 +131,22 @@ Entretanto, pode-se customizar a biblioteca para utilizar o domínio PSYs
 - [ ] Falar talvez dos bonus de utilizar ele e estudar essa conexão coom o PCIe
 - [ ]falar tambem dos dados do Last-level cache �LLC� • Memory controller • System agent/uncore que vem no package domain.
 
+### Técnica Utilizada
+Para monitorar o gasto de energia o Codecarbon faz uma consulta periódicas aos sensores de hardware via interfaces, conforme discutido anteriormente em métricas utilizadas. Note que, quando não disponíveis, a ferramenta utiliza modelos genêricos baseados no tipo do hardware, realizando aproximações.
 
-- [ ] Continuar leitura a partir de How Power Estimation WOrks in CodeCarbon
+A cada consulta, é calculada a variação de energia com base nas medições anteriores. Em seguida, calcula-se a potência média desse intervalo de medição, dividindo a variação encontrada pelo intervalo de tempo. O Codecarbon afirma que monitorar a potência ao invés da energia é importante para ajudar os usuários a entender o consumo instantâneo das aplicações.
 
-**TODO**
-## Tracarbon
+Como os sensores de potência de um computador não são confiáveis, a transformação utilizando os contadores de energia se torna necessária 
+- [ ] Embasar isso. Verificar no artigo [^1]
 
-**TODO**
-## JoularJX
+O somatório de todas as variações de energia e a média entre as potências dos intervalos se tornam as métricas analisar o comportamento do sistema durante a execução de uma aplicação.
 
-**TODO**
-## Cloud Carbon Footprint
+### Visualização dos dados
+- [ ] Falar que o gráfico de potência não aponta muita coisa visto que é uma média de potências. Isso esconde picos de potência que não aparecem
 
-**TODO**
-## Kepler
+### Ruído de sistema
+- [ ] Falar que a documentação não aborda o ruído de sistema proveniente de considerar o gasto da máquina como o gasto de aplicação. Técnicas para minimização desse ruído serão abordadas mais a frente.
 
-**TODO**
-## PowerAPI
-
-**TODO**
-# Modelos de Isolamento
-**TODO**
 ## Green Metrics Tool
 
 **TODO**
@@ -149,11 +171,8 @@ Explicar um pouco sobre a natureza dessas emissões e etc. 
   **TODO**
 # Referências
 
+
+
 [1]: CADOREL, Emile; SAINGRE, Dimitri. A protocol to assess the accuracy of process-level power models. In: **2024 IEEE International Conference on Cluster Computing (CLUSTER)**. IEEE, 2024. p. 74-84.
-[^2]: HUBBLO. **Scaphandre documentation**. [S. l.], 2026. Disponível em: [https://hubblo-org.github.io/scaphandre-documentation](https://hubblo-org.github.io/scaphandre-documentation). Acesso em: 22 abr. 2026.
-[^3]: CODECARBON. **CodeCarbon documentation**. [S. l.], 2026. Disponível em: https://docs.codecarbon.io. Acesso em: 26 abr. 2026.
-
-[^1]: 
-
-[^2]: [^2]:CODECARBON. **CodeCarbon documentation**. [S. l.], 2026. Disponível em: https://docs.codecarbon.io. Acesso em: 26 abr. 2026.
-	
+[^2]: CODECARBON. **CodeCarbon documentation**. [S. l.], 2026. Disponível em: https://docs.codecarbon.io. Acesso em: 26 abr. 2026.
+[^3]: HUBBLO. **Scaphandre documentation**. [S. l.], 2026. Disponível em: [https://hubblo-org.github.io/scaphandre-documentation](https://hubblo-org.github.io/scaphandre-documentation). Acesso em: 22 abr. 2026.
