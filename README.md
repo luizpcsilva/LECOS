@@ -1,6 +1,8 @@
 # LECOS
 > Laboratório de Eficiência Energética e Computação Sustentável
 
+
+
 **TODO**
 
 # Introdução
@@ -13,22 +15,57 @@ O seguinte texto apresenta um levantamento da pesquisa inicial do projeto **Comp
 **TODO**
 explicar pq a pesquisa foi feita (citar artigos que falam do impacto energético das aplicações com uso intensivo de dados)
 
-# Medição energética 
+# Medição Energética 
 
-**TODO**
-Uma seçao para dar um leve histórico da medição energética no computador e tals. 
-começar a enumerar algumas ferramentas importantes que fazem essa medição
+Abaixo, vamos apresentar alguns dos métodos existentes para medição energética de computadores. A categorização foi proposta por [^5].
 
-## RAPL
+## Dispositivos Externos[^5]
+
+Também chamados de medidores de potência, são equipamentos externos posicionados entre a tomada e a fonte de alimentação do sistema de computação. Fornecem dados do consumo total do computador, sem a possibilidade de dividir o gasto entre os componentes de hardware. A performance da medição é alta, mas vai depender da qualidade do equipamento.
+
+## Dispositivos Intra-Nó[^5]
+
+São equipamentos instalados dentro de computadores, geralmente entre a placa-mãe e dispositivos de hardware. Eles podem fornecer o gasto individual de componentes, porém, requer investimento e são pouco amigáveis para o usuário.
+
+## Sensores de Hardware e Interfaces de Software[^5]
+
+Atualmente, os sistemas de computação incorporam sensores digitais e circuitos integrados em componentes de hardware com o objetivo de medir o consumo de energia em um intervalo de tempo. Essa medição abrange o sistema inteiro, processador, memória ou placa de vídeo integrada, a depender da tecnologia de fabricação do computador.
+
+Nesse relatório, abordaremos a interface RAPL, NVML e IPMI. Destinaremos algumas seções mais abaixo para tratar desse assunto.
+
+## Modelagem de Potência e Energia[^5]
+
+Em muitos casos, as medições acima não são suficientes, principalmente quando não se tem acesso às interfaces de software ou quando se deseja obter o consumo energético a nível de aplicação. Nesses casos, podem ser utilizados modelos matemáticos para aproximar o consumo de energia real. Abaixo, vamos descrever alguns métodos envolvendo esses modelos.
+
+### Modelagem Baseada em Uso
+
+Esses modelos se baseiam na utilização de recursos de sistema, como o uso de CPU. Alguns modelos são lineares e assumem que o consumo de energia aumenta linearmente conforme o uso de CPU aumenta. Entretanto, já se sabe que essa relação nem sempre é linear, fazendo com que outros modelos adicionassem não linearidade com o objetivo de diminuir erros de estimativa.
+
+Alguns modelos consideram o *Thermal Design Power* (TDP) de um processador para calcular seu consumo total de potência, realizando o produto entre o TDP, a média do uso da CPU  e o tempo total de execução.
+
+### Modelagem a nível de processo
+
+Nesse tipo de modelagem, é estimado o consumo energético de cada processo, com base em métricas de energia de componentes do sistema inteiro. Esses modelos podem ser separados em dois tipos: **Baseadas em Uso** e **Baseadas em Regressão com Eventos de Performance**.
+
+O primeiro tipo utiliza métricas de sensores de hardware, como o RAPL, para obter o gasto total da CPU. Em seguida, o tempo de CPU que cada processo utilizou é utilizado como estimativa para a fatia de consumo que o processo alvo utilizou.
+* [ ] Falar sobre as limitações desse método.
+
+Já o segundo utiliza métricas do RAPL em combinação com modelos de regressão alimentados com contadores de eventos de performance de hardware. Alguns desses eventos são os ciclos de clock da CPU, número de instruções executadas e *caches misses*.  Esse método requer uma calibração inicial com um medidor de potência externo ou dados do RAPL.
+
+# Sensores de Hardware e suas Interfaces
+
+Na seção acima, discutimos sobre a utilização de sensores de hardware para medição energética. Abaixo, iremos detalhar algumas interfaces conhecidas.
+# RAPL
 - [ ] Algumas informações boas:
 "AMD RAPL Characteristics", "Key Takeaways for RAPL Measurements" e "Challenges and Edge Cases" em[^2]**TODO**
-## IPMI
+# IPMI
 
 **TODO**
-## NVML
+# NVML
 
 **TODO**
-# Medição Energética de Aplicações Específicas
+
+# Medição Energética de Aplicações Específicas (provavelmente essa seção será deletada)
 
 **TODO**
 
@@ -150,7 +187,21 @@ O somatório de todas as variações de energia e a média entre as potências d
 ### Ruído de sistema
 - [ ] Falar que a documentação não aborda o ruído de sistema proveniente de considerar o gasto da máquina como o gasto de aplicação. Técnicas para minimização desse ruído serão abordadas mais a frente.
 
-## Green Metrics Tool
+## Green Metrics Tool (GMT) [^4]
+
+É uma ferramenta de desenvolvedor capaz de realizar medição energética de aplicações e suas emissões de carbono. Possui suporte específico para aplicações com interface gráfica, machine learning, aplicações web e virtualização por máquinas virtuais.
+
+Uma das filosofias adotadas por esse software é a containerização das aplicações para a medição energética.  Segundo a ferramenta,  isso permite um maior controle da execução, interface e ambiente ao redor do processo. Além disso, a containerização traz uma baixa sobrecarga de processamento, afetando pouco a medição em si.
+
+### Técnica utilizada
+
+Enquanto os Power Models utilizam modelos matemáticos para fatiar o consumo total da máquina entre as aplicações, o GMT realiza uma estratégia diferente. Eles decidiram que irão atribuir o gasto total da máquina ao software sendo medido durante a sua execução. Segundo a ferramenta, ainda não há um padrão ouro para fatiar o consumo energético entre as aplicações e, a técnica de divisão de potência por tempo de cpu apresenta muitas limitações.  
+
+Para permitir que o custo  energético real da aplicação sendo medida seja mais próximo com o custo total da máquina, a ferramenta exige uma preparação de ambiente por meio de uma coleção de boas práticas. Essas medidas serão discutidas em uma seção separada.
+
+### Métricas de energia utilizadas
+
+
 
 **TODO**
 
@@ -179,3 +230,5 @@ Explicar um pouco sobre a natureza dessas emissões e etc. 
 [1]: CADOREL, Emile; SAINGRE, Dimitri. A protocol to assess the accuracy of process-level power models. In: **2024 IEEE International Conference on Cluster Computing (CLUSTER)**. IEEE, 2024. p. 74-84.
 [^2]: CODECARBON. **CodeCarbon documentation**. [S. l.], 2026. Disponível em: https://docs.codecarbon.io. Acesso em: 26 abr. 2026.
 [^3]: HUBBLO. **Scaphandre documentation**. [S. l.], 2026. Disponível em: [https://hubblo-org.github.io/scaphandre-documentation](https://hubblo-org.github.io/scaphandre-documentation). Acesso em: 22 abr. 2026.
+[^4]:  GREEN METRICS TOOL. GMT documentation https://docs.green-coding.io/docs
+[^5]: JAY, Mathilde et al. An experimental comparison of software-based power meters: focus on CPU and GPU. In: **2023 IEEE/ACM 23rd International Symposium on Cluster, Cloud and Internet Computing (CCGrid)**. IEEE, 2023. p. 106-118.
