@@ -157,11 +157,9 @@ Por fim, recentemente o GMT lançou uma funcionalidade beta que utiliza core-pin
 São softwares que reportam o consumo de energia e o consumo de potência de componentes do hardware, como CPU,
 # Modelos de Divisão de Potência
 
-Existem duas maneiras principais de medir o consumo energético de aplicações e mapear a potência, sendo elas: M
-
 São softwares que realizam modelagem de potência e energia a nível de processo, por meio da consulta de sensores de hardware via interfaces, para obter o consumo energético total de um dispositivo e, em seguida, consultar métricas de sistema para dividir esse consumo entre as aplicações que estão sendo executadas no dispositivo [^1] .  
 
-Note que as interfaces utilizadas para obter dados de sensores de hardware sobre o consumo de energia (e.g RAPL, NVML) fornecem valores em Joules (Energia). Entretanto, como a consulta desses dados é feita de forma periódica, veremos que os modelos a seguir frequentemente realizam a conversão desses valores para Joules (Potência), com base no intervalo de tempo em que o consumo de energia foi observado. Segundo [^2], essa prática ;e importante para ajudar os usuários a compreender o consumo instantâneo de suas aplicações.
+Note que as interfaces utilizadas para obter dados de sensores de hardware sobre o consumo de energia (e.g RAPL, NVML) fornecem valores em Joules (Energia). Entretanto, como a consulta desses dados é feita de forma periódica, veremos que os modelos a seguir frequentemente realizam a conversão desses valores para Watts (Potência), com base no intervalo de tempo em que o consumo de energia foi observado. Segundo [^2], essa prática é importante para ajudar os usuários a compreender o consumo instantâneo de suas aplicações.
 
 - [ ] verificar oq o [^1] fala sobre isso, confirmando as informações e analisando anovamente a crítica deles com relaç~ao a isso
 - [ ] Falar sobre essa citaçao do codecarbon
@@ -169,10 +167,14 @@ Note que as interfaces utilizadas para obter dados de sensores de hardware sobre
 > > The most accurate tracking methods rely on built-in hardware energy counters rather than instantaneous power draw. 
 > 
 > 
-
+- [ ] Acrescentar terminologia dos Jiffies
+- [ ] Mencionar o sistema de arquivos proc/pid/stats da onde vem o tempo de cpu
+- [ ] mencionar os erros desse tipo de medição
 ## Scaphandre [^3]
-- [ ] Detalhar como os dados sao obtidos em SOs diferentes
+
 O Scaphandre é um agente de monitoramento escrito em RUST, com foco em obter o consumo energético específico de processos, máquinas virtuais e containers (kubernetes).
+
+A ferramenta utiliza dados do RAPL e possui compatibilidade com Windows e GNU/LINUX, havendo poucas diferenças na oferta de funcionalidades entre os SOs
 
 ### Técnica utilizada
 
@@ -186,13 +188,11 @@ Note que alguns serviços e programas são executados em diversos processos dife
 
 ### Particuliaridades
 
-O Scaphandre foi pensado em ser extensível, basicamente se limitando a duas tarefas: **coletar/pré-computar** as métricas de consumo energético e **exporta-lás**. Logo, é possível utilizar diversos softwares diferentes para visualizar os dados de energia, como o [Grafana](https://github.com/grafana/grafana) e [Prometheus](https://github.com/prometheus/prometheus), por exemplo. 
-- [ ] Acrescentar terminologia dos Jiffies
-- [ ] Mencionar o sistema de arquivos proc/pid/stats da onde vem o tempo de cpu
-- [ ] mencionar oq o scaphandre faz para quebrar a virtualização das VMs e calcular o gasto energético
+O Scaphandre foi pensado em ser extensível, basicamente se limitando a duas tarefas: **coletar/pré-computar** as métricas de consumo energético e **exporta-lás**.Logo, é possível utilizar diversos softwares diferentes para visualizar os dados de energia, como o [Grafana](https://github.com/grafana/grafana) e [Prometheus](https://github.com/prometheus/prometheus), por exemplo. 
 
+Além disso, conforme citado anteriormente, o Scaphandre possui suporte para modelar o consumo energético e de potência em máquinas virtuais. Note que nesses ambientes existem complicações, já que VMs só tem acesso a uma parte do sistema onde estão implementadas e não possuem acesso a métricas de energia do host.
 
-
+Portanto, para tornar essa medição possível, o Scaphandre realiza uma ponte entre a máquina virtual e se host, trazendo as métricas de energia do bare-metal para ambiente virtualizado. 
 
 ## CEEMS
 
@@ -204,7 +204,7 @@ O Scaphandre foi pensado em ser extensível, basicamente se limitando a duas tar
 **TODO**
 ## JoularJX
 
-É um agente baseada em Java com a função de realizar monitoramento de energia em nível de código ou de aplicações em Java. A ferramenta se propoẽ a 
+É um agente baseada em Java com a função de realizar monitoramento de energia em nível de código ou de aplicações em Java......
 
 
 ## Cloud Carbon Footprint
