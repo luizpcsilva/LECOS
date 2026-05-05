@@ -55,9 +55,23 @@ Já o segundo utiliza métricas do RAPL em combinação com modelos de regressã
 # Sensores de Hardware e suas Interfaces
 
 Na seção acima, discutimos sobre a utilização de sensores de hardware para medição energética. Abaixo, iremos detalhar algumas interfaces conhecidas.
-# RAPL
-- [ ] Algumas informações boas:
-"AMD RAPL Characteristics", "Key Takeaways for RAPL Measurements" e "Challenges and Edge Cases" em[^2]**TODO**
+<h1>RAPL</h1>
+  <strong>Escrita em rascunho, ainda NÃO É parte final.</strong><br>
+  O RAPL é uma tecnologia utilizada em processadores modernos para monitorar e controlar o gasto energético e a potência dos componentes da máquina.
+  Ambos chips INTEL quanto chips AMD possuem essa tecnologia hoje.
+  Como ela funciona?
+    - Separação em domínios : 
+      - Package (CPU)
+      - Cores (Núcleos)  
+      - DRAM
+      - GPU Integrada
+  
+
+  Obs: O RAPL não é usado só pra medir, mas ele tambem é utilizado em tempo real para manutençaõ da cpu;
+  
+  <br><br><br><br>- [ ] Algumas informações boas:
+"AMD RAPL Characteristics", "Key Takeaways for RAPL Measurements" e "Challenges and Edge Cases" em[^2]
+**TODO**
 # IPMI
 
 **TODO**
