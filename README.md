@@ -81,7 +81,7 @@ Aqui podemos citar:
 - [ ] Explicar diferença modelos de potencia e energia (artigo protocolo dos power models)
 - [ ] falar das Limitações conhecidas desses modelos e do erro
 
-São softwares que consultam sensores em bare-metal via interfaces específicas, para obter o consumo energético total de um dispositivo e, em seguida, consultam métricas de sistema para dividir esse consumo entre as aplicações que estão sendo executadas no dispositivo [^1] .  
+São softwares que realizam modelagem de potência e energia a nível de processo, por meio da consulta de sensores de hardware via interfaces, para obter o consumo energético total de um dispositivo e, em seguida, consultar métricas de sistema para dividir esse consumo entre as aplicações que estão sendo executadas no dispositivo [^1] .  
 
 Note que as interfaces utilizadas para obter dados de sensores de hardware sobre o consumo de energia (e.g RAPL, NVML) fornecem valores em Joules (Energia). Entretanto, como a consulta desses dados é feita de forma periódica, veremos que os modelos a seguir frequentemente realizam a conversão desses valores para Joules (Potência), com base no intervalo de tempo em que o consumo de energia foi observado. Segundo [^2], essa prática ;e importante para ajudar os usuários a compreender o consumo instantâneo de suas aplicações.
 
@@ -131,7 +131,9 @@ O Scaphandre foi pensado em ser extensível, basicamente se limitando a duas tar
 **TODO**
 ## JoularJX
 
-**TODO**
+É um agente baseada em Java com a função de realizar monitoramento de energia em nível de código ou de aplicações em Java. A ferramenta se propoẽ a 
+
+
 ## Cloud Carbon Footprint
 
 **TODO**
@@ -189,7 +191,7 @@ O somatório de todas as variações de energia e a média entre as potências d
 
 ## Green Metrics Tool (GMT) [^4]
 
-É uma ferramenta de desenvolvedor capaz de realizar medição energética de aplicações e suas emissões de carbono. Possui suporte específico para aplicações com interface gráfica, machine learning, aplicações web e virtualização por máquinas virtuais.
+É uma ferramenta de desenvolvedor capaz de realizar medição energética de aplicações e suas emissões de carbono. Possui suporte específico para aplicações com interface gráfica, machine learning, aplicações web e virtualização por máquinas virtuais. Focaremos na medição bare-metal, sem abordar as funcionalidades para aplicações específicas.
 
 Uma das filosofias adotadas por esse software é a containerização das aplicações para a medição energética.  Segundo a ferramenta,  isso permite um maior controle da execução, interface e ambiente ao redor do processo. Além disso, a containerização traz uma baixa sobrecarga de processamento, afetando pouco a medição em si.
 
@@ -201,9 +203,32 @@ Para permitir que o custo  energético real da aplicação sendo medida seja mai
 
 ### Métricas de energia utilizadas
 
+O GMT possui suporte para métricas diversas métricas de energia, sendo tanto da máquina inteira via IPMI e MCP ou de componentes específicos, como CPU e DRAM, via RAPL.  A lista completa de métricas suportadas está disponível da documentação [^4], assim como as instruções para a configuração da medição. Note que as métricas que serão utilizadas em uma medição devem ser especificadas nos arquivos de configuração da ferramenta.
 
+### O Gasto Energético da Própria Medição
 
-**TODO**
+Um diferencial do GMT é a presença de um script de calibração que estima o consumo energético da própria medição em si, obtendo uma sobrecarga relativa em comparação com o gasto total da aplicação. Esse script é executado antes da medição real do software. Ele atua em tres etapas:
+
+1. System Baseline: É realizado a leitura do gasto do servidor em estado de repouso com apenas uma métrica de energia (a menor sobrecarga possível).
+2. System Idle: Ainda com o servidor em repouso, o script liga todos os sensores para obter dados de todas as métricas possíveis. A diferença de potência entre o passo 1 e 2 mostra quanto de sobrecarga relativa de energia os sensores geram por existir.
+3. O script gera um estresse artificial para sobrecarregar totalmente a máquina, ao mesmo tempo que realiza as medições com todas as métricas determinadas. É calculado aqui a sobrecarga de energia desses sensores em um contexto de estresse.
+
+A diferença entre o consumo de energia no passo 3 com o do passo 2 mostra uma estimativa do consumo de energia dos sensores.
+
+### Temperatura do Computador 
+O GMT considera a temperatura da CPU para as medições, pois a temperatura altera o gasto energético. 
+* [ ] Puxar uma referência para isso
+Por isso, o mesmo script de calibração executado na seção anterior também calcula o tempo que leva para a cpu esfriar após ser estressada. Esse valor é importante para servir como guia para a execução de testes. Um teste não deve ser executado em seguida do outro, deve-se aguardar esse tempo.
+
+### Estimando o gasto de conteiners
+
+Algumas aplicações (como web) podem exigir que mais de um container seja executado simultaneamente. Por mais que o foco do GMT não seja a distribuição do gasto total da máquina entre diferentes processos, a ferramenta oferece uma estimativa para o consumo individual de cada container.
+
+Nesses casos, a ferramenta implementa um modelo de divisão de potência utilizando dados do consumo total da máquina e do tempo de CPU de cada container, seguindo uma técnica semelhante ao do Scaphandre.
+
+Para diminuir o erro, é encorajado fortemente seguir uma série de boas práticas que serão definidas em seções abaixo.
+
+Por fim, recentemente o GMT lançou uma funcionalidade beta que utiliza core-pinning (fixar conteiners em núcleos específicos) em processadores AMD. Essa técnica permite separar melhor o gasto energético de cada conteiner.
 
 # Boas práticas para medição energética de aplicações
 **TODO**
