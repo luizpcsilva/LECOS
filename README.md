@@ -57,17 +57,19 @@ Já o segundo utiliza métricas do RAPL em combinação com modelos de regressã
 Na seção acima, discutimos sobre a utilização de sensores de hardware para medição energética. Abaixo, iremos detalhar algumas interfaces conhecidas.
 <h1>RAPL</h1>
   <strong>Escrita em rascunho, ainda NÃO É parte final.</strong><br>
-  O RAPL é uma tecnologia utilizada em processadores modernos para monitorar e controlar o gasto energético e a potência dos componentes da máquina.
-  Ambos chips INTEL quanto chips AMD possuem essa tecnologia hoje.
-  Como ela funciona?
-    - Separação em domínios : 
-      - Package (CPU)
-      - Cores (Núcleos)  
-      - DRAM
-      - GPU Integrada
-  
+  O RAPL (Running Average Power Limit) é uma tecnologia presente em processadores modernos utilizada para monitorar, medir e controlar o consumo energético e a potência dos componentes da máquina. Atualmente, tanto processadores da Intel quanto da AMD possuem suporte a essa tecnologia.
 
-  Obs: O RAPL não é usado só pra medir, mas ele tambem é utilizado em tempo real para manutençaõ da cpu;
+O funcionamento do RAPL é baseado na separação do processador em diferentes domínios de energia, permitindo medições e controles específicos para cada parte do sistema. Entre os principais domínios estão:
+
+    Package — Processador
+    Cores — Núcleos da CPU
+    DRAM — Memória RAM
+    GPU Integrada — Placa gráfica integrada
+
+Além do monitoramento energético, o RAPL também é utilizado em tempo real para auxiliar no gerenciamento da CPU, ajudando no controle térmico, na limitação de potência e na otimização do desempenho energético do sistema.
+
+Importantes são as contribuições do RAPL para a computação sustentável, visto que ele nos permite analisar e controlar o consumo energético dos processadores de forma precisa e em tempo real. Com a captação desses dados é possível desenvolver sistemas mais eficientes energeticamente, assim reduzindo o desperdício de energia e a geração de calor dos aparelhos, o que por sua vez diminui o gasto de água utilizado na refrigeração.
+
   
   <br><br><br><br>- [ ] Algumas informações boas:
 "AMD RAPL Characteristics", "Key Takeaways for RAPL Measurements" e "Challenges and Edge Cases" em[^2]
