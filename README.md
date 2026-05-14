@@ -55,96 +55,21 @@ Já o segundo utiliza métricas do RAPL em combinação com modelos de regressã
 # Sensores de Hardware e suas Interfaces
 
 Na seção acima, discutimos sobre a utilização de sensores de hardware para medição energética. Abaixo, iremos detalhar algumas interfaces conhecidas.
-# RAPL
+## RAPL
 - [ ] Algumas informações boas:
-"AMD RAPL Characteristics", "Key Takeaways for RAPL Measurements" e "Challenges and Edge Cases" em[^2]**TODO**
+"AMD RAPL Characteristics", "Key Takeaways for RAPL Measurements" e "Challenges and Edge Cases" em[^2]
+**TODO**
 # IPMI
-
 **TODO**
 # NVML
-
 **TODO**
-
-# Medição Energética de Aplicações Específicas (provavelmente essa seção será deletada)
-
-**TODO**
-
-Aqui podemos citar:
-- que os sensores existentes dentro do computador apenas fornecem dados brutos do consumo total da máquina e não dividem esse gasto entre as aplicações. 
-- Da dificuldade de estimar o custo energético exato de aplicações
-- Diferença breve dos softwares do tipo: Modelos de Divisão de Energia e Modelos de Isolamento de Energia
-- Um breve histórico de como essa medição é/era feita (Seção Related Work de [^1] e artigo RAPL in Action
-- Iremos focar inicialmente no consumo da CPU) 
-
-# Modelos de Divisão de Potência
+# Ferramentas para Medição Energética e de Potência
 **TODO**
 - [ ] Explicar diferença modelos de potencia e energia (artigo protocolo dos power models)
 - [ ] falar das Limitações conhecidas desses modelos e do erro
+Nessa seção, traremos a descrição e metodologia de ferramentas que reportam o consumo de energia de componentes de hardware, trazendo o consumo energético bare-metal total da máquina em um intervalo de tempo. O processo para obtenção desses dados está descrito na seção [Sensores de Hardware e Suas Interfaces](# Sensores de Hardware e suas Interfaces).
 
-São softwares que realizam modelagem de potência e energia a nível de processo, por meio da consulta de sensores de hardware via interfaces, para obter o consumo energético total de um dispositivo e, em seguida, consultar métricas de sistema para dividir esse consumo entre as aplicações que estão sendo executadas no dispositivo [^1] .  
-
-Note que as interfaces utilizadas para obter dados de sensores de hardware sobre o consumo de energia (e.g RAPL, NVML) fornecem valores em Joules (Energia). Entretanto, como a consulta desses dados é feita de forma periódica, veremos que os modelos a seguir frequentemente realizam a conversão desses valores para Joules (Potência), com base no intervalo de tempo em que o consumo de energia foi observado. Segundo [^2], essa prática ;e importante para ajudar os usuários a compreender o consumo instantâneo de suas aplicações.
-
-- [ ] verificar oq o [^1] fala sobre isso, confirmando as informações e analisando anovamente a crítica deles com relaç~ao a isso
-- [ ] Falar sobre essa citaçao do codecarbon
-> [!PDF|255, 208, 0] [[CodeCarbon documentacao.pdf#page=27&annotation=1323R]]
-> > The most accurate tracking methods rely on built-in hardware energy counters rather than instantaneous power draw. 
-> 
-> 
-
-
-
-
-
-## Scaphandre [^3]
-- [ ] Detalhar como os dados sao obtidos em SOs diferentes
-O Scaphandre é um agente de monitoramento escrito em RUST, com foco em obter o consumo energético específico de processos, máquinas virtuais e containers (kubernetes).
-
-### Técnica utilizada
-
-Para calcular o consumo energético de aplicações, o Scaphandre coleta continuamente dados dos sensores RAPL durante a execução do programa, com foco no domínio de energia PSYS por cobrir a maioria dos componentes. Se esse domínio não estiver disponível, são somados os dados do domínio PKG + DRAM.
-
-A cada dado coletado do RAPL, são lidos os valores do tempo de uso da CPU de cada processo sendo executado na máquina naquele intervalo.
-
-Em seguida, é calculada uma estimativa para o gasto por meio de uma proporção entre o consumo energético total do processador no intervalo e a fatia de tempo de cpu que um processo utilizou.
-
-Note que alguns serviços e programas são executados em diversos processos diferentes ao mesmo tempo. Nesse caso, é recomendado exportar os dados para um Banco de Dados de Séries Temporais, como o do software Prometheus, por exemplo. Assim, é possível agregar o consumo energético dos processos e obter o gasto total da aplicação.
-
-### Particuliaridades
-
-O Scaphandre foi pensado em ser extensível, basicamente se limitando a duas tarefas: **coletar/pré-computar** as métricas de consumo energético e **exporta-lás**. Logo, é possível utilizar diversos softwares diferentes para visualizar os dados de energia, como o [Grafana](https://github.com/grafana/grafana) e [Prometheus](https://github.com/prometheus/prometheus), por exemplo. 
-- [ ] Acrescentar terminologia dos Jiffies
-- [ ] Mencionar o sistema de arquivos proc/pid/stats da onde vem o tempo de cpu
-- [ ] mencionar oq o scaphandre faz para quebrar a virtualização das VMs e calcular o gasto energético
-
-
-
-
-## CEEMS
-
-**TODO para cada processo sendo executado na máquina **
-
-
-**TODO**
-## Tracarbon
-
-**TODO**
-## JoularJX
-
-É um agente baseada em Java com a função de realizar monitoramento de energia em nível de código ou de aplicações em Java. A ferramenta se propoẽ a 
-
-
-## Cloud Carbon Footprint
-
-**TODO**
-## Kepler
-
-**TODO**
-## PowerAPI
-
-**TODO**
-# Modelos de Isolamento
-**TODO**
+Alguma delas implementam [Modelos de Divisão de Potência](# Modelos de Divisão de Potência), trazendo uma estimativa do consumo a nível de processo, container ou máquina virtual. Reservamos uma seção mais abaixo para tratar dessas ferramentas
 
 ## CodeCarbon[^2]
 
@@ -230,8 +155,99 @@ Para diminuir o erro, é encorajado fortemente seguir uma série de boas prátic
 
 Por fim, recentemente o GMT lançou uma funcionalidade beta que utiliza core-pinning (fixar conteiners em núcleos específicos) em processadores AMD. Essa técnica permite separar melhor o gasto energético de cada conteiner.
 
-# Boas práticas para medição energética de aplicações
+São softwares que reportam o consumo de energia e o consumo de potência de componentes do hardware, como CPU,
+# Modelos de Divisão de Potência
+
+São softwares que realizam modelagem de potência e energia a nível de processo, por meio da consulta de sensores de hardware via interfaces, para obter o consumo energético total de um dispositivo e, em seguida, consultar métricas de sistema para dividir esse consumo entre as aplicações que estão sendo executadas no dispositivo [^1] .  
+
+Note que as interfaces utilizadas para obter dados de sensores de hardware sobre o consumo de energia (e.g RAPL, NVML) fornecem valores em Joules (Energia). Entretanto, como a consulta desses dados é feita de forma periódica, veremos que os modelos a seguir frequentemente realizam a conversão desses valores para Watts (Potência), com base no intervalo de tempo em que o consumo de energia foi observado. Segundo [^2], essa prática é importante para ajudar os usuários a compreender o consumo instantâneo de suas aplicações.
+
+- [ ] verificar oq o [^1] fala sobre isso, confirmando as informações e analisando anovamente a crítica deles com relaç~ao a isso
+- [ ] Falar sobre essa citaçao do codecarbon
+> [!PDF|255, 208, 0] [[CodeCarbon documentacao.pdf#page=27&annotation=1323R]]
+> > The most accurate tracking methods rely on built-in hardware energy counters rather than instantaneous power draw. 
+> 
+> 
+- [ ] Acrescentar terminologia dos Jiffies
+- [ ] Mencionar o sistema de arquivos proc/pid/stats da onde vem o tempo de cpu
+- [ ] mencionar os erros desse tipo de medição
+## Scaphandre [^3]
+
+O Scaphandre é um agente de monitoramento escrito em RUST, com foco em obter o consumo energético específico de processos, máquinas virtuais e containers (kubernetes).
+
+A ferramenta utiliza dados do RAPL e possui compatibilidade com Windows e GNU/LINUX, havendo poucas diferenças na oferta de funcionalidades entre os SOs
+
+### Técnica utilizada
+
+Para calcular o consumo energético de aplicações, o Scaphandre coleta continuamente dados dos sensores RAPL durante a execução do programa, com foco no domínio de energia PSYS por cobrir a maioria dos componentes. Se esse domínio não estiver disponível, são somados os dados do domínio PKG + DRAM.
+
+A cada dado coletado do RAPL, são lidos os valores do tempo de uso da CPU de cada processo sendo executado na máquina naquele intervalo.
+
+Em seguida, é calculada uma estimativa para o gasto por meio de uma proporção entre o consumo energético total do processador no intervalo e a fatia de tempo de cpu que um processo utilizou.
+
+Note que alguns serviços e programas são executados em diversos processos diferentes ao mesmo tempo. Nesse caso, é recomendado exportar os dados para um Banco de Dados de Séries Temporais, como o do software Prometheus, por exemplo. Assim, é possível agregar o consumo energético dos processos e obter o gasto total da aplicação.
+
+### Particuliaridades
+
+O Scaphandre foi pensado em ser extensível, basicamente se limitando a duas tarefas: **coletar/pré-computar** as métricas de consumo energético e **exporta-lás**.Logo, é possível utilizar diversos softwares diferentes para visualizar os dados de energia, como o [Grafana](https://github.com/grafana/grafana) e [Prometheus](https://github.com/prometheus/prometheus), por exemplo. 
+
+Além disso, conforme citado anteriormente, o Scaphandre possui suporte para modelar o consumo energético e de potência em máquinas virtuais. Note que nesses ambientes existem complicações, já que VMs só tem acesso a uma parte do sistema onde estão implementadas e não possuem acesso a métricas de energia do host.
+
+Portanto, para tornar essa medição possível, o Scaphandre realiza uma ponte entre a máquina virtual e se host, trazendo as métricas de energia do bare-metal para ambiente virtualizado. 
+
+## CEEMS
+
+**TODO para cada processo sendo executado na máquina **
+
 **TODO**
+## Tracarbon
+
+**TODO**
+## JoularJX
+
+É um agente baseada em Java com a função de realizar monitoramento de energia em nível de código ou de aplicações em Java......
+
+
+## Cloud Carbon Footprint
+
+**TODO**
+## Kepler
+
+**TODO**
+## PowerAPI
+
+**TODO**
+
+# Boas práticas para medição energética 
+
+Nessa seção, detalharemos uma coletânea de boas práticas extraídas de artigos e ferramentas. 
+
+## Taxa de amostragem [^4]
+A frequência de coleta de dados das métricas (taxa de amostragem) deve ser de pelo menos a metade da duração do menor evento que se deseja capturar. Isso garante a precisão necessária para não perder picos rápidos de consumo durante a execução do experimento.
+
+## Controle da temperatura [^4]
+A temperatura de um processador influencia na medição energética. É importante esperar um intervalo de tempo de 180 segundos entre uma medição e outra, para dar tempo dos componentes esfriarem. Em processadores com mais de 30 cores, esse tempo deve ser maior.
+Controle a temperatura. Dê um espaçamento de tempo adequado entre as medições. Se um sistema sobreaquecer durante a medição, isso deve ser levado em consideração. 
+
+## Minimização do ruído de fundo [^4]
+Durante a execução do experimento, o gasto energético total da máquina será capturado por interfaces de hardware como o RAPL. Para garantir que estamos medindo o software alvo e não o "ruído" do sistema operacional, é importante diminuir a possibilidade de interrupções na CPU. Recomenda-se tomar as seguintes precauções:
+
+- Desativar conexões de rede (Wi-Fi e Internet), a menos que sejam objeto de teste;
+- Evitar qualquer interação com periféricos (mouse e teclado) durante a execução;
+- Desligar o escurecimento automático da tela, proteção de tela e modos de suspensão;
+- Encerrar processos em segundo plano que não sejam essenciais;
+- Desativar tarefas agendadas, atualizações automáticas do sistema operacional e rotinas de manutenção
+
+## Escreva resultados na memória [^4]
+Para armazenar os valores das medições, é recomendado realizar a escrita em um arquivo que esteja localizado na memória RAM. A escrita em disco é uma operação que gasta bastante energia e, caso seja feita com frequência, pode alterar o experimento a depender as métricas utilizadas.
+
+# Boas práticas para medição energética de aplicações
+Na seção [Modelos de Divisão de Potência](#modelos_de_divisao_de_potencia), detalhamos como o particionamento de energia entre as aplicações era feito. Segundo [^4], esse método só funciona caso esteja em uma frequência de clock fixa, sem Hyperthreading ou Turboboost ativado. Além disso, a execução de instruções estranhas como AVX podem distorcer o fatiamento de energia. É importante levar em consideração esses fatores pois, com eles, o tempo de uso de CPU deixa de ter uma relação clara com o consumo de energia.
+
+Em [^1],  também foi observado que quando Hyperthreading e Turboboost estão ativos, a estimativa de consumo de energia e potência não são equivalentes na execução paralela e sequencial. Além disso, uma das conclusões do trabalho é que o tempo de CPU não é totalmente correlacionado com o consumo energético, por mais que possa servir como uma aproximação.
+
+Logo, é recomendado desativar o turboboost e hyperthreading quando for fatiar o consumo energético utilizando modelos de divisão de potência.
+
 
 # Emissões de carbono
 **TODO**
@@ -247,13 +263,17 @@ Explicar um pouco sobre a natureza dessas emissões e etc. 
 
   Colocar a lista de softwares que calculam essas emissões. Cada um terá titulo ##. Falarei sobre como ele faz a conta, como obtém dados da intensidade de carbono, etc. Segue a ISO? coisas assim
 
+
+
+
+
   **TODO**
 # Referências
 
+[^1]: CADOREL, Emile; SAINGRE, Dimitri. A protocol to assess the accuracy of process-level power models. In: **2024 IEEE International Conference on Cluster Computing (CLUSTER)**. IEEE, 2024. p. 74-84.
 
-
-[1]: CADOREL, Emile; SAINGRE, Dimitri. A protocol to assess the accuracy of process-level power models. In: **2024 IEEE International Conference on Cluster Computing (CLUSTER)**. IEEE, 2024. p. 74-84.
 [^2]: CODECARBON. **CodeCarbon documentation**. [S. l.], 2026. Disponível em: https://docs.codecarbon.io. Acesso em: 26 abr. 2026.
+
 [^3]: HUBBLO. **Scaphandre documentation**. [S. l.], 2026. Disponível em: [https://hubblo-org.github.io/scaphandre-documentation](https://hubblo-org.github.io/scaphandre-documentation). Acesso em: 22 abr. 2026.
 [^4]:  GREEN METRICS TOOL. GMT documentation https://docs.green-coding.io/docs
 [^5]: JAY, Mathilde et al. An experimental comparison of software-based power meters: focus on CPU and GPU. In: **2023 IEEE/ACM 23rd International Symposium on Cluster, Cloud and Internet Computing (CCGrid)**. IEEE, 2023. p. 106-118.
