@@ -55,10 +55,29 @@ Já o segundo utiliza métricas do RAPL em combinação com modelos de regressã
 # Sensores de Hardware e suas Interfaces
 
 Na seção acima, discutimos sobre a utilização de sensores de hardware para medição energética. Abaixo, iremos detalhar algumas interfaces conhecidas.
-## RAPL
+# RAPL
 - [ ] Algumas informações boas:
 "AMD RAPL Characteristics", "Key Takeaways for RAPL Measurements" e "Challenges and Edge Cases" em[^2]
 **TODO**
+
+## Informações Relevantes para Medição com RAPL [^2]
+
+### Domínio de Energia Mais Confiável
+
+Segundo o CodeCarbon [^2], o domínio mais confiável é `package`, englobando os contadores dos núcleos da CPU, GPU integrada, System Agent e controlador da LLC (Last-Level Cache). Isso se deve ao fato de fornecer medidads mais consistentes que atualizam corretamente durante estresse em todas as gerações da Intel.
+
+Segundo a ferramenta, por mais que o domínio `psys` seja maia alto na hierarquia e englobe mais componentes, ele pode não incluir todos os componentes em sistemas Intel mais antigos, deixando o domínio `package`de fora, por exemplo.
+
+Note que nunca se deve somar domínios de energia do RAPL sem verificar a hierarquia, pois isso pode levar a duplicação de valores. Verifique sempre se um domínio já está contido no outro antes da soma.
+
+## Desafios e Anomalias na leitura de dados do RAPL [^2]
+
+### Overflow nos Contadores de Energia
+Os contadores de energia costumam ter um limite de 32 ou 64 bits. Quando eles chegam no limite máximo, eles retornam para zero. Ao realizar o delta de energia ($E_2 - E_1$) nesse intervalo, será constatado um valor negativo, pois o primeiro valor será menor que o segundo. É necessário aplicar correções a esses valores.
+
+### Intervalos de Medições Muito Pequeno
+Por conta de anomalias no escalonador da thread, o intervalo entre as medições pode ser muito pequeno. Caso se queira converter a energia consumida para potência média nesse intervalo, a divisão $E \div T$  pode causar uma explosão no valor de Watts, por conta de T ser muito próximo de zero.
+
 # IPMI
 **TODO**
 # NVML
