@@ -55,9 +55,10 @@ Já o segundo utiliza métricas do RAPL em combinação com modelos de regressã
 # Sensores de Hardware e suas Interfaces
 
 Na seção acima, discutimos sobre a utilização de sensores de hardware para medição energética. Abaixo, iremos detalhar algumas interfaces conhecidas.
-# RAPL
+## RAPL
 - [ ] Algumas informações boas:
-"AMD RAPL Characteristics", "Key Takeaways for RAPL Measurements" e "Challenges and Edge Cases" em[^2]**TODO**
+"AMD RAPL Characteristics", "Key Takeaways for RAPL Measurements" e "Challenges and Edge Cases" em[^2]
+**TODO**
 # IPMI
 **TODO**
 # NVML
@@ -217,8 +218,36 @@ Portanto, para tornar essa medição possível, o Scaphandre realiza uma ponte e
 
 **TODO**
 
+# Boas práticas para medição energética 
+
+Nessa seção, detalharemos uma coletânea de boas práticas extraídas de artigos e ferramentas. 
+
+## Taxa de amostragem [^4]
+A frequência de coleta de dados das métricas (taxa de amostragem) deve ser de pelo menos a metade da duração do menor evento que se deseja capturar. Isso garante a precisão necessária para não perder picos rápidos de consumo durante a execução do experimento.
+
+## Controle da temperatura [^4]
+A temperatura de um processador influencia na medição energética. É importante esperar um intervalo de tempo de 180 segundos entre uma medição e outra, para dar tempo dos componentes esfriarem. Em processadores com mais de 30 cores, esse tempo deve ser maior.
+Controle a temperatura. Dê um espaçamento de tempo adequado entre as medições. Se um sistema sobreaquecer durante a medição, isso deve ser levado em consideração. 
+
+## Minimização do ruído de fundo [^4]
+Durante a execução do experimento, o gasto energético total da máquina será capturado por interfaces de hardware como o RAPL. Para garantir que estamos medindo o software alvo e não o "ruído" do sistema operacional, é importante diminuir a possibilidade de interrupções na CPU. Recomenda-se tomar as seguintes precauções:
+
+- Desativar conexões de rede (Wi-Fi e Internet), a menos que sejam objeto de teste;
+- Evitar qualquer interação com periféricos (mouse e teclado) durante a execução;
+- Desligar o escurecimento automático da tela, proteção de tela e modos de suspensão;
+- Encerrar processos em segundo plano que não sejam essenciais;
+- Desativar tarefas agendadas, atualizações automáticas do sistema operacional e rotinas de manutenção
+
+## Escreva resultados na memória [^4]
+Para armazenar os valores das medições, é recomendado realizar a escrita em um arquivo que esteja localizado na memória RAM. A escrita em disco é uma operação que gasta bastante energia e, caso seja feita com frequência, pode alterar o experimento a depender as métricas utilizadas.
+
 # Boas práticas para medição energética de aplicações
-**TODO**
+Na seção [Modelos de Divisão de Potência](#modelos_de_divisao_de_potencia), detalhamos como o particionamento de energia entre as aplicações era feito. Segundo [^4], esse método só funciona caso esteja em uma frequência de clock fixa, sem Hyperthreading ou Turboboost ativado. Além disso, a execução de instruções estranhas como AVX podem distorcer o fatiamento de energia. É importante levar em consideração esses fatores pois, com eles, o tempo de uso de CPU deixa de ter uma relação clara com o consumo de energia.
+
+Em [^1],  também foi observado que quando Hyperthreading e Turboboost estão ativos, a estimativa de consumo de energia e potência não são equivalentes na execução paralela e sequencial. Além disso, uma das conclusões do trabalho é que o tempo de CPU não é totalmente correlacionado com o consumo energético, por mais que possa servir como uma aproximação.
+
+Logo, é recomendado desativar o turboboost e hyperthreading quando for fatiar o consumo energético utilizando modelos de divisão de potência.
+
 
 # Emissões de carbono
 **TODO**
@@ -234,13 +263,17 @@ Explicar um pouco sobre a natureza dessas emissões e etc. 
 
   Colocar a lista de softwares que calculam essas emissões. Cada um terá titulo ##. Falarei sobre como ele faz a conta, como obtém dados da intensidade de carbono, etc. Segue a ISO? coisas assim
 
+
+
+
+
   **TODO**
 # Referências
 
+[^1]: CADOREL, Emile; SAINGRE, Dimitri. A protocol to assess the accuracy of process-level power models. In: **2024 IEEE International Conference on Cluster Computing (CLUSTER)**. IEEE, 2024. p. 74-84.
 
-
-[1]: CADOREL, Emile; SAINGRE, Dimitri. A protocol to assess the accuracy of process-level power models. In: **2024 IEEE International Conference on Cluster Computing (CLUSTER)**. IEEE, 2024. p. 74-84.
 [^2]: CODECARBON. **CodeCarbon documentation**. [S. l.], 2026. Disponível em: https://docs.codecarbon.io. Acesso em: 26 abr. 2026.
+
 [^3]: HUBBLO. **Scaphandre documentation**. [S. l.], 2026. Disponível em: [https://hubblo-org.github.io/scaphandre-documentation](https://hubblo-org.github.io/scaphandre-documentation). Acesso em: 22 abr. 2026.
 [^4]:  GREEN METRICS TOOL. GMT documentation https://docs.green-coding.io/docs
 [^5]: JAY, Mathilde et al. An experimental comparison of software-based power meters: focus on CPU and GPU. In: **2023 IEEE/ACM 23rd International Symposium on Cluster, Cloud and Internet Computing (CCGrid)**. IEEE, 2023. p. 106-118.
