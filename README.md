@@ -58,6 +58,10 @@ Na seção acima, discutimos sobre a utilização de sensores de hardware para m
 # RAPL
 - [ ] Algumas informações boas:
 "AMD RAPL Characteristics", "Key Takeaways for RAPL Measurements" e "Challenges and Edge Cases" em[^2]
+## Definição
+
+## Leitura via Registradores MSRs
+Causa menos overhead [^6]
 **TODO**
 
 ## Informações Relevantes para Medição com RAPL [^2]
@@ -69,6 +73,65 @@ Segundo o CodeCarbon [^2], o domínio mais confiável é `package`, englobando o
 Segundo a ferramenta, por mais que o domínio `psys` seja maia alto na hierarquia e englobe mais componentes, ele pode não incluir todos os componentes em sistemas Intel mais antigos, deixando o domínio `package`de fora, por exemplo.
 
 Note que nunca se deve somar domínios de energia do RAPL sem verificar a hierarquia, pois isso pode levar a duplicação de valores. Verifique sempre se um domínio já está contido no outro antes da soma.
+
+## Desafios e Anomalias na leitura de dados do RAPL [^2]
+
+### Overflow nos Contadores de Energia
+Os contadores de energia costumam ter um limite de 32 ou 64 bits. Quando eles chegam no limite máximo, eles retornam para zero. Ao realizar o delta de energia ($E_2 - E_1$) nesse intervalo, será constatado um valor negativo, pois o primeiro valor será menor que o segundo. É necessário aplicar correções a esses valores.
+
+### Intervalos de Medições Muito Pequeno
+Por conta de anomalias no escalonador da thread, o intervalo entre as medições pode ser muito pequeno. Caso se queira converter a energia consumida para potência média nesse intervalo, a divisão $E \div T$  pode causar uma explosão no valor de Watts, por conta de T ser muito próximo de zero.
+
+
+## Leitura via Sistema Operacional (`powercap`) [^7]
+Uma maneira de evitar a complexidade de lidar diretamente com instruções RDMSR em ambientes linux é utilizar o framework Powercap, mantido pela Linux Foundation.
+
+Não haviam restrições de acesso root para leitura dos dados do powercap, permitindo que qualquer aplicação pudesse monitorar o consumo energético. Até que foi constatada uma falha de segurança em 2020 [^8], implementando a necessidade de acesso privilegiado a esses dados. Aplicações mal intencionadas poderiam utilizar a energia consumida em um intervalo para inferir o tipo de instrução sendo executada e, assim, roubar informações sigilosas.
+
+### Powercap
+
+É um framework do kernel do linux que atua como uma camada de abstração, fornecendo uma interface (via sysfs) entre o kernel e o espaço do usuário, permitindo que ferramentas possam monitorar e limitar o consumo de energia de dispositivos do hardware de forma padronizada.
+
+O framework expõe os dispositivos do hardware via uma árvore de objetos. No linux, um objeto representa uma estrutura de dados do kernel que armazena informações referentes ao Sistema Operacional. Um objeto é sempre carregado na memória e, para facilitar a visualização para o usuário, aparece virtualmente como um diretório no gerenciador de arquivos.
+
+No contexto do Powercap, o objeto no topo (raiz) da árvore representa o tipos de controle, referente ao método de power capping (limitação de potência). Nesse caso, trabalharemos com o RAPL.
+
+Dentro de cada objeto de tipo de controle, temos acesso aos domínios de energia do método selecionado, contendo **atributos de monitoramento**, para visualizar o gasto de energia, e **atributos de restrições**, fornecendo opções para limitar o consumo de energia de um componente.
+
+Lembre-se que, os domínios de energia são hierárquicos. Essa hierarquia está presente no powercap, onde cada objeto contendo os domínios de energia podem englobar outros subdomínios. Se aplicarmos uma restrição de potência em um domínio de energia, o próprio hardware vai definir como essa restrição será aplicada entre os subdomínios por meio de heuristicas.
+
+### Atributos de monitoramento mais relevantes
+
+Abaixo, destacamos 3 atributos de monitoramento importantes para medição energética. A lista completa de atributos, incluindo os de restrição, pode ser encontrada na documentação do Kernel Linux em [^7]
+
+#### energy_uj (rw)
+Contador de energia em microjoules do do domínio de energia acessado. Escreva 0 para resetar o contador.
+
+#### max_energy_range (ro)
+Valo máximo do contador antes de dar overflow.
+
+#### name (ro)
+Nome da power zone.
+
+### Chamadas de Sistema
+
+Os atributos presentes no powercap podem ser lidos por meio de `cat`ou abertos com editores de texto comuns. Quando um desses programas é executado, é feita uma solicitação ao SO (system call), que direciona o pedido ao framework do powercap. O powercap chama a função do driver responsável pelo atributo (no nosso contexto, intel_rapl).
+
+A função do driver é executada. Se estivermos consultando o contador de energia de um domínio de energia do RAPL, são lidos os valores do MSR (Model Specific Register) via instruções rdmsr (Reading Model Specific Registers). A função converte o valor obtido,  codificado em uma unidade de energia da arquitetura do processador, para microjoules.
+
+
+## Informações Relevantes para Medição com RAPL [^2]
+
+### Domínio de Energia Mais Confiável
+
+Segundo o CodeCarbon [^2], o domínio mais confiável é `package`, englobando os contadores dos núcleos da CPU, GPU integrada, System Agent e controlador da LLC (Last-Level Cache). Isso se deve ao fato de fornecer medidads mais consistentes que atualizam corretamente durante estresse em todas as gerações da Intel.
+
+Segundo a ferramenta, por mais que o domínio `psys` seja maia alto na hierarquia e englobe mais componentes, ele pode não incluir todos os componentes em sistemas Intel mais antigos, deixando o domínio `package`de fora, por exemplo.
+
+Note que nunca se deve somar domínios de energia do RAPL sem verificar a hierarquia, pois isso pode levar a duplicação de valores. Verifique sempre se um domínio já está contido no outro antes da soma.
+
+
+
 
 ## Desafios e Anomalias na leitura de dados do RAPL [^2]
 
@@ -294,5 +357,14 @@ Explicar um pouco sobre a natureza dessas emissões e etc. 
 [^2]: CODECARBON. **CodeCarbon documentation**. [S. l.], 2026. Disponível em: https://docs.codecarbon.io. Acesso em: 26 abr. 2026.
 
 [^3]: HUBBLO. **Scaphandre documentation**. [S. l.], 2026. Disponível em: [https://hubblo-org.github.io/scaphandre-documentation](https://hubblo-org.github.io/scaphandre-documentation). Acesso em: 22 abr. 2026.
+
 [^4]:  GREEN METRICS TOOL. GMT documentation https://docs.green-coding.io/docs
+
 [^5]: JAY, Mathilde et al. An experimental comparison of software-based power meters: focus on CPU and GPU. In: **2023 IEEE/ACM 23rd International Symposium on Cluster, Cloud and Internet Computing (CCGrid)**. IEEE, 2023. p. 106-118.
+
+[^6]: DIAMOND, Jeremy; STOICO, Vincenzo. What Is the Cost of Energy Monitoring? An Empirical Study on the Overhead of RAPL-Based Tools. arXiv preprint arXiv:2604.26815, 2026.
+
+[^7]: THE KERNEL DEVELOPMENT COMMUNITY. **Power Capping Framework**. Documentação do Kernel Linux. Disponível em: [https://www.kernel.org/doc/html/next/power/powercap/powercap.html](https://www.kernel.org/doc/html/next/power/powercap/powercap.html). Acesso em: 18 maio 2026.
+
+[^8]: BROWN, Len. **powercap: restrict energy meter to root access**. Commit 949dd0104c496fa7c14991a23c03c62e44637e71 no repositório oficial do Kernel Linux. 10 nov. 2020. Disponível em: [https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=949dd0104c496fa7c14991a23c03c62e44637e71](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=949dd0104c496fa7c14991a23c03c62e44637e71). Acesso em: 18 maio 2026.
+ 
