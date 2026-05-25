@@ -1,6 +1,6 @@
 ## **Sobre**
 
-O energygraph é atualizado a cada segundo, e, por isso, pode ser intepretado como medidor de potência (Watts, Joules por segundo) ou energia total (Joules).
+O energygraph é atualizado a cada segundo e, por isso, pode ser intepretado como medidor de potência (Watts, Joules por segundo) ou energia total (Joules).
 
 ### **Guia de uso**
 
