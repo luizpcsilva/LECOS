@@ -64,25 +64,6 @@ Na seção acima, discutimos sobre a utilização de sensores de hardware para m
 Causa menos overhead [^6]
 **TODO**
 
-## Informações Relevantes para Medição com RAPL [^2]
-
-### Domínio de Energia Mais Confiável
-
-Segundo o CodeCarbon [^2], o domínio mais confiável é `package`, englobando os contadores dos núcleos da CPU, GPU integrada, System Agent e controlador da LLC (Last-Level Cache). Isso se deve ao fato de fornecer medidads mais consistentes que atualizam corretamente durante estresse em todas as gerações da Intel.
-
-Segundo a ferramenta, por mais que o domínio `psys` seja maia alto na hierarquia e englobe mais componentes, ele pode não incluir todos os componentes em sistemas Intel mais antigos, deixando o domínio `package`de fora, por exemplo.
-
-Note que nunca se deve somar domínios de energia do RAPL sem verificar a hierarquia, pois isso pode levar a duplicação de valores. Verifique sempre se um domínio já está contido no outro antes da soma.
-
-## Desafios e Anomalias na leitura de dados do RAPL [^2]
-
-### Overflow nos Contadores de Energia
-Os contadores de energia costumam ter um limite de 32 ou 64 bits. Quando eles chegam no limite máximo, eles retornam para zero. Ao realizar o delta de energia ($E_2 - E_1$) nesse intervalo, será constatado um valor negativo, pois o primeiro valor será menor que o segundo. É necessário aplicar correções a esses valores.
-
-### Intervalos de Medições Muito Pequeno
-Por conta de anomalias no escalonador da thread, o intervalo entre as medições pode ser muito pequeno. Caso se queira converter a energia consumida para potência média nesse intervalo, a divisão $E \div T$  pode causar uma explosão no valor de Watts, por conta de T ser muito próximo de zero.
-
-
 ## Leitura via Sistema Operacional (`powercap`) [^7]
 Uma maneira de evitar a complexidade de lidar diretamente com instruções RDMSR em ambientes linux é utilizar o framework Powercap, mantido pela Linux Foundation.
 
@@ -130,9 +111,6 @@ Segundo a ferramenta, por mais que o domínio `psys` seja maia alto na hierarqui
 
 Note que nunca se deve somar domínios de energia do RAPL sem verificar a hierarquia, pois isso pode levar a duplicação de valores. Verifique sempre se um domínio já está contido no outro antes da soma.
 
-
-
-
 ## Desafios e Anomalias na leitura de dados do RAPL [^2]
 
 ### Overflow nos Contadores de Energia
@@ -161,12 +139,23 @@ Nesse sentido,  a bilbioteca se propõe a estimar o consumo energético de trech
 - [ ] (**verificar se no segundo caso há técnicas de cpu usage**).
 ### Métricas de energia utilizadas
 
-Atualmente, Codecaarbon tem suporte para obter o consumo energético dos seguintes hardwares:
+Atualmente, Codecarbon tem suporte para obter o consumo energético em ambiente Linux, Windows e MacOS. A técnica utilizada para interagir do hardware depende de qual ambiente está sendo realizado o teste. Os domínios de energia consultados vão depender de qual tecnologia será consultada.
+
+### Ambiente Linux
+Nesse caso, a obtenção dos dados de medição energética é realizada via consultas a interface do RAPL, por meio do framework [powercap](#powercap).
+
+### Ambiente Windows
+Nesse caso, é utilizada a ferramente Intel Power Gadget. Note que se trata de uma ferramenta descontinuada em 2023 pela Intel.
+
+### Ambiente MacOS
+É utilizada a ferramenta `powermetrics`, nativa desse ambiente.
+
 - GPU, via biblioteca nvidia-ml-py 
 - [ ] verificar se essa biblioteca consulta a NVML
 - RAM, via heurísticas baseadas no tamanho da RAM. Por mais que o RAPL forneça dados de consumo energético da DRAM, a ferramenta optou por não utilizar por não ter certeza da acurácia dos dados.
 - [ ] Detalhar essa heurística
-- CPU, via Intel Power Gadget no Windows/Mac, `powermetrics`em processadores Apple Silicon Chips e arquivos do RAPL no Linux.
+- CPU, via Intel Power Gadget no Windows/Mac, `powermetrics`em processadores Apple Silicon Chips e arquivos do RAPL no Linux, na pasta `sys/class/powercap.
+
 
 
 Note que, caso não seja possível acessar as métricas de consumo de energia da CPU, o Codecarbon passa a realizar aproximações com base no tipo da CPU e seus valores de [Thermal Design Powers](https://en.wikipedia.org/wiki/Thermal_design_power).
@@ -259,15 +248,17 @@ O Scaphandre é um agente de monitoramento escrito em RUST, com foco em obter o 
 
 A ferramenta utiliza dados do RAPL e possui compatibilidade com Windows e GNU/LINUX, havendo poucas diferenças na oferta de funcionalidades entre os SOs
 
-### Técnica utilizada
+Para calcular o consumo energético de aplicações, o Scaphandre coleta continuamente dados dos sensores de hardware durante a execução do programa. A interface de hardware utilizada dependem do ambiente no qual a ferramenta será executada.
 
-Para calcular o consumo energético de aplicações, o Scaphandre coleta continuamente dados dos sensores RAPL durante a execução do programa, com foco no domínio de energia PSYS por cobrir a maioria dos componentes. Se esse domínio não estiver disponível, são somados os dados do domínio PKG + DRAM.
-
-A cada dado coletado do RAPL, são lidos os valores do tempo de uso da CPU de cada processo sendo executado na máquina naquele intervalo.
-
-Em seguida, é calculada uma estimativa para o gasto por meio de uma proporção entre o consumo energético total do processador no intervalo e a fatia de tempo de cpu que um processo utilizou.
+A cada dado coletado, são lidos os valores do tempo de uso da CPU de cada processo sendo executado na máquina naquele intervalo. Em seguida, é calculada uma estimativa para o gasto por meio de uma proporção entre o consumo energético total do processador no intervalo e a fatia de tempo de cpu que um processo utilizou.
 
 Note que alguns serviços e programas são executados em diversos processos diferentes ao mesmo tempo. Nesse caso, é recomendado exportar os dados para um Banco de Dados de Séries Temporais, como o do software Prometheus, por exemplo. Assim, é possível agregar o consumo energético dos processos e obter o gasto total da aplicação.
+
+### Ambiente Linux.
+Nesse caso, são coletados os dados do RAPL via framework [powercap](#), com foco no domínio de energia PSYS por cobrir a maioria dos componentes. Se esse domínio não estiver disponível, são somados os dados do domínio PKG + DRAM.
+
+### Ambiente Windows
+A leitura é feita diretamente nos registradores MSR, via instruções RDMSR.
 
 ### Particuliaridades
 
