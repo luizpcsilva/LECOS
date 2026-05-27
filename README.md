@@ -129,7 +129,7 @@ Por conta de anomalias no escalonador da thread, o intervalo entre as medições
 - [ ] falar das Limitações conhecidas desses modelos e do erro
 Nessa seção, traremos a descrição e metodologia de ferramentas que reportam o consumo de energia de componentes de hardware, trazendo o consumo energético bare-metal total da máquina em um intervalo de tempo. O processo para obtenção desses dados está descrito na seção [Sensores de Hardware e Suas Interfaces](# Sensores de Hardware e suas Interfaces).
 
-Alguma delas implementam [Modelos de Divisão de Potência](# Modelos de Divisão de Potência), trazendo uma estimativa do consumo a nível de processo, container ou máquina virtual. Reservamos uma seção mais abaixo para tratar dessas ferramentas
+Alguma delas implementam [Modelos de Divisão de Potência](#modelos-de-divisão-de-potência), trazendo uma estimativa do consumo a nível de processo, container ou máquina virtual. Reservamos uma seção mais abaixo para tratar dessas ferramentas
 
 ## CodeCarbon[^2]
 
