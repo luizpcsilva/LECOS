@@ -234,11 +234,7 @@ São softwares que realizam modelagem de potência e energia a nível de process
 Note que as interfaces utilizadas para obter dados de sensores de hardware sobre o consumo de energia (e.g RAPL, NVML) fornecem valores em Joules (Energia). Entretanto, como a consulta desses dados é feita de forma periódica, veremos que os modelos a seguir frequentemente realizam a conversão desses valores para Watts (Potência), com base no intervalo de tempo em que o consumo de energia foi observado. Segundo [^2], essa prática é importante para ajudar os usuários a compreender o consumo instantâneo de suas aplicações.
 
 - [ ] verificar oq o [^1] fala sobre isso, confirmando as informações e analisando anovamente a crítica deles com relaç~ao a isso
-- [ ] Falar sobre essa citaçao do codecarbon
-> [!PDF|255, 208, 0] [[CodeCarbon documentacao.pdf#page=27&annotation=1323R]]
-> > The most accurate tracking methods rely on built-in hardware energy counters rather than instantaneous power draw. 
-> 
-> 
+- [ ] Falar sobre essa citaçao do codecarbon: "The most accurate tracking methods rely on built-in hardware energy counters rather than instantaneous power draw.". 
 - [ ] Acrescentar terminologia dos Jiffies
 - [ ] Mencionar o sistema de arquivos proc/pid/stats da onde vem o tempo de cpu
 - [ ] mencionar os erros desse tipo de medição
@@ -278,7 +274,8 @@ Portanto, para tornar essa medição possível, o Scaphandre realiza uma ponte e
 **TODO**
 ## JoularJX
 
-É um agente baseada em Java com a função de realizar monitoramento de energia em nível de código ou de aplicações em Java......
+É um agente baseada em Java com a função de realizar monitoramento de energia em nível de código ou de aplicações em Java
+*TODO*
 
 
 ## Cloud Carbon Footprint
