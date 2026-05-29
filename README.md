@@ -318,6 +318,15 @@ Em [^1],  também foi observado que quando Hyperthreading e Turboboost estão at
 
 Logo, é recomendado desativar o turboboost e hyperthreading quando for fatiar o consumo energético utilizando modelos de divisão de potência.
 
+# stress-ng[^9]
+
+stress-ng *(next generation)* é uma ferramenta utilizada para sobrecarregar partições físicas e núcleos de processamento de um computador, permitindo a realização de testes de desempenho e consumo de energia de forma selecionável. 
+
+Os mecanismos de estresse, chamados de estressores, são diversos e cada um utiliza de um ou mais métodos para induzir alterações no sistema. Inicialmente, eles são estruturados para serem executados sob configurações padrão de tamanhos de memória, cache e arquivo, porém essas podem ser alteradas com a função `--maximize`, causando ainda mais estresse.
+
+Ainda, ao adicionar `--rapl` à chamada programa, stress-ng é capaz de fazer leituras do RAPL durante a execução de seus testes. Não apenas isso: também é possível fazer leituras constantes com o comando `raplstat S`, com S representando o número de segundos entre cada leitura.[^10]
+
+Finalmente, no Linux, sua instalação pode ser feita a partir do terminal com gerenciadores de pacote ou arquivos `.deb` que, tal como os códigos-fonte, podem ser encontrados no seu [repositório oficial](https://github.com/ColinIanKing/stress-ng).
 
 # Emissões de carbono
 **TODO**
@@ -356,3 +365,6 @@ Explicar um pouco sobre a natureza dessas emissões e etc. 
 
 [^8]: BROWN, Len. **powercap: restrict energy meter to root access**. Commit 949dd0104c496fa7c14991a23c03c62e44637e71 no repositório oficial do Kernel Linux. 10 nov. 2020. Disponível em: [https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=949dd0104c496fa7c14991a23c03c62e44637e71](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=949dd0104c496fa7c14991a23c03c62e44637e71). Acesso em: 18 maio 2026.
  
+[^9]: KING, Colin Ian. **stress-ng**. [S. l.], 2020. Disponível em: [https://wiki.ubuntu.com/Kernel/Reference/stress-ng](https://wiki.ubuntu.com/Kernel/Reference/stress-ng). Acesso em: 29 maio 2026.
+
+[^10]: KING, Colin Ian. **stress-ng - Debian testing**. [S. l.], 2025. Disponível em: [https://manpages.debian.org/testing/stress-ng/stress-ng.1.en.html](https://manpages.debian.org/testing/stress-ng/stress-ng.1.en.html). Acesso em: 29 maio 2026.
