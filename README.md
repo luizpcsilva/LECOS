@@ -322,7 +322,7 @@ Logo, é recomendado desativar o turboboost e hyperthreading quando for fatiar o
 
 stress-ng *(next generation)* é uma ferramenta utilizada para sobrecarregar partições físicas e núcleos de processamento de um computador, permitindo a realização de testes de desempenho e consumo de energia de forma selecionável. 
 
-Os mecanismos de estresse, chamados de estressores, são diversos e cada um utiliza de um ou mais métodos para induzir alterações no sistema. Inicialmente, eles são estruturados para serem executados sob configurações padrão de tamanhos de memória, cache e arquivo, porém essas podem ser alteradas com a função `--maximize`, causando ainda mais estresse.
+Os mecanismos de estresse, chamados de estressores, são diversos e cada um utiliza de um ou mais métodos para induzir alterações na performance do sistema. Inicialmente, eles são estruturados para serem executados sob configurações padrão de tamanhos de memória, cache e arquivo, porém essas podem ser alteradas com a função `--maximize`, causando ainda mais estresse.
 
 Ainda, ao adicionar `--rapl` à chamada programa, stress-ng é capaz de fazer leituras do RAPL durante a execução de seus testes. Não apenas isso: também é possível fazer leituras constantes com o comando `--raplstat S`, com S representando o número de segundos entre cada leitura.[^10]
 
