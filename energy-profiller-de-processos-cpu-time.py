@@ -19,9 +19,9 @@ args.func2 = args.func2.split()
 TICK_POR_SEGUNDO = os.sysconf("SC_CLK_TCK")
 output = []
 
-def leitor_ticks(pid=-1):
+def leitor_ticks(pids=[]):
     #se nao for passado nenhum pid, retorna os jiffies decorridos no intervalo 
-    if pid == -1:
+    if len(pids) == 0:
         with open("/proc/stat", "r") as file:
             text = file.readline().split()
 
@@ -31,12 +31,19 @@ def leitor_ticks(pid=-1):
                 valor += int(text[i])
             return valor
     
-    # se for passado um pid
+    # se for passado uma lista de pids
     else:
-        with open("/proc/"+str(pid)+"/stat", "r") as file:
-            text = file.readline().split()
-            valor = int(text[13]) + int(text[14])
-            return valor
+        cont = 0
+        for pid in pids:
+            try:
+                with open("/proc/"+str(pid)+"/stat", "r") as file:
+                    text = file.readline().split()
+                    cont += int(text[13]) + int(text[14])
+            except FileNotFoundError:
+                # O processo já não existe mais, podemos apenas ignorar
+                pass
+        return cont
+
 
 
 
@@ -73,14 +80,22 @@ stress2 = subprocess.Popen(args.func2)
 print(stress1.pid)
 print(stress2.pid)
 
+#coletando todos os processos filhos que podem ter sido criados
+time.sleep(0.5)
+listaP1 = (subprocess.run(["pgrep", "-P", str(stress1.pid)], capture_output=True, text=True)).stdout.split()
+listaP1.append(stress1.pid)
+print(listaP1)
+listaP2 = (subprocess.run(["pgrep", "-P", str(stress2.pid)], capture_output=True, text=True)).stdout.split()
+listaP2.append(stress2.pid)
+print(listaP2)
 
 #iniciando medição
 while(stress1.poll() == None or stress2.poll() == None):
     leitura = [0] * 5
 
     leitura[0] = leitorRapl()              #lê o gasto total da máquina
-    leitura[1] = leitor_ticks(stress1.pid) #lê os ticks executados até o momento da funçao 1
-    leitura[2] = leitor_ticks(stress2.pid) #lê os ticks executados até o momento da funçao 2
+    leitura[1] = leitor_ticks(listaP1)     #lê os ticks executados da funçao 1 + seus filhos
+    leitura[2] = leitor_ticks(listaP2) #lê os ticks executados da funçao 2 + seus filhos
     leitura[3] = leitor_ticks()            #lê os ticks executados até o momento pelo processador
     leitura[4] = time.perf_counter()
     time.sleep(args.freq)
