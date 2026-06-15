@@ -24,11 +24,8 @@ def leitor_ticks(pids=[]):
     if len(pids) == 0:
         with open("/proc/stat", "r") as file:
             text = file.readline().split()
-
-            #soma todas as colunas da primeira linha, com exceção da primeira que contém uma string
-            valor = 0
-            for i in range (1, len(text)):
-                valor += int(text[i])
+            #soma todas as colunas da primeira linha, com exceção da primeira (string), iowait, idle, irq e softirq 
+            valor = int(text[1]) + int(text[2]) + int(text[3]) + int(text[9]) + int(text[10]) 
             return valor
     
     # se for passado uma lista de pids
