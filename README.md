@@ -129,7 +129,7 @@ Por conta de anomalias no escalonador da thread, o intervalo entre as medições
 - [ ] falar das Limitações conhecidas desses modelos e do erro
 Nessa seção, traremos a descrição e metodologia de ferramentas que reportam o consumo de energia de componentes de hardware, trazendo o consumo energético bare-metal total da máquina em um intervalo de tempo. O processo para obtenção desses dados está descrito na seção [Sensores de Hardware e Suas Interfaces](# Sensores de Hardware e suas Interfaces).
 
-Alguma delas implementam [Modelos de Divisão de Potência](# Modelos de Divisão de Potência), trazendo uma estimativa do consumo a nível de processo, container ou máquina virtual. Reservamos uma seção mais abaixo para tratar dessas ferramentas
+Alguma delas implementam [Modelos de Divisão de Potência](#modelos-de-divisão-de-potência), trazendo uma estimativa do consumo a nível de processo, container ou máquina virtual. Reservamos uma seção mais abaixo para tratar dessas ferramentas
 
 ## CodeCarbon[^2]
 
@@ -229,16 +229,12 @@ Por fim, recentemente o GMT lançou uma funcionalidade beta que utiliza core-pin
 São softwares que reportam o consumo de energia e o consumo de potência de componentes do hardware, como CPU,
 # Modelos de Divisão de Potência
 
-São softwares que realizam modelagem de potência e energia a nível de processo, por meio da consulta de sensores de hardware via interfaces, para obter o consumo energético total de um dispositivo e, em seguida, consultar métricas de sistema para dividir esse consumo entre as aplicações que estão sendo executadas no dispositivo [^1] .  
+São softwares que realizam modelagem de potência e energia a nível de processo, por meio da consulta de sensores de hardware via interfaces, para obter o consumo energético total de um dispositivo e, em seguida, consultar métricas de sistema para dividir esse consumo entre as aplicações que estão sendo executadas no dispositivo [^1] . 
 
 Note que as interfaces utilizadas para obter dados de sensores de hardware sobre o consumo de energia (e.g RAPL, NVML) fornecem valores em Joules (Energia). Entretanto, como a consulta desses dados é feita de forma periódica, veremos que os modelos a seguir frequentemente realizam a conversão desses valores para Watts (Potência), com base no intervalo de tempo em que o consumo de energia foi observado. Segundo [^2], essa prática é importante para ajudar os usuários a compreender o consumo instantâneo de suas aplicações.
 
 - [ ] verificar oq o [^1] fala sobre isso, confirmando as informações e analisando anovamente a crítica deles com relaç~ao a isso
-- [ ] Falar sobre essa citaçao do codecarbon
-> [!PDF|255, 208, 0] [[CodeCarbon documentacao.pdf#page=27&annotation=1323R]]
-> > The most accurate tracking methods rely on built-in hardware energy counters rather than instantaneous power draw. 
-> 
-> 
+- [ ] Falar sobre essa citaçao do codecarbon: "The most accurate tracking methods rely on built-in hardware energy counters rather than instantaneous power draw.". 
 - [ ] Acrescentar terminologia dos Jiffies
 - [ ] Mencionar o sistema de arquivos proc/pid/stats da onde vem o tempo de cpu
 - [ ] mencionar os erros desse tipo de medição
@@ -250,14 +246,29 @@ A ferramenta utiliza dados do RAPL e possui compatibilidade com Windows e GNU/LI
 
 Para calcular o consumo energético de aplicações, o Scaphandre coleta continuamente dados dos sensores de hardware durante a execução do programa. A interface de hardware utilizada dependem do ambiente no qual a ferramenta será executada.
 
-A cada dado coletado, são lidos os valores do tempo de uso da CPU de cada processo sendo executado na máquina naquele intervalo. Em seguida, é calculada uma estimativa para o gasto por meio de uma proporção entre o consumo energético total do processador no intervalo e a fatia de tempo de cpu que um processo utilizou.
-
-Note que alguns serviços e programas são executados em diversos processos diferentes ao mesmo tempo. Nesse caso, é recomendado exportar os dados para um Banco de Dados de Séries Temporais, como o do software Prometheus, por exemplo. Assim, é possível agregar o consumo energético dos processos e obter o gasto total da aplicação.
-
-### Ambiente Linux.
+A cada dado coletado, são lidos os valores do tempo de uso da CPU de cada processo. Abaixo, explicamos como essa coleta é feita em ambiente Linux:
+### Execução em  Ambiente Linux.
 Nesse caso, são coletados os dados do RAPL via framework [powercap](#), com foco no domínio de energia PSYS por cobrir a maioria dos componentes. Se esse domínio não estiver disponível, são somados os dados do domínio PKG + DRAM.
 
-### Ambiente Windows
+Para obter o tempo de CPU dos processos, são lidos os dados do `proc/ Filesystem` [^11].  Nesse sentido, duas leituras são feitas. A primeira obtém o tempo de CPU em `proc/{pid}/stat` de cada processo, somando as duas colunas de unidades de `USER_HZ`,  `utime` (user mode) e `stime` (kernel mode) .
+
+A segunda leitura é realizada no arquivo `proc/stat` [^12], para obter o tempo total da CPU decorrido desde o início da execução do dispositivo. Essa medida é necessário para calcular a parcela de consumo do tempo de CPU por um processo dentro de um intervalo de tempo, permitindo que o perfilamento de energia seja feito. 
+
+Note que nesse arquivo existem diversas colunas de dados, fornecendo os contadores de tempo da CPU para diferentes tipos de trabalho. São elas, respectivamente:
+
+1. Processos executando em user mode.
+2. Processos com nice executando em user mode.
+3. Processos executando em kernel mode.
+4. Tempo em espera (idle).
+5.  Tempo de espera de instruções de I/O (não é confiável).
+6. Tempo de interrupções de serviço.
+7. Tempo de interrupções de software.
+8. Tempo de espera involuntária (steal).
+9. Tempo de execução de uma sessão de convidado.
+10. Tempo de execução de uma sessão de convidado com nice.
+
+Assim, realizamos a soma dessas colunas. Porém, note que nem todas contabilizam o tempo em que a CPU esteve ativa de fato. Portanto, a ferramenta Scaphandre desconsidera as colunas de: Tempo de espera, Tempo de espera de I/O, Interrupções de serviço e de software.  Esse comportamento pode ser observado na função `total_time_jiffies` do arquivo `scaphandre/src/sensors/mod.rs` do repositório da ferramenta.
+### Execução em Ambiente Windows
 A leitura é feita diretamente nos registradores MSR, via instruções RDMSR.
 
 ### Particuliaridades
@@ -267,6 +278,9 @@ O Scaphandre foi pensado em ser extensível, basicamente se limitando a duas tar
 Além disso, conforme citado anteriormente, o Scaphandre possui suporte para modelar o consumo energético e de potência em máquinas virtuais. Note que nesses ambientes existem complicações, já que VMs só tem acesso a uma parte do sistema onde estão implementadas e não possuem acesso a métricas de energia do host.
 
 Portanto, para tornar essa medição possível, o Scaphandre realiza uma ponte entre a máquina virtual e se host, trazendo as métricas de energia do bare-metal para ambiente virtualizado. 
+
+Note que alguns serviços e programas são executados em diversos processos diferentes ao mesmo tempo. Nesse caso, é recomendado exportar os dados para um Banco de Dados de Séries Temporais, como o do software Prometheus, por exemplo. Assim, é possível agregar o consumo energético dos processos e obter o gasto total da aplicação.
+
 
 ## CEEMS
 
@@ -278,7 +292,8 @@ Portanto, para tornar essa medição possível, o Scaphandre realiza uma ponte e
 **TODO**
 ## JoularJX
 
-É um agente baseada em Java com a função de realizar monitoramento de energia em nível de código ou de aplicações em Java......
+É um agente baseada em Java com a função de realizar monitoramento de energia em nível de código ou de aplicações em Java
+*TODO*
 
 
 ## Cloud Carbon Footprint
@@ -321,6 +336,15 @@ Em [^1],  também foi observado que quando Hyperthreading e Turboboost estão at
 
 Logo, é recomendado desativar o turboboost e hyperthreading quando for fatiar o consumo energético utilizando modelos de divisão de potência.
 
+# stress-ng[^9]
+
+stress-ng *(next generation)* é uma ferramenta utilizada para sobrecarregar partições físicas e núcleos de processamento de um computador, permitindo a realização de testes de desempenho e consumo de energia de forma selecionável. 
+
+Os mecanismos de estresse, chamados de estressores, são diversos e cada um utiliza de um ou mais métodos para induzir alterações na performance do sistema. Inicialmente, eles são estruturados para serem executados sob configurações padrão de tamanhos de memória, cache e arquivo, porém essas podem ser alteradas com a função `--maximize`, causando ainda mais estresse.
+
+Ainda, ao adicionar `--rapl` à sua chamada, stress-ng é capaz de fazer leituras do RAPL durante a execução de seus testes. Não apenas isso: também é possível fazer leituras constantes com o comando `--raplstat S`, com S representando o número de segundos entre cada leitura[^10]. Para utilizar essas funções, é necessário que o programa tenha permissões de root, o que requer cautela, pois dessa forma os parâmetros de memória são alterados e o estresse é maximizado.
+
+Finalmente, no Linux, sua instalação pode ser feita a partir do terminal com gerenciadores de pacote ou arquivos `.deb` que, tal como os códigos-fonte, podem ser encontrados no seu [repositório oficial](https://github.com/ColinIanKing/stress-ng).
 
 # Emissões de carbono
 **TODO**
@@ -359,3 +383,10 @@ Explicar um pouco sobre a natureza dessas emissões e etc. 
 
 [^8]: BROWN, Len. **powercap: restrict energy meter to root access**. Commit 949dd0104c496fa7c14991a23c03c62e44637e71 no repositório oficial do Kernel Linux. 10 nov. 2020. Disponível em: [https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=949dd0104c496fa7c14991a23c03c62e44637e71](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=949dd0104c496fa7c14991a23c03c62e44637e71). Acesso em: 18 maio 2026.
  
+[^9]: KING, Colin Ian. **stress-ng**. [S. l.], 2020. Disponível em: [https://wiki.ubuntu.com/Kernel/Reference/stress-ng](https://wiki.ubuntu.com/Kernel/Reference/stress-ng). Acesso em: 29 maio 2026.
+
+[^10]: KING, Colin Ian. **stress-ng - Debian testing**. [S. l.], 2025. Disponível em: [https://manpages.debian.org/testing/stress-ng/stress-ng.1.en.html](https://manpages.debian.org/testing/stress-ng/stress-ng.1.en.html). Acesso em: 29 maio 2026.
+
+[^11]: THE KERNEL DEVELOPMENT COMMUNITY. **The /proc Filesystem**. The Linux Kernel documentation. [S.l.], [s.d.]. Disponível em: <[https://docs.kernel.org/filesystems/proc.html](https://docs.kernel.org/filesystems/proc.html)>. Acesso em: 15 jun. 2026.
+
+[^12]: LINUX MAN-PAGES PROJECT. **proc_pid_stat(5) - Linux manual page**. Versão 6.18. [S.l.], 8 fev. 2026. Disponível em: <[https://man7.org/linux/man-pages/man5/proc_pid_stat.5.html](https://man7.org/linux/man-pages/man5/proc_pid_stat.5.html)>. Acesso em: 15 jun. 2026.
