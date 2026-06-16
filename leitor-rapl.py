@@ -2,6 +2,7 @@ import os
 import subprocess
 import time
 import string
+import argparse
 
 #configuração dos argumentos passados via terminal
 parser = argparse.ArgumentParser(description="")
