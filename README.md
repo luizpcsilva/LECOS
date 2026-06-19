@@ -55,3 +55,16 @@ Este script processa o log gerado na etapa anterior. Ele calcula a potência tot
 2. **Gráficos (Salvos no diretório `output/`):**
    * `grafico_energia_processos1.png`: Gráfico de barras agrupadas (lado a lado) mostrando o consumo de P1 e P2, sobreposto pela linha de consumo total da máquina.
    * `grafico_energia_processos2.png`: Gráfico de barras empilhadas (*stacked*) mostrando a composição somada de P1 e P2 em relação à linha de consumo total.
+
+# Arquivo `calcular-metricas.py`
+
+Este script é responsável por calcular a energia total (em Joules) consumida pelo sistema e por cada processo individualmente.
+
+**Argumentos de Entrada (via terminal):**
+
+| Argumento | Tipo | Descrição |
+| :--- | :--- | :--- |
+| `caminhoInput` | String | Caminho para o arquivo de texto contendo os dados tratados gerados pelo script `tratar-dados.py`. |
+
+**Saída Gerada:**
+Este script não gera novos arquivos. A saída é impressa diretamente no terminal
