@@ -3,6 +3,9 @@ import subprocess
 import time
 import string
 import argparse
+#cria contador para codecarbon
+from codecarbon import OfflineEmissionsTracker
+
 
 #configuração dos argumentos passados via terminal
 parser = argparse.ArgumentParser(description="")
@@ -44,25 +47,24 @@ def loopLeitorRapl(duracao, output, freq=args.freq):
 file = open("output/"+OUTPUT_NAME, "w")
 
 #--------------------- Inicio Medição ----------------------
+with OfflineEmissionsTracker(country_iso_code="BRA", measure_power_secs=1, output_dir="output/", output_file=f"{args.nomeOutput}-codecarbon") as tracker:
+ #10 segundos de testagem sem stress
+    loopLeitorRapl(10, output)
 
-#10 segundos de testagem sem stress
-loopLeitorRapl(10, output)
+    #inicia stressng
+    stress = subprocess.Popen(STRESS_FUNC)
+    while(stress.poll() == None):
+        leitura = [0] * 2
 
-#inicia stressng
-stress = subprocess.Popen(STRESS_FUNC)
-while(stress.poll() == None):
-    leitura = [0] * 2
+        leitura[0] = leitorRapl()
+        leitura[1] = time.perf_counter()
 
-    leitura[0] = leitorRapl()
-    leitura[1] = time.perf_counter()
+        output.append(leitura)
+        time.sleep(args.freq)
+        
 
-    output.append(leitura)
-    time.sleep(args.freq)
-    
-
-#10 segundos de testagem sem stress
-loopLeitorRapl(10, output)
-
+    #10 segundos de testagem sem stress
+    loopLeitorRapl(10, output)
 #--------------------- Fim Medição -------------------------
 
 #salva cada elemento em um arquivo de texto
