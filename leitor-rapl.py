@@ -8,17 +8,12 @@ import argparse
 parser = argparse.ArgumentParser(description="")
 parser.add_argument("func1", type=str, help="codigo para chamar função 1 do stress ng")
 parser.add_argument("freq", type=float, help="frequencia da amostragem do rapl (em segundos)")
-parser.add_argument("nomeOutput", type=str, help="nome do arquivo para salvar resultados")
+parser.add_argument("caminhoOutput", type=str, help="nome do arquivo para salvar resultados")
 args = parser.parse_args()
 
 args.func1 = args.func1.split()
 
 output = []
-
-OUTPUT_NAME = "teste"
-STRESS_FUNC = "stress-ng --matrix 0 -t 1m"
-STRESS_FUNC = STRESS_FUNC.split()
-TAXA_AMOSTRAGEM = 1
 
 #retorna o valor do contador de microjoule de package como string
 def leitorRapl():
@@ -41,7 +36,7 @@ def loopLeitorRapl(duracao, output, freq=args.freq):
 
 
 #cria o arquivo de output
-file = open("output/"+OUTPUT_NAME, "w")
+file = open("output/"+args.caminhoOutput, "w")
 
 #--------------------- Inicio Medição ----------------------
 
@@ -49,7 +44,7 @@ file = open("output/"+OUTPUT_NAME, "w")
 loopLeitorRapl(10, output)
 
 #inicia stressng
-stress = subprocess.Popen(STRESS_FUNC)
+stress = subprocess.Popen(args.func)
 while(stress.poll() == None):
     leitura = [0] * 2
 
