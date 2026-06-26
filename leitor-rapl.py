@@ -47,7 +47,7 @@ def loopLeitorRapl(duracao, output, freq=args.freq):
 file = open("output/"+OUTPUT_NAME, "w")
 
 #--------------------- Inicio Medição ----------------------
-with OfflineEmissionsTracker(country_iso_code="BRA", measure_power_secs=1, output_dir="output/", output_file=f"{args.nomeOutput}-codecarbon") as tracker:
+with OfflineEmissionsTracker(country_iso_code="BRA", measure_power_secs=1, output_dir="output/", output_file=f"{args.nomeOutput}-codecarbon", log_level="error") as tracker:
  #10 segundos de testagem sem stress
     loopLeitorRapl(10, output)
 
