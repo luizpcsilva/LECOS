@@ -12,15 +12,20 @@ dados = np.loadtxt(args.caminhoInput)
 watts = dados[:, 0]
 delta_t = dados[:, 1]
 
-tempo_total = delta_t.sum()
-energia_total = np.sum(watts * delta_t)
-potencia_media_total = np.mean(watts)
+#obtem as colunas em q o computador esteve ativo
+mascara_estresse = watts > 20.0
+watts_estresse = watts[mascara_estresse]
+delta_t_estresse = delta_t[mascara_estresse]
+
+tempo_total = delta_t_estresse.sum()
+energia_total = np.sum(watts_estresse * delta_t_estresse)
+potencia_media_total = np.mean(watts_estresse)
 
 print("="*50)
 print(" RESULTADOS FINAIS")
 print("="*50)
 print(f"Tempo Total do Experimento: {tempo_total} segundos")
-print(f"Amostras analisadas:        {len(dados)}\n")
+print(f"Amostras analisadas:        {len(delta_t_estresse)}\n")
 
 print("--- Potência Média (Watts) ---")
 
