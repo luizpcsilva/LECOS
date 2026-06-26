@@ -11,17 +11,13 @@ from codecarbon import OfflineEmissionsTracker
 parser = argparse.ArgumentParser(description="")
 parser.add_argument("func1", type=str, help="codigo para chamar função 1 do stress ng")
 parser.add_argument("freq", type=float, help="frequencia da amostragem do rapl (em segundos)")
-parser.add_argument("nomeOutput", type=str, help="nome do arquivo para salvar resultados")
+parser.add_argument("caminhoOutput", type=str, help="nome do arquivo para salvar resultados")
 args = parser.parse_args()
 
 args.func1 = args.func1.split()
 
 output = []
 
-OUTPUT_NAME = "teste"
-STRESS_FUNC = "stress-ng --matrix 0 -t 1m"
-STRESS_FUNC = STRESS_FUNC.split()
-TAXA_AMOSTRAGEM = 1
 
 #retorna o valor do contador de microjoule de package como string
 def leitorRapl():
@@ -44,15 +40,15 @@ def loopLeitorRapl(duracao, output, freq=args.freq):
 
 
 #cria o arquivo de output
-file = open("output/"+OUTPUT_NAME, "w")
+file = open("output/"+args.caminhoOutput, "w")
 
 #--------------------- Inicio Medição ----------------------
  #10 segundos de testagem sem stress
 loopLeitorRapl(10, output)
 
-with OfflineEmissionsTracker(country_iso_code="BRA", measure_power_secs=1, output_dir="output/", output_file=f"{args.nomeOutput}-codecarbon", log_level="error") as tracker:
+with OfflineEmissionsTracker(country_iso_code="BRA", measure_power_secs=args.freq, output_dir="output/", output_file=f"{args.nomeOutput}-codecarbon", log_level="error") as tracker:
     #inicia stressng
-    stress = subprocess.Popen(STRESS_FUNC)
+    stress = subprocess.Popen(args.func)
     while(stress.poll() == None):
         leitura = [0] * 2
 
