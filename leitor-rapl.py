@@ -13,6 +13,7 @@ parser.add_argument("func1", type=str, help="codigo para chamar função 1 do st
 parser.add_argument("freq", type=float, help="frequencia da amostragem do rapl (em segundos)")
 parser.add_argument("caminhoOutput", type=str, help="nome do arquivo para salvar resultados")
 args = parser.parse_args()
+args.caminhoOutput += "-python-e-codecarbon"
 
 args.func1 = args.func1.split()
 

@@ -6,12 +6,13 @@ import argparse
 
 #configuração dos argumentos passados via terminal
 parser = argparse.ArgumentParser(description="")
-parser.add_argument("func1", type=str, help="codigo para chamar função 1 do stress ng")
+parser.add_argument("func", type=str, help="codigo para chamar função do stress ng")
 parser.add_argument("freq", type=float, help="frequencia da amostragem do rapl (em segundos)")
 parser.add_argument("caminhoOutput", type=str, help="nome do arquivo para salvar resultados")
 args = parser.parse_args()
+args.caminhoOutput += "-sem-codecarbon"
 
-args.func1 = args.func1.split()
+args.func = args.func.split()
 
 output = []
 

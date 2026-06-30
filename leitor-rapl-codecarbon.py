@@ -12,12 +12,13 @@ parser.add_argument("func1", type=str, help="codigo para chamar função 1 do st
 parser.add_argument("freq", type=float, help="frequencia da amostragem do rapl (em segundos)")
 parser.add_argument("caminhoOutput", type=str, help="nome do arquivo para salvar resultados")
 args = parser.parse_args()
+args.caminhoOutput += "-apenas-codecarbon"
 
 args.func1 = args.func1.split()
 
 #--------------------- Inicio Medição ----------------------
 
-with OfflineEmissionsTracker(country_iso_code="BRA", measure_power_secs=args.freq, output_dir="output/", output_file=f"{args.nomeOutput}-codecarbon", log_level="error") as tracker:
+with OfflineEmissionsTracker(country_iso_code="BRA", measure_power_secs=args.freq, output_dir="output/", output_file=f"{args.nomeOutput}-apenas-codecarbon", log_level="error") as tracker:
     #inicia stressng
     stress = subprocess.Popen(args.func)
     while(stress.poll() == None):
