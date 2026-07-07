@@ -110,7 +110,7 @@ gcc scripts/multiplicacao_matrizes.c -o multiplicacao_matrizes -O0
 
 **2. Execute `leitor-rapl.py`:**
 ```bash
-sudo python3 leitor-rapl.py "./multiplicacao_matrizes 60" 1 output
+sudo python3 leitor-rapl.py "./multiplicacao_matrizes 60" 1 output.txt
 ```
 
 Entenda o que cada argumento acima significa:
@@ -118,3 +118,19 @@ Entenda o que cada argumento acima significa:
 - `1`: É a frequência de amostragem. Define que o Python vai ler os contadores de energia Powercap de 1 em 1 segundo.
 - `output.txt`: É o nome do arquivo onde os dados brutos (microjoules e timestamps) serão gravados.
 
+Ao fim da execução do programa (aproximadamente 80 segundos), abra o arquivo com os dados coletados na raiz do repositório via explorador de arquivos ou via terminal com o comando:
+```bash
+cat output.txt
+```
+Você verá diversos números na tela, como, por exemplo:
+```
+99981016814 1646987.469997645 
+100036646188 1646988.470136542 
+100092236011 1646989.470343441
+...
+```
+Cada linha é uma medição de energia realizada via Powercap. A primeira coluna representa o valor do contador de energia consultado naquele instante (em microjoules). Já a segunda coluna armazena o valor do contador de tempo (relógio) no momento da medição.
+
+Avaliar o consumo de energia da máquina com essas amostras de dados não é uma tarefa trivial. Na próxima etapa, mostraremos como tratar esses dados e gerar um gráfico com a variação da potência da máquina ao longo do tempo.
+
+[Voltar ao Menu Inicial](../README.md) | [Próximo Passo: Tratamento e Visualização de Dados](02_tratamento_visualizacao.md)
