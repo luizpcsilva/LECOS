@@ -18,13 +18,13 @@ Se aparecer um diretório chamado intel-rapl:0 ou semelhante, então está tudo 
 ```bash
 sudo modprobe intel_rapl
 ```
-Com o powercap funcionando corretamente, podemos realizar a leitura do contador de energia do domínio de energia package no arquivo `energy_uj`  localizado em `intel-rapl:0` via cat.
+Com o powercap funcionando corretamente, podemos realizar a leitura do contador de energia do domínio principal (`package`) no arquivo `energy_uj` localizado em `intel-rapl:0` via cat.
 ```bash
 sudo cat /sys/class/powercap/intel-rapl:0/energy_uj
 ```
 O número devolvido representa a energia acumulada em microjoules desde que o computador foi ligado. Utilizar o framework Powercap torna a medição de energia muito mais simples quando comparada com a leitura direta via instruções RDMSR, já que o trabalho complexo de mais baixo nível foi delegado ao Kernel do sistema operacional.
 
-Ler o arquivo manualmente via terminal é interessante, mas, para automatizar esse processo, podemos delegar esse trabalho para um algoritmo. Em `scripts/leitor-rapl.py` preparamos um script que realiza a medição de energia. Abaixo, datalhamos os elementos centrais do código.
+Ler o arquivo manualmente via terminal é interessante, mas, para automatizar esse processo, podemos delegar esse trabalho para um algoritmo. Em `scripts/leitor-rapl.py` preparamos um script que realiza a medição de energia. Abaixo, detalhamos os elementos centrais do código.
 
 A função `leitorRapl()` realiza uma leitura de energia via Powercap em Python.
 ```python
@@ -51,7 +51,7 @@ def loopLeitorRapl(duracao, output, freq=args.freq):
 
         output.append(leitura)
 ```
-Para aumentarmos o gasto de energia durante a medição, criamos um script de teste de multiplicação de de matrizes 512x512 em `scripts/multiplicacao_matrizes.c`, Abaixo, é possível visualizar um recorte do algoritmo.
+Para aumentarmos o gasto de energia durante a medição, criamos um script de teste de multiplicação de matrizes 512x512 em `scripts/multiplicacao_matrizes.c`. Abaixo, é possível visualizar um recorte do algoritmo.
 
 ```c
 #include <stdio.h>
@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
 }
 ```
 
-O script `leitor-rapl.py` localizado na pasta `scripts/` utiliza a biblioteca `subprocess` para gerar 50 instâncias simultâneas do algoritmo `multiplicacao_matrizes.c`. Enquanto isso as funções `leitorRapl()` e `loopLeitorRapl()` registram o consumo de energia da máquina antes, durante e depois da carga de estresse em uma matriz e, posteriormente, em um arquivo de texto.
+O script `leitor-rapl.py` localizado na pasta `scripts/` utiliza a biblioteca `subprocess` para gerar 50 instâncias simultâneas do executável compilado `multiplicacao_matrizes.c`. Enquanto isso, as funções `leitorRapl()` e `loopLeitorRapl()` registram o consumo de energia da máquina antes, durante e depois da carga de estresse em uma matriz e, posteriormente, em um arquivo de texto.
 
 Siga os passos abaixo para executar a medição no seu ambiente:
 
