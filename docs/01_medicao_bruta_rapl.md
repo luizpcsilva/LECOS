@@ -24,7 +24,7 @@ sudo cat /sys/class/powercap/intel-rapl:0/energy_uj
 ```
 O número devolvido representa a energia acumulada em microjoules desde que o computador foi ligado. Utilizar o framework Powercap torna a medição de energia muito mais simples quando comparada com a leitura direta via instruções RDMSR, já que o trabalho complexo de mais baixo nível foi delegado ao Kernel do sistema operacional.
 
-Ler o arquivo manualmente via terminal é interessante, mas, para automatizar esse processo, podemos delegar esse trabalho para um algoritmo. Em `scripts/leitor-rapl.py` preparamos um script que realiza medição de energia durante a execução de um programa de teste para estressar a CPU. Abaixo, iremos passar pelos elementos centrais desse código.
+Ler o arquivo manualmente via terminal é interessante, mas, para automatizar esse processo, podemos delegar esse trabalho para um algoritmo. Em `scripts/leitor-rapl.py` preparamos um script que realiza a medição de energia. Abaixo, datalhamos os elementos centrais do código.
 
 A função `leitorRapl()` realiza uma leitura de energia via Powercap em Python.
 ```python
@@ -51,3 +51,70 @@ def loopLeitorRapl(duracao, output, freq=args.freq):
 
         output.append(leitura)
 ```
+Para aumentarmos o gasto de energia durante a medição, criamos um script de teste de multiplicação de de matrizes 512x512 em `scripts/multiplicacao_matrizes.c`, Abaixo, é possível visualizar um recorte do algoritmo.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define N 512 
+
+double a[N][N];
+double b[N][N];
+double r[N][N];
+
+void inicializar_matrizes() {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            a[i][j] = (double)(rand() % 100) / 10.0;
+            b[i][j] = (double)(rand() % 100) / 10.0;
+            r[i][j] = 0.0;
+        }
+    }
+}
+
+void multiplicar_matrizes() {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            for (int k = 0; k < N; k++) {
+                r[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+}
+
+int main(int argc, char *argv[]) {
+    int tempo_limite = atoi(argv[1]);
+    inicializar_matrizes();
+
+    time_t inicio = time(NULL);
+
+    while (time(NULL) - inicio < tempo_limite) {
+        multiplicar_matrizes();
+    }
+
+    return 0;
+}
+```
+
+O script `leitor-rapl.py` localizado na pasta `scripts/` utiliza a biblioteca `subprocess` para gerar 50 instâncias simultâneas do algoritmo `multiplicacao_matrizes.c`. Enquanto isso as funções `leitorRapl()` e `loopLeitorRapl()` registram o consumo de energia da máquina antes, durante e depois da carga de estresse em uma matriz e, posteriormente, em um arquivo de texto.
+
+Siga os passos abaixo para executar a medição no seu ambiente:
+
+**1. Compile o código-fonte C:**
+Utilize a *flag* `-O0` para garantir que o compilador desligue as otimizações de "código morto".
+```bash
+gcc scripts/multiplicacao_matrizes.c -o multiplicacao_matrizes -O0
+```
+
+**2. Execute `leitor-rapl.py`:**
+```bash
+sudo python3 leitor-rapl.py "./multiplicacao_matrizes 60" 1 output
+```
+
+Entenda o que cada argumento acima significa:
+- `"./multiplicacao_matrizes 60"`: É a string que contém a chamada da função estressora.
+- `1`: É a frequência de amostragem. Define que o Python vai ler os contadores de energia Powercap de 1 em 1 segundo.
+- `output.txt`: É o nome do arquivo onde os dados brutos (microjoules e timestamps) serão gravados.
+
