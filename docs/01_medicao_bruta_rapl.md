@@ -2,12 +2,6 @@
 
 A interface RAPL (Running Average Power Limit) é a referência para estimar o consumo de energia de processadores. A forma mais básica para acessar seus contadores de energia é por meio dos MSRs (Model Specific Registers). Trata-se de registradores de 32 ou 64 bits que são atualizados aproximadamente a cada 1 ms.
 
-## Acesso via MSR
-Abaixo, descrevemos um trecho de código que realiza o acesso direto a esses registradores via instruções RDMSR.
-
-*TODO: CÓDIGO E DIFICULDADES*
-
-## Acesso via Powercap
 Em ambientes Linux é possível utilizar o **Powercap** (`sysfs powercap`). O Powercap é um framework do sistema operacional que provê uma interface de acesso no espaço de usuário via sistema de arquivos virtuais sysfs, organizando os componentes de forma hierárquica em diretórios. 
 
 Utilize o comando abaixo no terminal para verificar se o powercap está disponível no seu sistema:

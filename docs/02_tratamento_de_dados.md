@@ -1,0 +1,1 @@
+No passo anterior, utilizamos um script para monitorar os contadores de energia do processador via Powercap com o timestamp da medição. No entanto, para 
