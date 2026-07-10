@@ -91,7 +91,7 @@ Assim, o gráfico gerado terá a seguinte forma:
 
 Ambos o trechos de código acima estão presentes no arquivo `scripts/visualizar-dados.py`. Para executá-lo, será necessário criar um ambiente virtual e instalar as bibliotecas `matplotlib` e `numpy`. Siga os passos a seguir:
 
-1. **Abra o terminal e mova para a raiz do repositório do minicurso.**
+1. **Abra o terminal e volte para a raiz do repositório.**
 
 2. **Crie um ambiente virtual e inicialize-o:**
 ```bash
@@ -107,3 +107,4 @@ pip install matplotlib numpy
 python3 scripts/visualizar-dados.py scripts/
 ```
 **TODO GERAR ARQUIVO OUT AUTOMATICAMENTE**
+**TODO ADICIONAR PRINT CONSUMO TOTAL**
