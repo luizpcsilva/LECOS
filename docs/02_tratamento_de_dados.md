@@ -1,7 +1,7 @@
 No passo anterior, utilizamos um script para monitorar os contadores de energia do processador e o timestamp da medição. No entanto, para visualizarmos o comportamento da aplicação executada é necessário tratar os dados coletados. 
 
 Nessa etapa, vamos automatizar o cálculo da **Potência Média (em Watts)** entre as medições realizadas e, em seguida, utilizaremos as bibliotecas `numpy` e `matplotlib` para gerarmos uma visualização gráfica do consumo de energia monitorado.
-
+# Potência Média
 A física nos diz que a Potência é a variação de energia dividida pela variação do tempo:
 $$P = \frac{\Delta E}{\Delta t}$$
 
@@ -17,7 +17,7 @@ $$\Delta E = 55629374 \times 10^-6 \approx 55,6 \text{ joules} $$
 $$\Delta t = 1646988.470136542 - 1646987.469997645 \approx 1 \text{ segundo} $$
 
 Assim, a Potência Média será de **55,6 Watts**.
-
+# Script para Conversão de Dados e Cálculo de Potência Média
 Para automatizar essa tarefa, a função abaixo recebe o arquivo com os dados brutos e calcula a potência média entre todas as medições.
 ```python
 leitura = []
@@ -58,7 +58,7 @@ with open(args.arquivoIn, "r") as inputFile:
 [ Iteração 3 ] ...
 
 ```
-
+# Gerando o Gráfico
 Após a execução do trecho de código acima, a matriz leitura passa a armazenar a potência média e a variaçao de tempo entre as medições. Com ela, podemos gerar um gráfico com `matplotlib` e `numpy`. O trecho de código abaixo realiza a criação desse gráfico: 
 
 ```python
@@ -85,3 +85,25 @@ arquivoIn.close()
 ``` 
 
 Assim, o gráfico gerado terá a seguinte forma:
+![gráfico de variação de potência média ao longo do experimento](image.png)
+
+# Como Executar?
+
+Ambos o trechos de código acima estão presentes no arquivo `scripts/visualizar-dados.py`. Para executá-lo, será necessário criar um ambiente virtual e instalar as bibliotecas `matplotlib` e `numpy`. Siga os passos a seguir:
+
+1. **Abra o terminal e mova para a raiz do repositório do minicurso.**
+
+2. **Crie um ambiente virtual e inicialize-o:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+3. **Instale as Bibliotecas necessárias:**
+```bash
+pip install matplotlib numpy
+```
+4. **Execute o código:** 
+```bash
+python3 scripts/visualizar-dados.py scripts/
+```
+**TODO GERAR ARQUIVO OUT AUTOMATICAMENTE**
