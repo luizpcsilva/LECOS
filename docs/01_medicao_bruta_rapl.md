@@ -133,4 +133,4 @@ Cada linha é uma medição de energia realizada via Powercap. A primeira coluna
 
 Avaliar o consumo de energia da máquina com essas amostras de dados não é uma tarefa trivial. Na próxima etapa, mostraremos como tratar esses dados e gerar um gráfico com a variação da potência da máquina ao longo do tempo.
 
-[Voltar ao Menu Inicial](../README.md) | [Próximo Passo: Tratamento e Visualização de Dados](02_tratamento_visualizacao.md)
+[Voltar ao Menu Inicial](../README.md) | [Próximo Passo: Tratamento e Visualização de Dados](02_tratamento_de_dados.md)

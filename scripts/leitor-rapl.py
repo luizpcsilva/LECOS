@@ -45,7 +45,7 @@ def algum_processo_ativo(lista_processos):
 
 #--------------------- Inicio Medição ----------------------
 
-#10 segundos de testagem sem stress
+#10 segundos de testagem sem estresse
 loopLeitorRapl(10, output)
 
 #inicia estressores
