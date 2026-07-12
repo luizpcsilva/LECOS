@@ -106,5 +106,9 @@ pip install matplotlib numpy
 ```bash
 python3 scripts/visualizar-dados.py scripts/
 ```
+
+Até agora, medimos a energia total do processador. Mas e se tivermos **duas aplicações diferentes rodando ao mesmo tempo** e quisermos saber o gasto de apenas uma? Na próxima etapa, iremos realizar implementar de forma prática o fatiamento de energia entre diferentes processos executando de forma concorrente.
+
+
 **TODO GERAR ARQUIVO OUT AUTOMATICAMENTE**
 **TODO ADICIONAR PRINT CONSUMO TOTAL**
