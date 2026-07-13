@@ -64,9 +64,9 @@ with open(args.caminhoInput, "r") as inputFile:
         wTotal = ((float(linha[0]) - float(linhaAnterior[0])) *(10**-6)) /timestamp
         
         if(int(linhaAnterior[3]) != 0 and int(linha[3]) != 0):
-            tickTotal = max(0, float(linha[3]) - float(linhaAnterior[3])) 
-            tickP1 = float(linha[1]) - float(linhaAnterior[1])
-            tickP2 = float(linha[2]) - float(linhaAnterior[2])
+            tickTotal = max(0, float(linha[3]) - float(linhaAnterior[3]))
+            tickP1 = max(0, float(linha[1]) - float(linhaAnterior[1]))
+            tickP2 = max(0, float(linha[2]) - float(linhaAnterior[2]))
 
             #calcula o consumo em watts de P1 e P2 com uma proporção entre tickP e wTotal
             wP1 = (tickP1 * wTotal)/tickTotal
@@ -182,4 +182,33 @@ def plotarGrafico(leitura):
 ```
 
 Ao fim da execução da função acima, os dois gráficos devem surgir na raiz do diretório. Segue abaixo um exemplo:
-![gráfico de potência dos processos 1](grafico-potencia-total.png)
+![gráfico de potência dos processos 1](grafico_energia_processos1.png)
+![gráfico de potência dos processos 2](grafico_energia_processos2.png)
+
+# Como Executar?
+
+Ambos o trechos de código acima estão presentes no arquivo `scripts/tratar-dados-medicao-processos.py`. Para executá-lo, será necessário criar um ambiente virtual e instalar as bibliotecas `matplotlib` e `numpy`. Siga os passos a seguir:
+
+1. **Abra o terminal e volte para a raiz do repositório.**
+
+**OBS: Caso já tenha configurado o ambiente virtual com as bibliotecas necessárias anteriormente, execute o passo 3 e 5**.
+
+2. **Crie um ambiente virtual:**
+```bash
+python3 -m venv venv
+```
+3. **Inicialize o ambiente virtual:**
+```bash
+source venv/bin/activate
+```
+4. **Instale as Bibliotecas necessárias:**
+```bash
+pip install matplotlib numpy
+```
+5. **Execute o código:** 
+```bash
+python3 scripts/tratar-dados-medicao-processos.py ../teste-concorrente.txt teste-concorrente-tratado.txt
+```
+Ao executar, os novos arquivos devem surgir na raiz da pasta do repositório.
+
+Como podemos observar, fatiar o consumo de energia entre os processos é uma tarefa trabalhosa. É nesse contexto que a ferramenta Scaphandre se torna nossa aliada. Na próxima etapa, utilizaremos a ferramenta para replicar o experimento e comparar os resultados

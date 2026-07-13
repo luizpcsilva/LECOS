@@ -111,8 +111,9 @@ pip install matplotlib numpy
 ```
 4. **Execute o código:** 
 ```bash
-python3 scripts/visualizar-dados.py scripts/
+python3 scripts/tratar-dados-medicao-powercap.py teste-powercap.txt teste-powercap-tratado.txt
 ```
+Ao executar, os novos arquivos devem surgir na raiz da pasta do repositório.
 
 Até agora, medimos a energia total do processador. Mas e se tivermos **duas aplicações diferentes rodando ao mesmo tempo** e quisermos saber o gasto de apenas uma? Na próxima etapa, iremos realizar implementar de forma prática o fatiamento de energia entre diferentes processos executando de forma concorrente.
 
