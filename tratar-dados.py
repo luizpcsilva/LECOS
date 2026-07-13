@@ -99,7 +99,7 @@ with open(args.caminhoInput, "r") as inputFile:
         wTotal = ((float(linha[0]) - float(linhaAnterior[0])) *(10**-6)) /timestamp
         
         if(int(linhaAnterior[3]) != 0 and int(linha[3]) != 0):
-            tickTotal = float(linha[3]) - float(linhaAnterior[3]) 
+            tickTotal = max(0, float(linha[3]) - float(linhaAnterior[3])) 
             tickP1 = float(linha[1]) - float(linhaAnterior[1])
             tickP2 = float(linha[2]) - float(linhaAnterior[2])
 
