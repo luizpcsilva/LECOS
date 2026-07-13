@@ -64,8 +64,7 @@ Estamos interessados na primeira linha da saída (`cpu`). Ela agrupa o esforço 
 
 As colunas descartadas fornecem métricas de tempo em que a CPU não esteve ativa (como `idle` e `iowait`), logo, não devem ser consideradas para o fatiamento de energia. Mais informações sobre o arquivo `/proc/stat` podem ser lidas na [documentação oficial do Kernel Linux](https://man7.org/linux/man-pages/man5/proc_pid_stat.5.html).
 
-### Código Python
-
+### Automatizando a Leitura
 Note que uma aplicação pode conter diversos processos filhos e os dados de cada PID devem ser agregados. A função abaixo automatiza toda a coleta de dados referente ao tempo de CPU. 
 
 A entrada é uma lista de PIDs. Caso a lista esteja vazia, retorna o somatório das métricas relevantes da cpu (`/proc/stat`). Caso a lista contenha PIDs, então retorna o somatório de todas as métricas relevantes de cada processo (`proc/{pid}/stat`).
@@ -93,19 +92,27 @@ def leitor_ticks(pids=[]):
                 pass
         return cont
 ```
+# Executando o Script de Medição
 
-O script `scipts/energy-profiller-de-processos-cpu-time.py` utiliza a função `leitor_ticks` para obter as métricas de tempo de CPU e `leitor_rapl`/`loop_leitor_RAPL`, definidas nas etapas anteriores, para obter o consumo de energia do processador.
+O script `scipts/energy-profiller-de-processos-cpu-time.py` realiza a medição da potência da máquina e métricas da CPU de dois processos diferentes, considerando também os processos filhos que podem ser criados por eles.
 
-Abaixo, podemos visualizar o loop principal
-Para estressar o sistema, utilizaremos dois métodos da ferramenta `stress-ng`. São eles:
-1. Multiplicação de Matrizes (código descrito em em [01_medicao_bruta_rapl.md]).
-2. Cálculo da Sequência da Fibonacci. Segue uma versão simplificada do algoritmo de estresse do `stress-ng`:
+Abaixo, detalharemos a escolha dos algoritmos de estresse que utilizaremos para medir o consumo de energia
+
+## Algoritmos de Estresse Utilizados
+
+Ao invés de executar dois processos idênticos concorrentemente, vamos utilizar dois algoritmos de natureza diferentes para a medição de energia. Utilizaremos a ferramenta `stress-ng`.
+
+* Processo 1: Multiplicação de Matrizes (`--matrix-method prod`), definida e utilizada nas etapas anteriores do minicurso.
+* Processo 2: O cálculo contínuo da sequência de Fibonnaci (`--cpu-method fibonacci`). 
+
+Abaixo, podemos visualizar uma versão simplificada do algoritmo de estresse de Fibonacci utilizado pela ferramenta `stress-ng`:
 ```c
 void calcular_fibonacci() {
     uint64_t f1 = 0;
     uint64_t f2 = 1;
     uint64_t proximo;
 
+    //Um laço de repetição que termina apenas ao acabar a duração do script informada.
     while (executando) {
         proximo = f1 + f2;
         f1 = f2;
@@ -113,8 +120,77 @@ void calcular_fibonacci() {
     }
 }
 ```
+
 O código original do algoritmo de estresse de fibonacci do `stress-ng` pode ser visualizado no [repositório oficial da ferramenta](https://github.com/ColinIanKing/stress-ng/blob/master/stress-cpu.c#L1383).
 
+## Loop de Medição Principal
+
+Por fim, utilizaremos a função`leitor_ticks` para obter as métricas de tempo de CPU, `leitor_rapl` e `loop_leitor_RAPL`, definidas nas etapas anteriores, para obter o consumo de energia do processador e os dois algoritmos de estresse da ferramenta `stress-ng` (P1 e P2) como objeto de estudo.
+
+O nosso script Python inicia o stress-ng e entra num laço de repetição (while). A cada iteração (controlada pela frequência de amostragem escolhida), ele constrói um vetor com os 5 dados fundamentais e o armazena em uma matriz. Ao fim da medição, armazenamos os elementos da matriz em um arquivo de texto.
+
+Abaixo, podemos visualizar o loop principal do código de forma simplificada:
+```python
+#5 segundos de testagem inicial sem algoritmo de estresse
+loopLeitorRapl(5, output)
+
+#aqui é feita a inicialização dos processos de estresse
+
+# enquanto os dois processos de estresse não tiverem terminado
+while(stress1.poll() == None or stress2.poll() == None):
+    leitura = [0] * 5
+
+    leitura[0] = leitorRapl()              # 1. Contador de energia do processador (Powercap)
+    leitura[1] = leitor_ticks(listaP1)     # 2. ticks acumulados do processo 1 (+ filhos)
+    leitura[2] = leitor_ticks(listaP2)     # 3. ticks acumulados do processo 2 (+ filhos)
+    leitura[3] = leitor_ticks()            # 4. Ticks ativos totais executados pela CPU
+    leitura[4] = time.perf_counter()       # 5. Tempo da medição (timestamp)
+    
+    time.sleep(args.freq)
+    output.append(leitura)
+
+#5 segundos de testagem final sem algoritmo de estresse
+loopLeitorRapl(5, output)
+```
+
+## Execute o Experimento!
+
+Vamos programar para o Processo 1 (Multiplicação de Matrizes) durar 30 segundos e o Processo 2 (Fibonacci) durar 60 segundos. O stress-ng instanciará um subprocesso de cada tipo para cada núcleo do processador.
+
+No terminal, vá para a raiz do repositório e execute:
+```bash
+#Sintaxe: python3 script.py <chamada_estressor 1> <chamada_estressor 2> <frequência de amostragem>
+sudo python3 scripts/energy-profiller-de-processos-cpu-time.py "stress-ng --matrix 0 --matrix-method prod -t 30s" "stress-ng --cpu 0 --cpu-method fibonacci -t 60s" 1 output/log_concorrente.txt
+```
+**TODO MUDAR PARA SALVAR AUTOMATICAMENTE COM NOME PREDEFINIDO ADICIONAR SINTA-SE LIVRE PRA INSPECIONAR O CODIGO**
+O script será executado em aproximadamente 80 segundos. Ao fim do experimento , será gerado o arquivo `teste-concorrente.txt`. Imprima seu conteúdo com o seguinte comando no terminal:
+```bash
+cat teste-concorrente.txt
+```
+Diversas linhas e colunas serão impressos na tela:
+```
+...
+142688331128 0 0 0 352466.701894422 
+142691023442 0 0 0 352467.702212871 
+142726054908 321 295 1329572 352469.242651642 
+142787453066 930 879 1330772 352470.243246248 
+...
+```
+Conforme definimos no [Loop Principal](#loop-de-medição-principal), cada linha representa uma medição realizada e cada coluna armazena um contador específico. As colunas possuem o seguinte significado:
+
+* Coluna 1: Energia do processador (Powercap).
+* Coluna 2: Ticks acumulados do processo 1 (+ filhos).
+* Coluna 3: Ticks acumulados do processo 2 (+ filhos).
+* Coluna 4: Ticks ativos totais executados pela CPU
+* Coluna 5: Tempo da medição (timestamp)
+
+Note que a coluna 2, 3 e 4 estão zeradas em algumas medições. Isso ocorre durante a leitura da função `loop_leitor_RAPL`, pois, nesse momento, não há algoritmo de estresse sendo executado pela CPU.
+
+No próximo passo, utilizaremos os contadores acima para calcular o Delta entre as medições e fatiar o consumo de energia entre os dois algoritmos estressores.
+
+---
+## Navegação
+[⬅️ Passo Anterior: Tratamento de Dados da Medição Total da Máquina](02_tratamento_de_dadps_1.md) | [➡️ Passo Seguinte: Tratamento de Dados da Medição de Processos Concorrentes](04_tratamento_de_dados_2.md)
 
 # Referências
 [^1]: JAY, Mathilde et al. An experimental comparison of software-based power meters: focus on CPU and GPU. In: 2023 IEEE/ACM 23rd International Symposium on Cluster, Cloud and Internet Computing (CCGrid). IEEE, 2023. p. 106-118.
