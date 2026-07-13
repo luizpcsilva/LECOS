@@ -160,7 +160,7 @@ Vamos programar para o Processo 1 (Multiplicação de Matrizes) durar 30 segundo
 No terminal, vá para a raiz do repositório e execute:
 ```bash
 #Sintaxe: python3 script.py <chamada_estressor 1> <chamada_estressor 2> <frequência de amostragem>
-sudo python3 scripts/energy-profiller-de-processos-cpu-time.py "stress-ng --matrix 0 --matrix-method prod -t 30s" "stress-ng --cpu 0 --cpu-method fibonacci -t 60s" 1 output/log_concorrente.txt
+sudo python3 scripts/energy-profiller-de-processos-cpu-time.py "stress-ng --matrix 0 --matrix-method prod -t 30s" "stress-ng --cpu 0 --cpu-method fibonacci -t 60s" 1 teste_concorrente.txt
 ```
 **TODO MUDAR PARA SALVAR AUTOMATICAMENTE COM NOME PREDEFINIDO ADICIONAR SINTA-SE LIVRE PRA INSPECIONAR O CODIGO**
 O script será executado em aproximadamente 80 segundos. Ao fim do experimento , será gerado o arquivo `teste-concorrente.txt`. Imprima seu conteúdo com o seguinte comando no terminal:

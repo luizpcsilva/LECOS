@@ -56,7 +56,14 @@ with open(args.arquivoIn, "r") as inputFile:
   ↳ Linha 2 (Atual)    ┴→ Calcula a Potência (Watts) do Seg. 2
 
 [ Iteração 3 ] ...
+```
+Ao fim da execução desse script, geramos uma nova matriz com os valores de potência média de cada intervalo de medição, expostos na seguinte ordem: `[watts_Total, watts_P2, watts_Total, momento_final_intervalo]`.
 
+Além disso os valores também são armazenados, na mesma ordem, em um novo arquivo de texto `teste-tratado`. Abaixo, podemos visualizar uma parte de um arquivo de exemplo:
+```
+3.6095417274976107 1.0019465829827823
+69.04815634625746 1.002028752991464
+70.2533797899532 1.000123086036183
 ```
 # Gerando o Gráfico
 Após a execução do trecho de código acima, a matriz leitura passa a armazenar a potência média e a variaçao de tempo entre as medições. Com ela, podemos gerar um gráfico com `matplotlib` e `numpy`. O trecho de código abaixo realiza a criação desse gráfico: 
