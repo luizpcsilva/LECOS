@@ -3,8 +3,13 @@ O desafio agora é: como fatiar a energia total extraída dos contadores RAPL da
 Segundo [^1], existem dois métodos principais de modelagem do consumo de energia dos processos: **Baseadas Em Uso de CPU** e **Baseadas em Regressão Com Eventos de Performance**. Nessa etapa, utilizaremos a metodologia da Modelagem Baseada em Uso de CPU, implementada pela ferramenta Scaphandre e, para fins didáticos, iremos monitorar apenas dois processos em execução.
 
 Para calcular o consumo de energia das aplicações, o Scaphandre coleta continuamente dados dos sensores de hardware e os associa ao tempo de CPU dessas aplicações. A premissa é simples: se dois processos estão dividindo a CPU, o processo que manteve os núcleos ocupados por mais tempo leva a maior fatia da conta de energia.
-  
-Abaixo, detalharemos as métricas coletadas pela ferramenta.
+
+Assim, para fatiar o consumo em um intervalo, nós utilizamos a seguinte fórmula matemática de proporção:
+
+$$P_{Processo} = P_{Total} \times \left( \frac{\Delta TempoCPU_{Processo}}{\Delta TempoCPU_{Total}} \right)$$
+Sendo P = Potência (em Watts)
+
+Abaixo, iremos detalhar as etapas para obtermos o Tempo de CPU total e de processos em ambiente Linux.   
 
 ## Tempo de CPU
 
@@ -61,7 +66,9 @@ As colunas descartadas fornecem métricas de tempo em que a CPU não esteve ativ
 
 ### Código Python
 
-Note que uma aplicação pode conter diversos processos filhos e os dados de cada PID devem ser agregados. A função abaixo automatiza toda a coleta de dados referente ao tempo de CPU. A entrada é uma lista de PIDs. Caso a lista esteja vazia, retorna o somatório das métricas relevantes da cpu (`/proc/stat`). Caso a lista contenha PIDs, então retorna o somatório de todas as métricas relevandes de cada processo (`proc/{pid}/stat`).
+Note que uma aplicação pode conter diversos processos filhos e os dados de cada PID devem ser agregados. A função abaixo automatiza toda a coleta de dados referente ao tempo de CPU. 
+
+A entrada é uma lista de PIDs. Caso a lista esteja vazia, retorna o somatório das métricas relevantes da cpu (`/proc/stat`). Caso a lista contenha PIDs, então retorna o somatório de todas as métricas relevantes de cada processo (`proc/{pid}/stat`).
 
 ```python
 def leitor_ticks(pids=[]):
@@ -87,7 +94,27 @@ def leitor_ticks(pids=[]):
         return cont
 ```
 
+O script `scipts/energy-profiller-de-processos-cpu-time.py` utiliza a função `leitor_ticks` para obter as métricas de tempo de CPU e `leitor_rapl`/`loop_leitor_RAPL`, definidas nas etapas anteriores, para obter o consumo de energia do processador.
+
+Abaixo, podemos visualizar o loop principal
+Para estressar o sistema, utilizaremos dois métodos da ferramenta `stress-ng`. São eles:
+1. Multiplicação de Matrizes (código descrito em em [01_medicao_bruta_rapl.md]).
+2. Cálculo da Sequência da Fibonacci. Segue uma versão simplificada do algoritmo de estresse do `stress-ng`:
+```c
+void calcular_fibonacci() {
+    uint64_t f1 = 0;
+    uint64_t f2 = 1;
+    uint64_t proximo;
+
+    while (executando) {
+        proximo = f1 + f2;
+        f1 = f2;
+        f2 = proximo;
+    }
+}
+```
+O código original do algoritmo de estresse de fibonacci do `stress-ng` pode ser visualizado no [repositório oficial da ferramenta](https://github.com/ColinIanKing/stress-ng/blob/master/stress-cpu.c#L1383).
+
 
 # Referências
 [^1]: JAY, Mathilde et al. An experimental comparison of software-based power meters: focus on CPU and GPU. In: 2023 IEEE/ACM 23rd International Symposium on Cluster, Cloud and Internet Computing (CCGrid). IEEE, 2023. p. 106-118.
-[^2]: THE KERNEL DEVELOPMENT COMMUNITY. **The /proc Filesystem**. The Linux Kernel documentation. [S.l.], [s.d.]. Disponível em: <[https://docs.kernel.org/filesystems/proc.html](https://docs.kernel.org/filesystems/proc.html)>. Acesso em: 15 jun. 2026.

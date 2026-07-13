@@ -47,6 +47,8 @@ def loopLeitorRapl(duracao, output, freq=args.freq):
 ```
 Para aumentarmos o gasto de energia durante a medição, criamos um script de teste de multiplicação de matrizes 512x512 em `scripts/multiplicacao_matrizes.c`. Abaixo, é possível visualizar um recorte do algoritmo.
 
+** TODO MUDAR PARA stress-ng --matrix 0 --matrix-method prod --matrix-size 512 -t 1m** 
+
 ```c
 #include <stdio.h>
 #include <stdlib.h>
