@@ -99,11 +99,11 @@ with open(args.caminhoInput, "r") as inputFile:
         wTotal = ((float(linha[0]) - float(linhaAnterior[0])) *(10**-6)) /timestamp
         
         if(int(linhaAnterior[3]) != 0 and int(linha[3]) != 0):
-            tickTotal = max(0, float(linha[3]) - float(linhaAnterior[3])) 
-            tickP1 = float(linha[1]) - float(linhaAnterior[1])
-            tickP2 = float(linha[2]) - float(linhaAnterior[2])
+            tickTotal = max(0, float(linha[3]) - float(linhaAnterior[3]))
+            tickP1 = max(0, float(linha[1]) - float(linhaAnterior[1]))
+            tickP2 = max(0, float(linha[2]) - float(linhaAnterior[2]))
 
-            #calcula o consumo em watts de P1 e P2 com uma proporção entre tickP e wTotal
+            #calcula o consumo em watts de P1 e P2 cvimom uma proporção entre tickP e wTotal
             wP1 = (tickP1 * wTotal)/tickTotal
             wP2 = (tickP2 * wTotal)/tickTotal
 
