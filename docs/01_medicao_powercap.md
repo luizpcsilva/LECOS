@@ -1,4 +1,4 @@
-# Medição de Energia via RAPL
+# Medição de Energia via Powercap
 
 A interface RAPL (Running Average Power Limit) é a referência para estimar o consumo de energia de processadores. A forma mais básica para acessar seus contadores de energia é por meio dos MSRs (Model Specific Registers). Trata-se de registradores de 32 ou 64 bits que são atualizados aproximadamente a cada 1 ms.
 
@@ -17,6 +17,8 @@ Com o powercap funcionando corretamente, podemos realizar a leitura do contador 
 sudo cat /sys/class/powercap/intel-rapl:0/energy_uj
 ```
 O número devolvido representa a energia acumulada em microjoules desde que o computador foi ligado. Utilizar o framework Powercap torna a medição de energia muito mais simples quando comparada com a leitura direta via instruções RDMSR, já que o trabalho complexo de mais baixo nível foi delegado ao Kernel do sistema operacional.
+
+## Automatizando a Medição
 
 Ler o arquivo manualmente via terminal é interessante, mas, para automatizar esse processo, podemos delegar esse trabalho para um algoritmo. Em `scripts/medicao-powercap.py` preparamos um script que realiza a medição de energia. Abaixo, detalhamos os elementos centrais do código.
 
@@ -45,6 +47,9 @@ def loopLeitorRapl(duracao, output, freq=args.freq):
 
         output.append(leitura)
 ```
+
+# Estressando a Máquina
+
 Para aumentarmos o gasto de energia durante a medição, utilizaremos um script de multiplicação de matrizes 512x512 da ferramenta open-source `stress-ng`, escrita em C. A ferramenta é especializada em gerar cargas de estresse na máquina.
 
 Abaixo, podemos visualizar uma versão simplificada do algoritmo. O código original do algoritmo de estresse pode ser visualizado no [repositório oficial da ferramenta](https://github.com/ColinIanKing/stress-ng/blob/master/stress-matrix.c#L69)
@@ -97,14 +102,11 @@ int main(int argc, char *argv[]) {
 
 A ferramenta `stress-ng` criará uma instância do estressor para cada núcleo do processador. Enquanto isso, as funções `leitorRapl()` e `loopLeitorRapl()` registram o consumo de energia da máquina antes, durante e depois da carga de estresse em uma matriz e, posteriormente, em um arquivo de texto.
 
+# Executando o Código
+
 Siga os passos abaixo para executar a medição no seu ambiente:
 
-**1. Instale a ferramenta stress-ng**.
-```bash
-sudo apt install stress-ng
-```
-
-**2. Execute o script de medição `medicao-powercap.py`:**
+**1. Execute o script de medição `medicao-powercap.py`:**
 ```bash
 sudo python3 scripts/medicao-powercap.py "stress-ng --matrix 0 --matrix-method prod --matrix-size 512 -t 1m" 1 teste-powercap.txt
 ```
@@ -113,6 +115,8 @@ Entenda o que cada argumento acima significa:
 - `"stress-ng --matrix 0 --matrix-method prod --matrix-size 512 -t 1m"`: É a string que contém a chamada da função estressora.
 - `1`: É a frequência de amostragem. Define que o Python vai ler os contadores de energia Powercap de 1 em 1 segundo.
 - `teste-powercap.txt`: É o nome do arquivo onde os dados brutos (microjoules e timestamps) serão gravados.
+
+## Visualizando a Saída
 
 Ao fim da execução do programa (aproximadamente 80 segundos), abra o arquivo com os dados coletados na raiz do repositório via explorador de arquivos ou via terminal com o comando:
 ```bash
