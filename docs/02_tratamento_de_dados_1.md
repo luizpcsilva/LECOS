@@ -105,10 +105,12 @@ source venv/bin/activate
 ``` 
 
 2. **Execute o código:** 
-Sintaxe: `caminho-do-script` [arquivo de entrada com os dados brutos] [nome do arquivo de saída]
+
 ```bash
 python3 scripts/tratar-dados-medicao-powercap.py teste-powercap.txt teste-powercap-tratado.txt
 ```
+**Sintaxe:** python3 caminho-do-script [arquivo de entrada com os dados brutos] [nome do arquivo de saída]
+
 Ao executar, os novos arquivos devem surgir na raiz da pasta do repositório.
 
 # Extra: Visualizando o Consumo Total da Máquina
@@ -123,9 +125,11 @@ Até agora, medimos a energia total do processador. Mas e se tivermos **duas apl
 
 ## Executando Script de Visualização
 1. **No terminal, na raiz do repositório, execute o comando abaixo**:
-Sintaxe: `caminho-do-script` [arquivo de entrada com os dados tratados]
+
+
 ```bash
 python3 scripts/consumo-total-powercap.py teste-powercap-tratado.txt
 ```
+**Sintaxe:** python3 caminho-do-script [arquivo de entrada com os dados tratados]
 
 [⬅️ Passo Anterior: Medição com Powercap](01_medicao_powercap.md) | [➡️Próximo Passo: Medição de Processos Concorrentes](03_medicao_processos.md)
