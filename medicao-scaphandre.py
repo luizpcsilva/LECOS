@@ -8,7 +8,6 @@ import argparse
 parser = argparse.ArgumentParser(description="")
 parser.add_argument("func1", type=str, help="codigo para chamar função 2 do stress ng")
 parser.add_argument("func2", type=str, help="codigo para chamar função 2 do stress ng")
-parser.add_argument("nomeOutput", type=str, help="nome do arquivo para salvar resultados")
 args = parser.parse_args()
 
 args.func1 = args.func1.split()
@@ -24,26 +23,19 @@ cmd_scaphandre = [
 ]
 #--------------------- Inicio Medição ----------------------
 processo_scaphandre = subprocess.Popen(cmd_scaphandre, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-time.sleep(2)
+time.sleep(5)
 
-#inicializando os dois processos
+#inicializando os dois processos estressores
 stress1 = subprocess.Popen(args.func1)
 stress2 = subprocess.Popen(args.func2)
 print(stress1.pid)
 print(stress2.pid)
 
-#coletando todos os processos filhos que podem ter sido criados
-time.sleep(0.5)
-listaP1 = (subprocess.run(["pgrep", "-P", str(stress1.pid)], capture_output=True, text=True)).stdout.split()
-listaP1.append(stress1.pid)
-print(listaP1)
-listaP2 = (subprocess.run(["pgrep", "-P", str(stress2.pid)], capture_output=True, text=True)).stdout.split()
-listaP2.append(stress2.pid)
-print(listaP2)
-
 #espera o processo acabar
 stress1.wait()
 stress2.wait()
+
+time.sleep(5)
 
 subprocess.run(["sudo", "docker", "stop", "meu_scaphandre"], stdout=subprocess.DEVNULL)
 #--------------------- Fim Medição -------------------------

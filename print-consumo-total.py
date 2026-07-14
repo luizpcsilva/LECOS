@@ -6,9 +6,10 @@ parser = argparse.ArgumentParser(description="")
 parser.add_argument("caminhoInput", type=str, help="caminho para o arquivo com dados tratados")
 args = parser.parse_args()
 
+#transforma arquivo txt em matriz numpy
 dados = np.loadtxt(args.caminhoInput)
 
-# 2. Separa as colunas da matriz
+#separa as colunas da matriz
 p1_watts = dados[:, 0]
 p2_watts = dados[:, 1]
 total_watts = dados[:, 2]
@@ -17,7 +18,7 @@ tempos = dados[:, 3]
 #calcula o delta tempo das mediçoes. prepend=0 garante que a primeira linha use o tempo dela mesma.
 delta_t = np.diff(tempos, prepend=0)
 
-#cria valores booleanos para isolar os momentos em que os processos estavam ativos
+#cria mascaras booleanas para isolar os momentos em que os processos estavam ativos
 ativos_p1 = p1_watts > 0
 ativos_p2 = p2_watts > 0
 
@@ -34,7 +35,7 @@ potencia_media_p2 = np.mean(p2_watts[ativos_p2])
 potencia_media_total = np.mean(total_watts)
 
 print("="*50)
-print(" RESULTADOS FINAIS DO PROFILING DE ENERGIA")
+print(" RESULTADOS FINAIS DO PROFILING DE ENERGIA DE "+args.caminhoInput)
 print("="*50)
 print(f"Tempo Total do Experimento: {tempo_total} segundos")
 print(f"Amostras analisadas:        {len(dados)}\n")

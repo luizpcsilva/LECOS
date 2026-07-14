@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def plotarGrafico(leitura):
-    taxaAmostragem = leitura[0][3]
     dados = np.array(leitura)
 
     p1_watts = dados[:, 0]
@@ -11,70 +10,67 @@ def plotarGrafico(leitura):
     total_watts = dados[:, 2]
     tempos = dados[:, 3]
 
-    # Criando a figura e os eixos
+    #calcula a taxa de amostragem das mediçoes
+    taxaAmostragem = tempos[1] - tempos[0] if len(tempos) > 1 else 1.0
+
+    #criando a figura e os eixos
     fig, ax = plt.subplots(figsize=(12, 6))
 
-    # 1. Plotando as barras LADO A LADO
-    # Diminuímos a largura da barra para caberem duas no mesmo "segundo"
-    largura_barra = taxaAmostragem/2
+    #plotando as barras LADO A LADO
+    #diminuímos a largura da barra para caberem duas no mesmo "segundo"
+    largura_barra = taxaAmostragem / 2
 
-    # Barra do Processo 1 (Deslocada meia largura para a esquerda)
+    #barra do processo 1
     ax.bar(tempos - largura_barra/2, p1_watts, width=largura_barra, label='Processo 1', color='#1f77b4', alpha=0.8)
 
-    # Barra do Processo 2 (Deslocada meia largura para a direita)
+    #barra do processo 2
     ax.bar(tempos + largura_barra/2, p2_watts, width=largura_barra, label='Processo 2', color='#ff7f0e', alpha=0.8)
 
-    # 2. Plotando a linha do consumo total (Centralizada no tempo exato)
+    #plotando a linha do consumo total
     ax.plot(tempos, total_watts, label='Gasto Total da Máquina', color='red', linewidth=2, marker='o', markersize=4)
 
-    # 3. Configurações estéticas do gráfico
+    #configurações estéticas do gráfico
     ax.set_title('Consumo de Energia: Processos vs Máquina Total', fontsize=14, fontweight='bold')
     ax.set_xlabel('Tempo (Segundos)', fontsize=12)
     ax.set_ylabel('Potência (Watts)', fontsize=12)
-
-    # Adicionando uma grade sutil para facilitar a leitura
+    #adicionando grade no plano de fundo
     ax.grid(axis='y', linestyle='--', alpha=0.7)
-
-    # Mostrando a legenda no canto superior direito
+    #mostrando a legenda no canto superior direito
     ax.legend(loc='upper right')
-
-    # Ajustando as margens para não cortar nenhum rótulo
+    #ajustando as margens
     plt.tight_layout()
 
-    plt.savefig('output/grafico_energia_processos1.png', dpi=300)
+    #salva o grafico de barras lado a lado
+    plt.savefig('grafico-cpu-time1.png', dpi=300)
 
-    # Criando a figura e os eixos
+    #criando novo grafico
     fig, ax = plt.subplots(figsize=(12, 6))
 
-    # 1. Plotando as barras EMPILHADAS (Stacked)
-    # Como elas não dividem mais espaço lateral, podemos usar quase toda a largura do segundo
+    #plotando as barras EMPILHADAS
     largura_barra = taxaAmostragem * 0.8
 
-    # Barra do Processo 1 (Fica na base)
+    #barra do processo 1
     ax.bar(tempos, p1_watts, width=largura_barra, label='Processo 1', color='#1f77b4', alpha=0.8)
 
-    # Barra do Processo 2 (Fica em cima do Processo 1)
-    # O segredo é o parâmetro 'bottom=p1_watts'
+    #barra do Processo 2 (em cima do processo 1)
     ax.bar(tempos, p2_watts, width=largura_barra, bottom=p1_watts, label='Processo 2', color='#ff7f0e', alpha=0.8)
 
-    # 2. Plotando a linha do consumo total (Centralizada no tempo exato)
+    #plotando a linha do consumo total
     ax.plot(tempos, total_watts, label='Gasto Total da Máquina', color='red', linewidth=2, marker='o', markersize=4)
 
-    # 3. Configurações estéticas do gráfico
+    #configurações estéticas do gráfico
     ax.set_title('Consumo de Energia: Processos vs Máquina Total', fontsize=14, fontweight='bold')
     ax.set_xlabel('Tempo (Segundos)', fontsize=12)
     ax.set_ylabel('Potência (Watts)', fontsize=12)
-
-    # Adicionando uma grade sutil para facilitar a leitura
+    #adicionando grade no fundo
     ax.grid(axis='y', linestyle='--', alpha=0.7)
-
-    # Mostrando a legenda no canto superior direito
+    #adicionando legenda
     ax.legend(loc='upper right')
-
-    # Ajustando as margens para não cortar nenhum rótulo
+    #ajustando as margens 
     plt.tight_layout()
+    #salvando o gráfico
+    plt.savefig('grafico-cpu-time2.png', dpi=300)
 
-    plt.savefig('output/grafico_energia_processos2.png', dpi=300)
 
 #configuração dos argumentos passados via terminal
 parser = argparse.ArgumentParser(description="")
