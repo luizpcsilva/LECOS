@@ -9,5 +9,4 @@ Para realizar a medição de energia é necessário o acesso físico a registrad
 
 Se você usa Windows ou MacOs, poderá utilizar os arquivos da pasta `dados_exemplo` que contém exemplos de medições de energia. 
 
----
-
+[➡️ Próximo Passo: Instalação de Pré Requisitos](docs/00_pre_requisitos.md)
