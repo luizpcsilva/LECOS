@@ -10,7 +10,6 @@ parser.add_argument("func", type=str, help="codigo para chamar função do stres
 parser.add_argument("freq", type=float, help="frequencia da amostragem do rapl (em segundos)")
 parser.add_argument("caminhoOutput", type=str, help="nome do arquivo para salvar resultados")
 args = parser.parse_args()
-args.caminhoOutput += "-sem-codecarbon"
 
 args.func = args.func.split()
 
@@ -69,7 +68,7 @@ loopLeitorRapl(10, output)
 #--------------------- Fim Medição -------------------------
 
 #salva cada elemento em um arquivo de texto
-with open("output/"+args.caminhoOutput, "w") as fileOutput:
+with open(args.caminhoOutput, "w") as fileOutput:
     for linha in output:
         for elem in linha:  
             fileOutput.write(str(elem) + " ")

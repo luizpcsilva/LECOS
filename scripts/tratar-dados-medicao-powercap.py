@@ -55,6 +55,6 @@ plt.grid(True)
 plt.axvline(x=10, color='red', linestyle='--', label='Início do Estresse')
 plt.axvline(x=70, color='red', linestyle='--', label='Fim do Estresse')
 
-plt.savefig("output/grafico_energia.png", dpi=300)
+plt.savefig("output/grafico_powercap.png", dpi=300)
 
 arquivoIn.close()

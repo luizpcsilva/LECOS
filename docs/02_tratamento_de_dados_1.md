@@ -96,20 +96,9 @@ Assim, o gráfico gerado terá a seguinte forma:
 
 # Como Executar?
 
-Ambos o trechos de código acima estão presentes no arquivo `scripts/visualizar-dados.py`. Para executá-lo, será necessário criar um ambiente virtual e instalar as bibliotecas `matplotlib` e `numpy`. Siga os passos a seguir:
+Ambos o trechos de código acima estão presentes no arquivo `scripts/tratar-dados-medicao-powercap.py`. Para executá-lo, siga os passos a seguir:
 
-1. **Abra o terminal e volte para a raiz do repositório.**
-
-2. **Crie um ambiente virtual e inicialize-o:**
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-3. **Instale as Bibliotecas necessárias:**
-```bash
-pip install matplotlib numpy
-```
-4. **Execute o código:** 
+1. **Execute o código:** 
 ```bash
 python3 scripts/tratar-dados-medicao-powercap.py teste-powercap.txt teste-powercap-tratado.txt
 ```
@@ -117,8 +106,4 @@ Ao executar, os novos arquivos devem surgir na raiz da pasta do repositório.
 
 Até agora, medimos a energia total do processador. Mas e se tivermos **duas aplicações diferentes rodando ao mesmo tempo** e quisermos saber o gasto de apenas uma? Na próxima etapa, iremos realizar implementar de forma prática o fatiamento de energia entre diferentes processos executando de forma concorrente.
 
-## Navegação
-[⬅️ Passo Anterior: Medição com Powercap](01_medicao_powercap.d) | [➡️ Passo Seguinte: Tratamento de Dados da Medição de Processos Concorrentes](04_tratamento_de_dados_2.md)
-
-**TODO GERAR ARQUIVO OUT AUTOMATICAMENTE**
 **TODO ADICIONAR PRINT CONSUMO TOTAL**
