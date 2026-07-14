@@ -18,7 +18,7 @@ sudo cat /sys/class/powercap/intel-rapl:0/energy_uj
 ```
 O número devolvido representa a energia acumulada em microjoules desde que o computador foi ligado. Utilizar o framework Powercap torna a medição de energia muito mais simples quando comparada com a leitura direta via instruções RDMSR, já que o trabalho complexo de mais baixo nível foi delegado ao Kernel do sistema operacional.
 
-Ler o arquivo manualmente via terminal é interessante, mas, para automatizar esse processo, podemos delegar esse trabalho para um algoritmo. Em `scripts/leitor-rapl.py` preparamos um script que realiza a medição de energia. Abaixo, detalhamos os elementos centrais do código.
+Ler o arquivo manualmente via terminal é interessante, mas, para automatizar esse processo, podemos delegar esse trabalho para um algoritmo. Em `scripts/leitor-powercap.py` preparamos um script que realiza a medição de energia. Abaixo, detalhamos os elementos centrais do código.
 
 A função `leitorRapl()` realiza uma leitura de energia via Powercap em Python.
 ```python
@@ -104,9 +104,9 @@ Siga os passos abaixo para executar a medição no seu ambiente:
 sudo apt install stress-ng
 ```
 
-**2. Execute o script de medição `leitor-rapl.py`:**
+**2. Execute o script de medição `leitor-powercap.py`:**
 ```bash
-sudo python3 leitor-rapl.py "stress-ng --matrix 0 --matrix-method prod --matrix-size 512 -t 1m" 1 teste-powercap.txt
+sudo python3 scripts/leitor-powercap.py "stress-ng --matrix 0 --matrix-method prod --matrix-size 512 -t 1m" 1 teste-powercap.txt
 ```
 
 Entenda o que cada argumento acima significa:
