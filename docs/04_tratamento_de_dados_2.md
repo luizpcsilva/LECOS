@@ -127,5 +127,30 @@ Ao executar, os novos arquivos devem surgir na raiz da pasta do repositório.
 
 Como podemos observar, fatiar o consumo de energia entre os processos é uma tarefa trabalhosa. É nesse contexto que a ferramenta **Scaphandre** se torna nossa aliada. Na próxima etapa, utilizaremos a ferramenta para replicar o experimento e comparar os resultados.
 
+# Extra: Visualizando o Consumo Total dos Processos
+
+Os gráficos gerados acima são excelentes para visualizar o comportamento do fatiamento de energia ao longo do tempo. No entanto, para para obtermos o consumo total de energia (em joules) de cada processo, por exemplo, precisamos de um script auxiliar para calcular esses valores.
+
+O script `scripts/consumo-total-processos.py` realiza essa tarefa. Semelhante ao script [consumo-total-powercap.py](consumo-total-powercap.py), ele utiliza o arquivo com os dados tratados e isola os períodos em que os processos estiveram ativos, por meio da biblioteca `numpy`.
+
+Assim, para cada processo de estresse, calculamos a potência média e o consumo de energia em joules, informando também consumo total da máquina durante o experimento.
+
+
+## Executando Script de Visualização
+
+1. **Ative o ambiente virtual** (caso ainda não esteja ativo):
+Na raiz do repositório, digite:
+```bash
+source venv/bin/activate
+```
+
+2. **Execute o comando abaixo:**
+```bash
+# Sintaxe: python3 <caminho-do-script> <arquivo_entrada_tratado>
+python3 scripts/consumo-total-processos.py teste-processos-tratado.txt
+```
+No terminal, você verá um painel informando a Potência Média (W) e a Energia Total (J) gasta por cada processo e pela máquina inteira.
+
+
 ## Navegação
 [⬅️ Passo Anterior: Medição de Procesos Concorrentes](03_medicao_processos.md) | [➡️ Passo Seguinte: Medicao de Processos com Scaphandre](05_medicao_scaphandre.md)
