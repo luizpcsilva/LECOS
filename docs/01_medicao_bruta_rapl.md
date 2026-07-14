@@ -45,11 +45,12 @@ def loopLeitorRapl(duracao, output, freq=args.freq):
 
         output.append(leitura)
 ```
-Para aumentarmos o gasto de energia durante a medição, criamos um script de teste de multiplicação de matrizes 512x512 em `scripts/multiplicacao_matrizes.c`. Abaixo, é possível visualizar um recorte do algoritmo.
+Para aumentarmos o gasto de energia durante a medição, utilizaremos um script de multiplicação de matrizes 512x512 da ferramenta open-source `stress-ng`, escrita em C. A ferramenta é especializada em gerar cargas de estresse na máquina.
 
-** TODO MUDAR PARA stress-ng --matrix 0 --matrix-method prod --matrix-size 512 -t 1m** 
+Abaixo, podemos visualizar uma versão simplificada do algoritmo. O código original do algoritmo de estresse pode ser visualizado no [repositório oficial da ferramenta](https://github.com/ColinIanKing/stress-ng/blob/master/stress-matrix.c#L69)
 
 ```c
+//versão simplificada da multiplicação de matrizes do stress-ng
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -94,29 +95,28 @@ int main(int argc, char *argv[]) {
 }
 ```
 
-O script `leitor-rapl.py` localizado na pasta `scripts/` utiliza a biblioteca `subprocess` para gerar 50 instâncias simultâneas do executável compilado `multiplicacao_matrizes.c`. Enquanto isso, as funções `leitorRapl()` e `loopLeitorRapl()` registram o consumo de energia da máquina antes, durante e depois da carga de estresse em uma matriz e, posteriormente, em um arquivo de texto.
+A ferramenta `stress-ng` criará uma instância do estressor para cada núcleo do processador. Enquanto isso, as funções `leitorRapl()` e `loopLeitorRapl()` registram o consumo de energia da máquina antes, durante e depois da carga de estresse em uma matriz e, posteriormente, em um arquivo de texto.
 
 Siga os passos abaixo para executar a medição no seu ambiente:
 
-**1. Compile o código-fonte C:**
-Utilize a *flag* `-O0` para garantir que o compilador desligue as otimizações de "código morto".
+**1. Instale a ferramenta stress-ng**.
 ```bash
-gcc scripts/multiplicacao_matrizes.c -o multiplicacao_matrizes -O0
+sudo apt install stress-ng
 ```
 
-**2. Execute `leitor-rapl.py`:**
+**2. Execute o script de medição `leitor-rapl.py`:**
 ```bash
-sudo python3 leitor-rapl.py "./multiplicacao_matrizes 60" 1 output.txt
+sudo python3 leitor-rapl.py "stress-ng --matrix 0 --matrix-method prod --matrix-size 512 -t 1m" 1 teste-powercap.txt
 ```
 
 Entenda o que cada argumento acima significa:
-- `"./multiplicacao_matrizes 60"`: É a string que contém a chamada da função estressora.
+- `"stress-ng --matrix 0 --matrix-method prod --matrix-size 512 -t 1m"`: É a string que contém a chamada da função estressora.
 - `1`: É a frequência de amostragem. Define que o Python vai ler os contadores de energia Powercap de 1 em 1 segundo.
-- `output.txt`: É o nome do arquivo onde os dados brutos (microjoules e timestamps) serão gravados.
+- `teste-powercap.txt`: É o nome do arquivo onde os dados brutos (microjoules e timestamps) serão gravados.
 
 Ao fim da execução do programa (aproximadamente 80 segundos), abra o arquivo com os dados coletados na raiz do repositório via explorador de arquivos ou via terminal com o comando:
 ```bash
-cat output.txt
+cat teste-powercap.txt
 ```
 Você verá diversos números na tela, como, por exemplo:
 ```
@@ -127,6 +127,6 @@ Você verá diversos números na tela, como, por exemplo:
 ```
 Cada linha é uma medição de energia realizada via Powercap. A primeira coluna representa o valor do contador de energia consultado naquele instante (em microjoules). Já a segunda coluna armazena o valor do contador de tempo (relógio) no momento da medição.
 
-Avaliar o consumo de energia da máquina com essas amostras de dados não é uma tarefa trivial. Na próxima etapa, mostraremos como tratar esses dados e gerar um gráfico com a variação da potência da máquina ao longo do tempo.
+Avaliar o consumo de energia da máquina com essas amostras de dados não é amigável. Na próxima etapa, mostraremos como tratar esses dados e gerar um gráfico com a variação da potência da máquina ao longo do tempo.
 
 [Voltar ao Menu Inicial](../README.md) | [Próximo Passo: Tratamento e Visualização de Dados](02_tratamento_de_dados.md)
