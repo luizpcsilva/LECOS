@@ -32,4 +32,4 @@ pip install -r requirements.txt
 O arquivo `requirements.txt` contém as dependências necessárias.
 
 ## Navegação
-[⬅️ README Principal](../README.md) | [➡️ Passo Seguinte: Medição com Powercap](01_medicao_powercap.md)
+[⬅️ README Principal](../README.md) | [➡️ Próximo Passo: Medição com Powercap](01_medicao_powercap.md)

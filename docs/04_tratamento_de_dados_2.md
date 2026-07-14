@@ -135,4 +135,7 @@ python3 scripts/tratar-dados-medicao-processos.py ../teste-concorrente.txt teste
 ```
 Ao executar, os novos arquivos devem surgir na raiz da pasta do repositório.
 
-Como podemos observar, fatiar o consumo de energia entre os processos é uma tarefa trabalhosa. É nesse contexto que a ferramenta Scaphandre se torna nossa aliada. Na próxima etapa, utilizaremos a ferramenta para replicar o experimento e comparar os resultados.
+Como podemos observar, fatiar o consumo de energia entre os processos é uma tarefa trabalhosa. É nesse contexto que a ferramenta **Scaphandre** se torna nossa aliada. Na próxima etapa, utilizaremos a ferramenta para replicar o experimento e comparar os resultados.
+
+## Navegação
+[⬅️ Passo Anterior: Medição de Procesos Concorrentes](03_medicao_processos.md) | [➡️ Passo Seguinte: Medicao de Processos com Scaphandre](05_medicao_scaphandre.md)

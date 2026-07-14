@@ -107,3 +107,4 @@ Ao executar, os novos arquivos devem surgir na raiz da pasta do repositório.
 Até agora, medimos a energia total do processador. Mas e se tivermos **duas aplicações diferentes rodando ao mesmo tempo** e quisermos saber o gasto de apenas uma? Na próxima etapa, iremos realizar implementar de forma prática o fatiamento de energia entre diferentes processos executando de forma concorrente.
 
 **TODO ADICIONAR PRINT CONSUMO TOTAL**
+[⬅️ Passo Anterior: Medição com Powercap](01_medicao_powercap.md) | [➡️Próximo Passo: Medição de Processos Concorrentes](03_medicao_processos.md)

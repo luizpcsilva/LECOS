@@ -190,7 +190,7 @@ No próximo passo, utilizaremos os contadores acima para calcular o Delta entre 
 
 ---
 ## Navegação
-[⬅️ Passo Anterior: Tratamento de Dados da Medição Total da Máquina](02_tratamento_de_dadps_1.md) | [➡️ Passo Seguinte: Tratamento de Dados da Medição de Processos Concorrentes](04_tratamento_de_dados_2.md)
+[⬅️ Passo Anterior: Tratamento de Dados da Medição Total da Máquina](02_tratamento_de_dados_1.md) | [➡️ Passo Seguinte: Tratamento de Dados da Medição de Processos Concorrentes](04_tratamento_de_dados_2.md)
 
 # Referências
 [^1]: JAY, Mathilde et al. An experimental comparison of software-based power meters: focus on CPU and GPU. In: 2023 IEEE/ACM 23rd International Symposium on Cluster, Cloud and Internet Computing (CCGrid). IEEE, 2023. p. 106-118.
