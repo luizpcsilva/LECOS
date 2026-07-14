@@ -13,7 +13,9 @@ watts = dados[:, 0]
 delta_t = dados[:, 1]
 
 #obtem as colunas em que o computador esteve ativo
-mascara_estresse = watts > 20.0
+tempo_acumulado = np.cumsum(delta_t) 
+mascara_estresse = (tempo_acumulado >= 10.0) & (tempo_acumulado <= 70.0)
+
 watts_estresse = watts[mascara_estresse]
 delta_t_estresse = delta_t[mascara_estresse]
 

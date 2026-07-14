@@ -104,7 +104,14 @@ python3 scripts/tratar-dados-medicao-powercap.py teste-powercap.txt teste-powerc
 ```
 Ao executar, os novos arquivos devem surgir na raiz da pasta do repositório.
 
+# Extra: Visualizando o Consumo Total da Máquina
+
+O gráfico é extremamente útil para visualizar o consumo de energia da máquina no decorrer do tempo, porém, ele não nos fornece o consumo total em joules ou a potência média, por exemplo.
+
+O script `scripts/consumo-total-powercap` realiza essa tarefa. Basta informar o arquivo com os dados tratados e
+
+
+
 Até agora, medimos a energia total do processador. Mas e se tivermos **duas aplicações diferentes rodando ao mesmo tempo** e quisermos saber o gasto de apenas uma? Na próxima etapa, iremos realizar implementar de forma prática o fatiamento de energia entre diferentes processos executando de forma concorrente.
 
-**TODO ADICIONAR PRINT CONSUMO TOTAL**
 [⬅️ Passo Anterior: Medição com Powercap](01_medicao_powercap.md) | [➡️Próximo Passo: Medição de Processos Concorrentes](03_medicao_processos.md)
