@@ -157,15 +157,21 @@ loopLeitorRapl(5, output)
 
 Vamos programar para o Processo 1 (Multiplicação de Matrizes) durar 30 segundos e o Processo 2 (Fibonacci) durar 60 segundos. O stress-ng instanciará um subprocesso de cada tipo para cada núcleo do processador.
 
-No terminal, vá para a raiz do repositório e execute:
+Siga os passos abaixo:
+1. **Ative o ambiente virtual**:
+Na raiz do repositório, digite:
 ```bash
-#Sintaxe: python3 script.py <chamada_estressor 1> <chamada_estressor 2> <frequência de amostragem>
-sudo python3 scripts/energy-profiller-de-processos-cpu-time.py "stress-ng --matrix 0 --matrix-method prod -t 30s" "stress-ng --cpu 0 --cpu-method fibonacci -t 60s" 1 teste_concorrente.txt
+source venv/bin/activate
+``` 
+2. Execute o comando abaixo:
+```bash
+#Sintaxe: python3 script.py <chamada_estressor 1> <chamada_estressor 2> <frequência de amostragem> <nome_arquivo_saida>
+sudo python3 scripts/medicao-processos.py "stress-ng --matrix 0 --matrix-method prod -t 30s" "stress-ng --cpu 0 --cpu-method fibonacci -t 60s" 1 teste_processos.txt
 ```
-**TODO MUDAR PARA SALVAR AUTOMATICAMENTE COM NOME PREDEFINIDO ADICIONAR SINTA-SE LIVRE PRA INSPECIONAR O CODIGO**
-O script será executado em aproximadamente 80 segundos. Ao fim do experimento , será gerado o arquivo `teste-concorrente.txt`. Imprima seu conteúdo com o seguinte comando no terminal:
+
+O script será executado em aproximadamente 80 segundos. Ao fim do experimento , será gerado o arquivo `teste-processos.txt`. Imprima seu conteúdo com o seguinte comando no terminal:
 ```bash
-cat teste-concorrente.txt
+cat teste-processos.txt
 ```
 Diversas linhas e colunas serão impressos na tela:
 ```

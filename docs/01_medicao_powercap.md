@@ -108,13 +108,9 @@ Siga os passos abaixo para executar a medição no seu ambiente:
 
 **1. Execute o script de medição `medicao-powercap.py`:**
 ```bash
+# Sintaxe: sudo python3 <caminho-do-script> <"chamada_estressor"> <frequência_amostragem> <nome_arquivo_saida>
 sudo python3 scripts/medicao-powercap.py "stress-ng --matrix 0 --matrix-method prod --matrix-size 512 -t 1m" 1 teste-powercap.txt
 ```
-
-Entenda o que cada argumento acima significa:
-- `"stress-ng --matrix 0 --matrix-method prod --matrix-size 512 -t 1m"`: É a string que contém a chamada da função estressora.
-- `1`: É a frequência de amostragem. Define que o Python vai ler os contadores de energia Powercap de 1 em 1 segundo.
-- `teste-powercap.txt`: É o nome do arquivo onde os dados brutos (microjoules e timestamps) serão gravados.
 
 ## Visualizando a Saída
 

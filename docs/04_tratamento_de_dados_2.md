@@ -113,25 +113,15 @@ Após a execução do trecho de código acima, a matriz leitura passa a armazena
 
 Ambos o trechos de código acima estão presentes no arquivo `scripts/tratar-dados-medicao-processos.py`. Para executá-lo, será necessário criar um ambiente virtual e instalar as bibliotecas `matplotlib` e `numpy`. Siga os passos a seguir:
 
-1. **Abra o terminal e volte para a raiz do repositório.**
-
-**OBS: Caso já tenha configurado o ambiente virtual com as bibliotecas necessárias anteriormente, execute o passo 3 e 5**.
-
-2. **Crie um ambiente virtual:**
-```bash
-python3 -m venv venv
-```
-3. **Inicialize o ambiente virtual:**
+1. **Ative o ambiente virtual**:
+Na raiz do repositório, digite:
 ```bash
 source venv/bin/activate
-```
-4. **Instale as Bibliotecas necessárias:**
+``` 
+2. **Execute o código:** 
 ```bash
-pip install matplotlib numpy
-```
-5. **Execute o código:** 
-```bash
-python3 scripts/tratar-dados-medicao-processos.py ../teste-concorrente.txt teste-concorrente-tratado.txt
+# Sintaxe: python3 <caminho-do-script> <arquivo_entrada_bruto> <arquivo_saida_tratado>
+python3 scripts/tratar-dados-medicao-processos.py ../teste-processos.txt teste-processos-tratado.txt
 ```
 Ao executar, os novos arquivos devem surgir na raiz da pasta do repositório.
 

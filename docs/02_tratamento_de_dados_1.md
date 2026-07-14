@@ -105,11 +105,10 @@ source venv/bin/activate
 ``` 
 
 2. **Execute o código:** 
-
 ```bash
+# Sintaxe: python3 <caminho-do-script> <arquivo_entrada_bruto> <arquivo_saida_tratado>
 python3 scripts/tratar-dados-medicao-powercap.py teste-powercap.txt teste-powercap-tratado.txt
 ```
-**Sintaxe:** python3 caminho-do-script [arquivo de entrada com os dados brutos] [nome do arquivo de saída]
 
 Ao executar, os novos arquivos devem surgir na raiz da pasta do repositório.
 
@@ -124,10 +123,15 @@ Dentro da janela do estresse, o script cálcula a potência média e realiza a c
 Até agora, medimos a energia total do processador. Mas e se tivermos **duas aplicações diferentes rodando ao mesmo tempo** e quisermos saber o gasto de apenas uma? Na próxima etapa, iremos realizar implementar de forma prática o fatiamento de energia entre diferentes processos executando de forma concorrente.
 
 ## Executando Script de Visualização
-1. **No terminal, na raiz do repositório, execute o comando abaixo**:
-
-
+1. **Ative o ambiente virtual**:
+Na raiz do repositório, digite:
 ```bash
+source venv/bin/activate
+``` 
+
+2. Execute o comando abaixo**:
+```bash
+# Sintaxe: python3 <caminho-do-script> <arquivo_entrada_tratado>
 python3 scripts/consumo-total-powercap.py teste-powercap-tratado.txt
 ```
 **Sintaxe:** python3 caminho-do-script [arquivo de entrada com os dados tratados]
