@@ -94,11 +94,18 @@ arquivoIn.close()
 Assim, o gráfico gerado terá a seguinte forma:
 ![gráfico de variação de potência média ao longo do experimento](image.png)
 
-# Como Executar?
+# Executando o Tratamento de Dados
 
 Ambos o trechos de código acima estão presentes no arquivo `scripts/tratar-dados-medicao-powercap.py`. Para executá-lo, siga os passos a seguir:
 
-1. **Execute o código:** 
+1. **Ative o ambiente virtual**:
+Na raiz do repositório, digite:
+```bash
+source venv/bin/activate
+``` 
+
+2. **Execute o código:** 
+Sintaxe: `caminho-do-script` [arquivo de entrada com os dados brutos] [nome do arquivo de saída]
 ```bash
 python3 scripts/tratar-dados-medicao-powercap.py teste-powercap.txt teste-powercap-tratado.txt
 ```
@@ -108,10 +115,17 @@ Ao executar, os novos arquivos devem surgir na raiz da pasta do repositório.
 
 O gráfico é extremamente útil para visualizar o consumo de energia da máquina no decorrer do tempo, porém, ele não nos fornece o consumo total em joules ou a potência média, por exemplo.
 
-O script `scripts/consumo-total-powercap` realiza essa tarefa. Basta informar o arquivo com os dados tratados e
+O script `scripts/consumo-total-powercap` realiza essa tarefa. Basta informar o arquivo com os dados tratados e o script usará os deltas de tempo para isolar a janela do estresse (entre 10 e 70 segundos), por meio da biblioteca `numpy`.
 
-
+Dentro da janela do estresse, o script cálcula a potência média e realiza a conversão de volta para joules, informando o consumo total da máquina durante a execução do stress-ng.
 
 Até agora, medimos a energia total do processador. Mas e se tivermos **duas aplicações diferentes rodando ao mesmo tempo** e quisermos saber o gasto de apenas uma? Na próxima etapa, iremos realizar implementar de forma prática o fatiamento de energia entre diferentes processos executando de forma concorrente.
+
+## Executando Script de Visualização
+1. **No terminal, na raiz do repositório, execute o comando abaixo**:
+Sintaxe: `caminho-do-script` [arquivo de entrada com os dados tratados]
+```bash
+python3 scripts/consumo-total-powercap.py teste-powercap-tratado.txt
+```
 
 [⬅️ Passo Anterior: Medição com Powercap](01_medicao_powercap.md) | [➡️Próximo Passo: Medição de Processos Concorrentes](03_medicao_processos.md)
