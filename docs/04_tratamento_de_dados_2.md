@@ -105,84 +105,8 @@ Além disso os valores também são armazenados, na mesma ordem, em um novo arqu
 Após a execução do trecho de código acima, a matriz leitura passa a armazenar os valores de potência dos processos e do tempo . Com ela, podemos gerar dois gráfico com `matplotlib`. São eles:
 
 1. `grafico_energia_processos1.png`: Gráfico de barras agrupadas lado a lado, utilizado para comparar o consumo dos processos entre si.
-
-2. `grafico_energia_processos2.png`: Gráfico de barras empilhadas, onde o consumo do Processo 2 é desenhado diretamente acima do Processo 1. Útil para compararmos com o consumo total da máquina
-
-```python
-def plotarGrafico(leitura):
-    taxaAmostragem = leitura[0][3]
-    dados = np.array(leitura)
-
-    p1_watts = dados[:, 0]
-    p2_watts = dados[:, 1]
-    total_watts = dados[:, 2]
-    tempos = dados[:, 3]
-
-    #Criando a figura e os eixos
-    fig, ax = plt.subplots(figsize=(12, 6))
-
-    #Plotando as barras lado a lado
-    largura_barra = taxaAmostragem/2
-
-    #Barra do Processo 1 (Deslocada meia largura para a esquerda)
-    ax.bar(tempos - largura_barra/2, p1_watts, width=largura_barra, label='Processo 1', color='#1f77b4', alpha=0.8)
-
-    #Barra do Processo 2 (Deslocada meia largura para a direita)
-    ax.bar(tempos + largura_barra/2, p2_watts, width=largura_barra, label='Processo 2', color='#ff7f0e', alpha=0.8)
-
-    #Plotando a linha do consumo total (Centralizada no tempo exato)
-    ax.plot(tempos, total_watts, label='Gasto Total da Máquina', color='red', linewidth=2, marker='o', markersize=4)
-
-    #Configurações estéticas do gráfico
-    ax.set_title('Consumo de Energia: Processos vs Máquina Total', fontsize=14, fontweight='bold')
-    ax.set_xlabel('Tempo (Segundos)', fontsize=12)
-    ax.set_ylabel('Potência (Watts)', fontsize=12)
-
-    #Adicionando uma grade para facilitar a leitura
-    ax.grid(axis='y', linestyle='--', alpha=0.7)
-
-    #Mostrando a legenda no canto superior direito
-    ax.legend(loc='upper right')
-
-    #Ajustando as margens para não cortar nenhum rótulo
-    plt.tight_layout()
-
-    plt.savefig('output/grafico_energia_processos1.png', dpi=300)
-
-    #Criando a figura e os eixos
-    fig, ax = plt.subplots(figsize=(12, 6))
-
-    #Plotando as barras empilhadas
-    largura_barra = taxaAmostragem * 0.8
-
-    # Barra do Processo 1 (Fica na base)
-    ax.bar(tempos, p1_watts, width=largura_barra, label='Processo 1', color='#1f77b4', alpha=0.8)
-
-    #Barra do Processo 2 (Fica em cima do Processo 1)
-    ax.bar(tempos, p2_watts, width=largura_barra, bottom=p1_watts, label='Processo 2', color='#ff7f0e', alpha=0.8)
-
-    #Plotando a linha do consumo total 
-    ax.plot(tempos, total_watts, label='Gasto Total da Máquina', color='red', linewidth=2, marker='o', markersize=4)
-
-    #Configurações estéticas do gráfico
-    ax.set_title('Consumo de Energia: Processos vs Máquina Total', fontsize=14, fontweight='bold')
-    ax.set_xlabel('Tempo (Segundos)', fontsize=12)
-    ax.set_ylabel('Potência (Watts)', fontsize=12)
-
-    #adicionando uma grade sutil para facilitar a leitura
-    ax.grid(axis='y', linestyle='--', alpha=0.7)
-
-    #Mostrando a legenda no canto superior direito
-    ax.legend(loc='upper right')
-
-    #Ajustando as margens para não cortar nenhum rótulo
-    plt.tight_layout()
-
-    plt.savefig('output/grafico_energia_processos2.png', dpi=300)
-```
-
-Ao fim da execução da função acima, os dois gráficos devem surgir na raiz do diretório. Segue abaixo um exemplo:
 ![gráfico de potência dos processos 1](grafico_energia_processos1.png)
+2. `grafico_energia_processos2.png`: Gráfico de barras empilhadas, onde o consumo do Processo 2 é desenhado diretamente acima do Processo 1. Útil para compararmos com o consumo total da máquina
 ![gráfico de potência dos processos 2](grafico_energia_processos2.png)
 
 # Como Executar?
@@ -211,4 +135,4 @@ python3 scripts/tratar-dados-medicao-processos.py ../teste-concorrente.txt teste
 ```
 Ao executar, os novos arquivos devem surgir na raiz da pasta do repositório.
 
-Como podemos observar, fatiar o consumo de energia entre os processos é uma tarefa trabalhosa. É nesse contexto que a ferramenta Scaphandre se torna nossa aliada. Na próxima etapa, utilizaremos a ferramenta para replicar o experimento e comparar os resultados
+Como podemos observar, fatiar o consumo de energia entre os processos é uma tarefa trabalhosa. É nesse contexto que a ferramenta Scaphandre se torna nossa aliada. Na próxima etapa, utilizaremos a ferramenta para replicar o experimento e comparar os resultados.

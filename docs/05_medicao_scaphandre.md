@@ -1,0 +1,1 @@
+O [Scaphandre](github.com/hubblo-org/scaphandre) é um agente de monitoramento escrito na linguagem Rust que permite obter o consumo de energia por processo, por máquina virtual ou por contêiner em execução em uma CPU. 
