@@ -1,3 +1,16 @@
+<table align="right" width="300">
+  <tr>
+    <th>📌 Índice Rápido</th>
+  </tr>
+  <tr>
+    <td>
+      <a href="#aviso">Aviso para Windows/Mac</a><br>
+      <a href="#passo-1">Passo 1: Terminal</a><br>
+      <a href="#passo-2">Passo 2: Virtual Env</a>
+    </td>
+  </tr>
+</table>
+
 >**Nota sobre Sistemas Operacionais:**
 > Este laboratório foi construído para a família **Ubuntu/Debian**. Os comandos abaixo utilizam o gerenciador de pacotes `apt` e nomenclaturas específicas desta distribuição. 
 > Se você utiliza **Fedora**, **Arch Linux** ou outras distros, será necessário adaptar os pacotes no seu respectivo gerenciador (Ex: `dnf` ou `pacman`). O Docker, por exemplo, é frequentemente chamado apenas de `docker`, e o `venv` já costuma vir embutido no pacote `python` padrão dessas distribuições.
