@@ -90,10 +90,12 @@ for amostra in dados_json:
     tempo_atual = amostra.get('host', {}).get('timestamp', 0)
     tempos_list.append(tempo_atual)
     
-    #pega o consumo total da máquina
-    total_w = amostra.get('host', {}).get('consumption', 0) / 1_000_000.0
+    #pega o consumo total da máquina (expecificamente o dominio package -> id = 0)
+    lista_sockets = amostra.get('sockets', [])
+    consumo_socket_0 = next((s.get('consumption', 0) for s in lista_sockets if s.get('id') == 0), 0)
+    total_w = consumo_socket_0 / 1_000_000.0
     total_watts_list.append(total_w)
-    
+
     #zera os contadores de watts
     watts_mat = 0.0
     watts_fib = 0.0

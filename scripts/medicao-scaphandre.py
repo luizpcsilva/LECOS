@@ -37,5 +37,6 @@ stress2.wait()
 
 time.sleep(5)
 
+#finaliza o scaphandre
 subprocess.run(["sudo", "docker", "stop", "meu_scaphandre"], stdout=subprocess.DEVNULL)
 #--------------------- Fim Medição -------------------------
