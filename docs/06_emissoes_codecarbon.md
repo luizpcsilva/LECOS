@@ -49,7 +49,7 @@ source venv/bin/activate
 2. **Execute o script**:
 ```bash
 # Sintaxe: sudo venv/bin/python scripts/leitor-rapl-codecarbon.py <"comando_estressor"> <frequência_amostragem> <nome_base_saida>
-sudo venv/bin/python scripts/medicao-codecarbon.py "stress-ng --matrix 0 --matrix-method prod -t 30s" 1 medicao-codecarbon.csv
+sudo venv/bin/python scripts/medicao-codecarbon.py "stress-ng --matrix 0 --matrix-method prod -t 60s" 1 medicao-codecarbon.csv
 ```
 
 # Analisando a Saída:
@@ -79,7 +79,7 @@ source venv/bin/activate
 2. Execute o comando abaixo**:
 ```bash
 # Sintaxe: python3 <caminho-do-script> <arquivo_entrada_tratado>
-python3 scripts/consumo-total-powercap.py teste-powercap-tratado.txt
+python3 scripts/consumo-total-codecarbon.py medicao-codecarbon.csv
 ```
 **Sintaxe:** python3 caminho-do-script [arquivo de entrada com os dados tratados]
 

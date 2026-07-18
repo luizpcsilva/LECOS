@@ -41,7 +41,7 @@ def plotarGrafico(leitura):
     # Ajustando as margens para não cortar nenhum rótulo
     plt.tight_layout()
 
-    plt.savefig('output/grafico_energia_processos1.png', dpi=300)
+    plt.savefig('grafico_energia_processos1.png', dpi=300)
 
     # Criando a figura e os eixos
     fig, ax = plt.subplots(figsize=(12, 6))
@@ -74,7 +74,7 @@ def plotarGrafico(leitura):
     # Ajustando as margens para não cortar nenhum rótulo
     plt.tight_layout()
 
-    plt.savefig('output/grafico_energia_processos2.png', dpi=300)
+    plt.savefig('grafico_energia_processos2.png', dpi=300)
 
 #configuração dos argumentos passados via terminal
 parser = argparse.ArgumentParser(description="")

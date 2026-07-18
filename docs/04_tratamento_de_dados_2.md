@@ -122,7 +122,7 @@ source venv/bin/activate
 2. **Execute o código:** 
 ```bash
 # Sintaxe: python3 <caminho-do-script> <arquivo_entrada_bruto> <arquivo_saida_tratado>
-python3 scripts/tratar-dados-medicao-processos.py ../teste-processos.txt teste-processos-tratado.txt
+python3 scripts/tratar-dados-medicao-processos.py teste-processos.txt teste-processos-tratado.txt
 ```
 Ao executar, os novos arquivos devem surgir na raiz da pasta do repositório.
 

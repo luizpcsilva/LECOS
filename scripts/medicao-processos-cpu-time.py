@@ -105,7 +105,7 @@ loopLeitorRapl(5, output)
 #--------------------- Fim Medição -------------------------
 
 #salva cada elemento em um arquivo de texto
-with open("output/"+args.nomeOutput, "w") as fileOutput:
+with open(args.nomeOutput, "w") as fileOutput:
     for linha in output:
         for elem in linha:  
             fileOutput.write(str(elem) + " ")
