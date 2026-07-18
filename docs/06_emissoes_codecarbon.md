@@ -65,7 +65,7 @@ Execute o script passando o log gerado pelo CodeCarbon como argumento:
 
 ```bash
 # Sintaxe: python3 scripts/analisar-codecarbon.py <caminho_do_log_csv>
-python3 scripts/analisar-codecarbon.py emissoes.csv
+python3 scripts/consumo-total-codecarbon.py medicao-codecarbon.csv
 ```
 
 ## Extra: Comparação de resultados
