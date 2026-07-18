@@ -1,0 +1,84 @@
+# Medição de Energia via Powercap
+
+A interface RAPL (Running Average Power Limit) é a referência para estimar o consumo de energia de processadores. A forma mais básica para acessar seus contadores de energia é por meio dos MSRs (Model Specific Registers). Trata-se de registradores de 32 ou 64 bits que são atualizados aproximadamente a cada 1 ms.
+
+Em ambientes Linux é possível utilizar o **Powercap** (`sysfs powercap`). O Powercap é um framework do sistema operacional que provê uma interface de acesso no espaço de usuário via sistema de arquivos virtuais sysfs, organizando os componentes de forma hierárquica em diretórios. 
+
+Utilize o comando abaixo no terminal para verificar se o powercap está disponível no seu sistema:
+```bash
+ls /sys/class/powercap/
+```
+Se aparecer um diretório chamado intel-rapl:0 ou semelhante, então está tudo certo. Caso contrário, tente carregar o driver com o comando abaixo e repita o comando acima.
+```bash
+sudo modprobe intel_rapl
+```
+Com o powercap funcionando corretamente, podemos realizar a leitura do contador de energia do domínio principal (`package`) no arquivo `energy_uj` localizado em `intel-rapl:0` via cat.
+```bash
+sudo cat /sys/class/powercap/intel-rapl:0/energy_uj
+```
+O número devolvido representa a energia acumulada em microjoules desde que o computador foi ligado. Utilizar o framework Powercap torna a medição de energia muito mais simples quando comparada com a leitura direta via instruções RDMSR, já que o trabalho complexo de mais baixo nível foi delegado ao Kernel do sistema operacional.
+
+## Automatizando a Medição
+
+Ler o arquivo manualmente via terminal é interessante, mas, para automatizar esse processo, podemos delegar esse trabalho para um algoritmo. Em `scripts/medicao-powercap.py` preparamos um script que realiza a medição de energia. Abaixo, detalhamos os elementos centrais do código.
+
+A função `leitorRapl()` realiza uma leitura de energia via Powercap em Python.
+```python
+#retorna o valor do contador de microjoule de package como string
+def leitorRapl():
+    with open("/sys/class/powercap/intel-rapl/subsystem/intel-rapl:0/energy_uj", "r") as rapl:
+        valor = rapl.readline().strip()
+        return valor
+```
+
+Entretanto, para monitorarmos uma aplicação computacional, precisamos de amostragem contínua por meio de um laço de repetição.
+A função `loopLeitorRapl()` realiza a leitura do consumo de energia do package continuamente com frequência e duração definidas e armazena os resultados em um array `output`.
+```python
+def loopLeitorRapl(duracao, output, freq=args.freq): 
+    tempoInicio = time.perf_counter()
+    tempo = tempoInicio
+    while (tempo - tempoInicio <= duracao): 
+        leitura = [0] * 2
+
+        leitura[0] = leitorRapl()
+        leitura[1] = tempo
+        time.sleep(args.freq)
+        tempo = time.perf_counter()
+
+        output.append(leitura)
+```
+
+# Estressando a Máquina
+
+Para aumentarmos o gasto de energia durante a medição, utilizaremos um script de multiplicação de matrizes 512x512 da ferramenta open-source `stress-ng`, escrita em C. A ferramenta é especializada em gerar cargas de estresse na máquina. O código original do algoritmo de estresse pode ser visualizado no [repositório oficial da ferramenta](https://github.com/ColinIanKing/stress-ng/blob/master/stress-matrix.c#L69).
+
+A ferramenta `stress-ng` criará uma instância do estressor para cada núcleo do processador. Enquanto isso, as funções `leitorRapl()` e `loopLeitorRapl()` registram o consumo de energia da máquina antes, durante e depois da carga de estresse em uma matriz e, posteriormente, em um arquivo de texto.
+
+# Executando o Código
+
+Siga os passos abaixo para executar a medição no seu ambiente:
+
+**1. Execute o script de medição `medicao-powercap.py`:**
+```bash
+# Sintaxe: sudo python3 <caminho-do-script> <"chamada_estressor"> <frequência_amostragem> <nome_arquivo_saida>
+sudo python3 scripts/medicao-powercap.py "stress-ng --matrix 0 --matrix-method prod --matrix-size 512 -t 1m" 1 teste-powercap.txt
+```
+
+## Visualizando a Saída
+
+Ao fim da execução do programa (aproximadamente 80 segundos), abra o arquivo com os dados coletados na raiz do repositório via explorador de arquivos ou via terminal com o comando:
+```bash
+cat teste-powercap.txt
+```
+Você verá diversos números na tela, como, por exemplo:
+```
+99981016814 1646987.469997645 
+100036646188 1646988.470136542 
+100092236011 1646989.470343441
+...
+```
+Cada linha é uma medição de energia realizada via Powercap. A primeira coluna representa o valor do contador de energia consultado naquele instante (em microjoules). Já a segunda coluna armazena o valor do contador de tempo (relógio) no momento da medição.
+
+Avaliar o consumo de energia da máquina com essas amostras de dados não é amigável. Na próxima etapa, mostraremos como tratar esses dados e gerar um gráfico com a variação da potência da máquina ao longo do tempo.
+
+[⬅️ Passo Anterior: Pré Requisitos](00_pre_requisitos.md) | [➡️Próximo Passo: Tratamento e Visualização de Dados](02_tratamento_de_dados_1.md)

@@ -1,0 +1,114 @@
+import argparse
+import matplotlib.pyplot as plt
+import numpy as np
+
+def plotarGrafico(leitura):
+    dados = np.array(leitura)
+
+    p1_watts = dados[:, 0]
+    p2_watts = dados[:, 1]
+    total_watts = dados[:, 2]
+    tempos = dados[:, 3]
+
+    #calcula a taxa de amostragem das mediçoes
+    taxaAmostragem = tempos[1] - tempos[0] if len(tempos) > 1 else 1.0
+
+    #criando a figura e os eixos
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    #plotando as barras LADO A LADO
+    #diminuímos a largura da barra para caberem duas no mesmo "segundo"
+    largura_barra = taxaAmostragem / 2
+
+    #barra do processo 1
+    ax.bar(tempos - largura_barra/2, p1_watts, width=largura_barra, label='Processo 1', color='#1f77b4', alpha=0.8)
+
+    #barra do processo 2
+    ax.bar(tempos + largura_barra/2, p2_watts, width=largura_barra, label='Processo 2', color='#ff7f0e', alpha=0.8)
+
+    #plotando a linha do consumo total
+    ax.plot(tempos, total_watts, label='Gasto Total da Máquina', color='red', linewidth=2, marker='o', markersize=4)
+
+    #configurações estéticas do gráfico
+    ax.set_title('Consumo de Energia: Processos vs Máquina Total', fontsize=14, fontweight='bold')
+    ax.set_xlabel('Tempo (Segundos)', fontsize=12)
+    ax.set_ylabel('Potência (Watts)', fontsize=12)
+    #adicionando grade no plano de fundo
+    ax.grid(axis='y', linestyle='--', alpha=0.7)
+    #mostrando a legenda no canto superior direito
+    ax.legend(loc='upper right')
+    #ajustando as margens
+    plt.tight_layout()
+
+    #salva o grafico de barras lado a lado
+    plt.savefig('grafico-cpu-time1.png', dpi=300)
+
+    #criando novo grafico
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    #plotando as barras EMPILHADAS
+    largura_barra = taxaAmostragem * 0.8
+
+    #barra do processo 1
+    ax.bar(tempos, p1_watts, width=largura_barra, label='Processo 1', color='#1f77b4', alpha=0.8)
+
+    #barra do Processo 2 (em cima do processo 1)
+    ax.bar(tempos, p2_watts, width=largura_barra, bottom=p1_watts, label='Processo 2', color='#ff7f0e', alpha=0.8)
+
+    #plotando a linha do consumo total
+    ax.plot(tempos, total_watts, label='Gasto Total da Máquina', color='red', linewidth=2, marker='o', markersize=4)
+
+    #configurações estéticas do gráfico
+    ax.set_title('Consumo de Energia: Processos vs Máquina Total', fontsize=14, fontweight='bold')
+    ax.set_xlabel('Tempo (Segundos)', fontsize=12)
+    ax.set_ylabel('Potência (Watts)', fontsize=12)
+    #adicionando grade no fundo
+    ax.grid(axis='y', linestyle='--', alpha=0.7)
+    #adicionando legenda
+    ax.legend(loc='upper right')
+    #ajustando as margens 
+    plt.tight_layout()
+    #salvando o gráfico
+    plt.savefig('grafico-cpu-time2.png', dpi=300)
+
+
+#configuração dos argumentos passados via terminal
+parser = argparse.ArgumentParser(description="")
+parser.add_argument("caminhoInput", type=str, help="caminho para o arquivo com dados brutos")
+parser.add_argument("nomeOutput", type=str, help="nome para o arquivo de saida com os dados tratados")
+args = parser.parse_args()
+
+outputFile = open(args.nomeOutput, "w")
+leitura= []
+tempoMediçao = 0
+
+with open(args.caminhoInput, "r") as inputFile:
+    linhas = inputFile.readlines()
+    linhaAnterior = linhas[0].split()
+    
+    for i in range(1, len(linhas)):
+        linha = linhas[i].split()
+        wP1, wP2 = 0, 0
+
+        timestamp = float(linha[4]) - float(linhaAnterior[4])
+        tempoMediçao += timestamp
+        wTotal = ((float(linha[0]) - float(linhaAnterior[0])) *(10**-6)) /timestamp
+        
+        if(int(linhaAnterior[3]) != 0 and int(linha[3]) != 0):
+            tickTotal = max(0, float(linha[3]) - float(linhaAnterior[3]))
+            tickP1 = max(0, float(linha[1]) - float(linhaAnterior[1]))
+            tickP2 = max(0, float(linha[2]) - float(linhaAnterior[2]))
+
+            #calcula o consumo em watts de P1 e P2 cvimom uma proporção entre tickP e wTotal
+            wP1 = (tickP1 * wTotal)/tickTotal
+            wP2 = (tickP2 * wTotal)/tickTotal
+
+        #populando matriz para criar graficos depois
+        leitura.append([wP1, wP2, wTotal, tempoMediçao])
+        outputFile.write(f"{wP1} {wP2} {wTotal} {tempoMediçao} \n")
+
+        linhaAnterior = linha
+
+plotarGrafico(leitura)
+outputFile.close()
+        
