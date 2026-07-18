@@ -17,10 +17,8 @@ args.func1 = args.func1.split()
 
 #--------------------- Inicio Medição ----------------------
 
-with OfflineEmissionsTracker(country_iso_code="BRA", measure_power_secs=args.freq, output_dir="output/", output_file=args.caminhoOutput, log_level="error") as tracker:
+with OfflineEmissionsTracker(country_iso_code="BRA", measure_power_secs=args.freq, output_dir=".", output_file=args.caminhoOutput, log_level="error") as tracker:
     #inicia stressng
-    stress = subprocess.Popen(args.func)
+    stress = subprocess.Popen(args.func1)
     while(stress.poll() == None):
         time.sleep(args.freq)
-
-#--------------------- Fim Medição -------------------------

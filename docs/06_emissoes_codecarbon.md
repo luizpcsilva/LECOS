@@ -30,9 +30,9 @@ args.func1 = args.func1.split()
 
 #--------------------- Inicio Medição ----------------------
 
-with OfflineEmissionsTracker(country_iso_code="BRA", measure_power_secs=args.freq, output_dir="output/", output_file=args.caminhoOutput, log_level="error") as tracker:
+with OfflineEmissionsTracker(country_iso_code="BRA", measure_power_secs=args.freq, output_dir=".", output_file=args.caminhoOutput, log_level="error") as tracker:
     #inicia stressng
-    stress = subprocess.Popen(args.func)
+    stress = subprocess.Popen(args.func1)
     while(stress.poll() == None):
         time.sleep(args.freq)
 
@@ -49,11 +49,10 @@ source venv/bin/activate
 2. **Execute o script**:
 ```bash
 # Sintaxe: sudo venv/bin/python scripts/leitor-rapl-codecarbon.py <"comando_estressor"> <frequência_amostragem> <nome_base_saida>
-sudo venv/bin/python scripts/leitor-rapl-codecarbon.py "stress-ng --matrix 0 --matrix-method prod -t 30s" 1 medicao-codecarbon.json
+sudo venv/bin/python scripts/medicao-codecarbon.py "stress-ng --matrix 0 --matrix-method prod -t 30s" 1 medicao-codecarbon.csv
 ```
 
 # Analisando a Saída:
-
 
 ## Navegação
 [⬅️ Passo Anterior: Medicao de Processos com Scaphandre](05_medicao_scaphandre.md)
