@@ -4,7 +4,7 @@ Para fatiar o consumo de energia da máquina entre os processos em execução, a
 
 O Scaphandre permite que a sua execução seja feita via Docker. Porém, para permitir seu funcionamento, precisamos fornecer permissões de acesso ao diretório `/proc` e `/sys/class/powercap`, responsáveis por armazenar as métricas de tempo do processo e o framework powercap, respectivamente.
 
-Além disso, o Scaphandre foi pensado em ser extensível, basicamente se limitando a duas tarefas: **coletar/pré-computar** as métricas de consumo energético e **exporta-lás**. Para visualizar os resultados, exportaremos os resultados para o terminal (stdout) e para um arquivo json.
+Além disso, o Scaphandre foi pensado em ser extensível, basicamente se limitando a duas tarefas: **coletar/pré-computar** as métricas de consumo energético e **exporta-lás**. Para visualizar os resultados, exportaremos os resultados para o terminal (`stdout`) e para um arquivo json. Note que outros exportadores podem ser utilizados, como o Prometheus e Grafana.`
 
 # Execução com saída no terminal
 
