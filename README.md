@@ -20,7 +20,7 @@ Para iniciar o minicurso, abra o terminal do seu sistema operacional Linux e fa�
 git clone https://github.com/luizpcsilva/LECOS.git
 
 # acesse a pasta do repositório
-cd LECOS-minicurso-JAI-2026-SBC
+cd LECOS
 ```
 
 [➡️ Próximo Passo: Instalação de Pré Requisitos](docs/00_pre_requisitos.md)
