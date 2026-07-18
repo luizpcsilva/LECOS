@@ -14,6 +14,7 @@ Com uma subtração básica, descobrimos a variação de tempo e energia:
 $$\Delta E = 100036646188 - 99981016814 = 55629374$$
 Convertendo para joules:
 $$\Delta E = 55629374 \times 10^-6 \approx 55,6 \text{ joules} $$
+
 $$\Delta t = 1646988.470136542 - 1646987.469997645 \approx 1 \text{ segundo} $$
 
 Assim, a Potência Média será de **55,6 Watts**.

@@ -27,6 +27,7 @@ Suponha que duas medições foram extraídas do arquivo gerado pelo script de pe
 ```
 Através da subtração entre a linha atual e linha anterior, descobrimos as variações do intervalo:
 $$\Delta E = 142726054908 - 142691023442 \approx 35,03 \text{ Joules}$$
+
 $$\Delta t = 352469.242651642 - 352467.702212871 \approx 1,54 \text{ segundos}$$
 
 Com isso, obtemos a potência média consumida pelo processador no intervalo:
