@@ -14,8 +14,6 @@ args = parser.parse_args()
 args.func = args.func.split()
 
 output = []
-QTD_INSTANCIAS_ESTRESSOR = 50
-estressores = []
 
 #retorna o valor do contador de microjoule de package como string
 def leitorRapl():
@@ -36,23 +34,18 @@ def loopLeitorRapl(duracao, output, freq=args.freq):
 
         output.append(leitura)
 
-def algum_processo_ativo(lista_processos):
-    for p in lista_processos:
-        if p.poll() is None:
-            return True
-    return False
+
+#cria o arquivo de output
+file = open(args.caminhoOutput, "w")
 
 #--------------------- Inicio Medição ----------------------
 
-#10 segundos de testagem sem estresse
+#10 segundos de testagem sem stress
 loopLeitorRapl(10, output)
 
-#inicia estressores
-for i in range(QTD_INSTANCIAS_ESTRESSOR):
-    processo = subprocess.Popen(args.func)
-    estressores.append(processo)
-
-while(algum_processo_ativo(estressores)):
+#inicia stressng
+stress = subprocess.Popen(args.func)
+while(stress.poll() == None):
     leitura = [0] * 2
 
     leitura[0] = leitorRapl()
