@@ -93,7 +93,7 @@ arquivoIn.close()
 ``` 
 
 Assim, o gráfico gerado terá a seguinte forma:
-![gráfico de variação de potência média ao longo do experimento](image.png)
+![gráfico de variação de potência média ao longo do experimento](grafico-potencia-total.png)
 
 # Executando o Tratamento de Dados
 
