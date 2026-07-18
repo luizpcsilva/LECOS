@@ -50,55 +50,7 @@ def loopLeitorRapl(duracao, output, freq=args.freq):
 
 # Estressando a Máquina
 
-Para aumentarmos o gasto de energia durante a medição, utilizaremos um script de multiplicação de matrizes 512x512 da ferramenta open-source `stress-ng`, escrita em C. A ferramenta é especializada em gerar cargas de estresse na máquina.
-
-Abaixo, podemos visualizar uma versão simplificada do algoritmo. O código original do algoritmo de estresse pode ser visualizado no [repositório oficial da ferramenta](https://github.com/ColinIanKing/stress-ng/blob/master/stress-matrix.c#L69)
-
-```c
-//versão simplificada da multiplicação de matrizes do stress-ng
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-#define N 512 
-
-double a[N][N];
-double b[N][N];
-double r[N][N];
-
-void inicializar_matrizes() {
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            a[i][j] = (double)(rand() % 100) / 10.0;
-            b[i][j] = (double)(rand() % 100) / 10.0;
-            r[i][j] = 0.0;
-        }
-    }
-}
-
-void multiplicar_matrizes() {
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            for (int k = 0; k < N; k++) {
-                r[i][j] += a[i][k] * b[k][j];
-            }
-        }
-    }
-}
-
-int main(int argc, char *argv[]) {
-    int tempo_limite = atoi(argv[1]);
-    inicializar_matrizes();
-
-    time_t inicio = time(NULL);
-
-    while (time(NULL) - inicio < tempo_limite) {
-        multiplicar_matrizes();
-    }
-
-    return 0;
-}
-```
+Para aumentarmos o gasto de energia durante a medição, utilizaremos um script de multiplicação de matrizes 512x512 da ferramenta open-source `stress-ng`, escrita em C. A ferramenta é especializada em gerar cargas de estresse na máquina. O código original do algoritmo de estresse pode ser visualizado no [repositório oficial da ferramenta](https://github.com/ColinIanKing/stress-ng/blob/master/stress-matrix.c#L69).
 
 A ferramenta `stress-ng` criará uma instância do estressor para cada núcleo do processador. Enquanto isso, as funções `leitorRapl()` e `loopLeitorRapl()` registram o consumo de energia da máquina antes, durante e depois da carga de estresse em uma matriz e, posteriormente, em um arquivo de texto.
 

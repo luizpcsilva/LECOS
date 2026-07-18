@@ -102,24 +102,8 @@ Abaixo, detalharemos a escolha dos algoritmos de estresse que utilizaremos para 
 
 Ao invés de executar dois processos idênticos concorrentemente, vamos utilizar dois algoritmos de natureza diferentes para a medição de energia. Utilizaremos a ferramenta `stress-ng`.
 
-* Processo 1: Multiplicação de Matrizes (`--matrix-method prod`), definida e utilizada nas etapas anteriores do minicurso.
+* Processo 1: Multiplicação de Matrizes (`--matrix-method prod`), a mesma utilizada nas etapas anteriores do minicurso.
 * Processo 2: O cálculo contínuo da sequência de Fibonnaci (`--cpu-method fibonacci`). 
-
-Abaixo, podemos visualizar uma versão simplificada do algoritmo de estresse de Fibonacci utilizado pela ferramenta `stress-ng`:
-```c
-void calcular_fibonacci() {
-    uint64_t f1 = 0;
-    uint64_t f2 = 1;
-    uint64_t proximo;
-
-    //Um laço de repetição que termina apenas ao acabar a duração do script informada.
-    while (executando) {
-        proximo = f1 + f2;
-        f1 = f2;
-        f2 = proximo;
-    }
-}
-```
 
 O código original do algoritmo de estresse de fibonacci do `stress-ng` pode ser visualizado no [repositório oficial da ferramenta](https://github.com/ColinIanKing/stress-ng/blob/master/stress-cpu.c#L1383).
 
