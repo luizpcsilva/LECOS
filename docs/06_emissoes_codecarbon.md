@@ -53,6 +53,36 @@ sudo venv/bin/python scripts/medicao-codecarbon.py "stress-ng --matrix 0 --matri
 ```
 
 # Analisando a Saída:
+Ao fim da execução, o CodeCarbon salvará os resultados no arquivo `emissoes.csv`. Precisamos extrair os valores de energia da CPU (`cpu_energy` e `cpu_power`). Além disso, também veremos a pegada de carbono da máquina durante a execução do script. 
+
+Entretanto, para o cálculo das emissões de carbono, o CodeCarbon considera o gasto de outros componentes da máquina além da CPU, como a memória RAM. Para isso, são implementadas heurísticas que não serão abordadas no minicurso.
+
+## O Script de Extração e Análise
+
+O script `scripts/analisar-codecarbon.py`analisa o CSV gerado e imprime um painel com as informações da medição realizada.
+
+Execute o script passando o log gerado pelo CodeCarbon como argumento:
+
+```bash
+# Sintaxe: python3 scripts/analisar-codecarbon.py <caminho_do_log_csv>
+python3 scripts/analisar-codecarbon.py emissoes.csv
+```
+
+## Extra: Comparação de resultados
+Podemos comparar a medição do consumo de energia da máquina via Powercap (realizada na etapa 1 do minicurso) com a ferramenta CodeCarbon. Execute novamente o comando abaixo e compare com a saída acima: 
+1. **Ative o ambiente virtual**:
+Na raiz do repositório, digite:
+```bash
+source venv/bin/activate
+``` 
+
+2. Execute o comando abaixo**:
+```bash
+# Sintaxe: python3 <caminho-do-script> <arquivo_entrada_tratado>
+python3 scripts/consumo-total-powercap.py teste-powercap-tratado.txt
+```
+**Sintaxe:** python3 caminho-do-script [arquivo de entrada com os dados tratados]
+
 
 ## Navegação
 [⬅️ Passo Anterior: Medicao de Processos com Scaphandre](05_medicao_scaphandre.md)
