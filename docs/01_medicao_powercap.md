@@ -54,6 +54,23 @@ Para aumentarmos o gasto de energia durante a medição, utilizaremos um script 
 
 A ferramenta `stress-ng` criará uma instância do estressor para cada núcleo do processador. Enquanto isso, as funções `leitorRapl()` e `loopLeitorRapl()` registram o consumo de energia da máquina antes, durante e depois da carga de estresse em uma matriz e, posteriormente, em um arquivo de texto.
 
+Para executar o o estressor, utilizaremos o comando abaixo:
+
+**Comando de Estresse:**
+```bash
+# Sintaxe: stress-ng <estressor> <qtd_nucleos> <método> <tamanho_matriz> <tempo>
+stress-ng --matrix 0 --matrix-method prod --matrix-size 512 -t 1m
+```
+## Explicação dos Argumentos:
+
+* ``--matrix 0``: Ativa o estressor com matrizes. O valor 0 instrui o programa a criar uma instância para cada núcleo de CPU disponível na sua máquina, garantindo que o processador inteiro chegue a 100% de uso.
+
+*``--matrix-method prod``: Define o método do estressor que será usado. A opção prod implementa continuamente multiplicações de matrizes.
+
+*``--matrix-size 512``: Define a dimensão da matriz (512x512).
+
+*``-t 1m``: Define a duração máxima do  1 minuto.
+
 # Executando o Código
 
 Siga os passos abaixo para executar a medição no seu ambiente:

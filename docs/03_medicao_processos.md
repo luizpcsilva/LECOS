@@ -107,6 +107,21 @@ Ao invés de executar dois processos idênticos concorrentemente, vamos utilizar
 
 O código original do algoritmo de estresse de fibonacci do `stress-ng` pode ser visualizado no [repositório oficial da ferramenta](https://github.com/ColinIanKing/stress-ng/blob/master/stress-cpu.c#L1383).
 
+Para executar o segundo estressor, utilizaremos o comando abaixo:
+
+**Comando de Estresse (Processo 2):**
+```bash
+# Sintaxe: stress-ng <estressor> <qtd_nucleos> <método> <tempo>
+stress-ng --cpu 0 --cpu-method fibonacci -t 60s
+```
+### Explicação dos Argumentos:
+
+* ``--cpu 0``: Ativa o estressor de CPU. O valor 0 instrui o programa a criar uma instância para cada núcleo de processamento disponível, garantindo a carga máxima de trabalho.
+
+* ``--cpu-method fibonacci``: Define o método do estressor. A opção fibonacci implementa cálculos contínuos da sequência de fibonacci.
+
+* ``-t 60s``: Define a duração máxima da execução para 60 segundos.
+
 ## Loop de Medição Principal
 
 Por fim, utilizaremos a função`leitor_ticks` para obter as métricas de tempo de CPU, `leitor_rapl` e `loop_leitor_RAPL`, definidas nas etapas anteriores, para obter o consumo de energia do processador e os dois algoritmos de estresse da ferramenta `stress-ng` (P1 e P2) como objeto de estudo.
