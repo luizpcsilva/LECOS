@@ -1,12 +1,26 @@
 # JAI 2026
 > Computação Sustentável: da Teoria à Prática com Ferramentas para Medida de Consumo de Energia e Pegada de Carbono das Aplicações
 
-Nessa etapa prática será demonstrado o 
+Este repositório contém a parte prática do minicurso prático de Computação Sustentável da **JAI 2026 (SBC)**.
 
-## Aviso Para utilizadores Windows e Mac
+## Autores:
+Silvana Rossetto, Luiz Paulo Correa da Silva, Daniel Cordeiro, Alvaro Luiz Fazenda, Alessandro Santiago dos Santos e Emilio Francesquini
 
-Para realizar a medição de energia é necessário o acesso físico a registradores MSR. O acesso a esses componentes varia muito a depender da arquitetura e do sistema alvo para medições, portanto, a etapa de extração de dados do minicurso utiliza como base sistemas Linux executados em processadores Intel.
+## Aviso
+Para realizar a medição do consumo de energia de componentes de um computador, os scripts deste minicurso necessitam de acesso aos contadores de hardware **Intel/AMD RAPL** via framework Powercap do Linux. Portanto, os experimentos exigem:
+* **Sistema Operacional:** Linux (família Ubuntu/Debian recomendada).
+* **Hardware:** Processador Intel ou AMD (arquiteturas baseadas em x86_64).
 
-Se você usa Windows ou MacOs, poderá utilizar os arquivos da pasta `dados_exemplo` que contém exemplos de medições de energia. 
+## Clonando o Repositório
+
+Para iniciar o minicurso, abra o terminal do seu sistema operacional Linux e faça o **clone** deste repositório para o seu ambiente local.
+
+```bash
+# Clone o repositório oficial do minicurso
+git clone [https://github.com/luizpcs08/LECOS-minicurso-JAI-2026-SBC.git](https://github.com/luizpcs08/LECOS-minicurso-JAI-2026-SBC.git)
+
+# acesse a pasta do repositório
+cd LECOS-minicurso-JAI-2026-SBC
+```
 
 [➡️ Próximo Passo: Instalação de Pré Requisitos](docs/00_pre_requisitos.md)
