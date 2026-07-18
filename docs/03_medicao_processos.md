@@ -165,7 +165,7 @@ source venv/bin/activate
 2. Execute o comando abaixo:
 ```bash
 #Sintaxe: python3 script.py <chamada_estressor 1> <chamada_estressor 2> <frequência de amostragem> <nome_arquivo_saida>
-sudo python3 scripts/medicao-processos.py "stress-ng --matrix 0 --matrix-method prod -t 60s" "stress-ng --cpu 0 --cpu-method fibonacci -t 60s" 1 teste_processos.txt
+sudo python3 scripts/medicao-processos-cpu-time.py "stress-ng --matrix 0 --matrix-method prod -t 60s" "stress-ng --cpu 0 --cpu-method fibonacci -t 60s" 1 teste_processos.txt
 ```
 
 O script será executado em aproximadamente 80 segundos. Ao fim do experimento , será gerado o arquivo `teste-processos.txt`. Imprima seu conteúdo com o seguinte comando no terminal:
