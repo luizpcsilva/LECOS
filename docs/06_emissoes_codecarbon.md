@@ -49,7 +49,7 @@ source venv/bin/activate
 2. **Execute o script**:
 ```bash
 # Sintaxe: sudo venv/bin/python scripts/leitor-rapl-codecarbon.py <"comando_estressor"> <frequência_amostragem> <nome_base_saida>
-sudo venv/bin/python scripts/medicao-codecarbon.py "stress-ng --matrix 0 --matrix-method prod -t 60s" 1 medicao-codecarbon.csv
+sudo venv/bin/python scripts/medicao-codecarbon.py "stress-ng --matrix 0 --matrix-method prod --matrix-size 512 -t 1m" 1 medicao-codecarbon.csv
 ```
 
 # Analisando a Saída:
