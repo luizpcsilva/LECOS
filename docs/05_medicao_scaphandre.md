@@ -101,7 +101,7 @@ source venv/bin/activate
 2. **Execute o código:** 
 ```bash
 # Sintaxe: python3 <caminho-do-script> <"chamada_estressor_1"> <"chamada_estressor_2">
-python3 scripts/medicao-scaphandre.py "stress-ng --matrix 0 --matrix-method prod -t 30s" "stress-ng --cpu 0 --cpu-method fibonacci -t 60s"
+python3 scripts/medicao-scaphandre.py "stress-ng --matrix 0 --matrix-method prod -t 60s" "stress-ng --cpu 0 --cpu-method fibonacci -t 60s"
 ```
 Note que estamos utilizando as mesmas funções do stress-ng das etapas anteriores, pelo mesmo tempo de execução.
 
