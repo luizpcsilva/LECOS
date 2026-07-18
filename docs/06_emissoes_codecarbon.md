@@ -39,7 +39,7 @@ with OfflineEmissionsTracker(country_iso_code="BRA", measure_power_secs=args.fre
 #--------------------- Fim Medição -------------------------
 ```
 ## Como Executar?
-Siga os passos abaixo para E
+Siga os passos abaixo:
 1. **Ative o ambiente virtual**:
 Na raiz do repositório, digite:
 ```bash
