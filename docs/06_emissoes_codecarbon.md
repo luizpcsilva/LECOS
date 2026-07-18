@@ -79,7 +79,7 @@ source venv/bin/activate
 2. Execute o comando abaixo**:
 ```bash
 # Sintaxe: python3 <caminho-do-script> <arquivo_entrada_tratado>
-python3 scripts/consumo-total-codecarbon.py medicao-codecarbon.csv
+python3 scripts/consumo-total-powercap.py teste-powercap-tratado.txt
 ```
 **Sintaxe:** python3 caminho-do-script [arquivo de entrada com os dados tratados]
 
