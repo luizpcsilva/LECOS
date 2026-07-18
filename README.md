@@ -17,7 +17,7 @@ Para iniciar o minicurso, abra o terminal do seu sistema operacional Linux e fa�
 
 ```bash
 # Clone o repositório oficial do minicurso
-git clone [https://github.com/luizpcs08/LECOS-minicurso-JAI-2026-SBC.git](https://github.com/luizpcs08/LECOS-minicurso-JAI-2026-SBC.git)
+git clone [https://github.com/luizpcsilva/LECOS.git](https://github.com/luizpcsilva/LECOS.git)
 
 # acesse a pasta do repositório
 cd LECOS-minicurso-JAI-2026-SBC
