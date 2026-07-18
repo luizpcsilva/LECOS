@@ -1,3 +1,58 @@
+# Calculando Emissões de Carbono
+O [CodeCarbon](https://github.com/mlco2/codecarbon) é uma biblioteca em Python que permite estimar as emissões de carbono de uma aplicação. 
+
+Para isso, o CodeCarbon considera que as emissões, expressas em quilogramas de CO2-equivalente **(CO2eq)**, são o produto de dois fatores principais:
+- C = a **intensidade de carbono** da eletricidade utilizada para a computação; quantificada em g de CO2 emitida por quilowatt-hora de eletricidade; 
+- E = **energia consumida** pela infraestrutura computacional: quantificada em quilowatthora. Para realizar as medições de consumo de energia, a biblioteca utiliza a interface RAPL.
+
+As emissões de dióxido de carbono (CO2eq) são calculadas como o produto **C × E**.
+
+## Intensidade de Carbono
+A intensidade de carbono da eletricidade consumida (C) é calculada como a média ponderada das emissões de diferentes fontes de energia utilizadas para gerar eletricidade, incluindo combustíveis fósseis e renováveis.
+
+Note que  uma rede elétrica local contém uma mistura de combustíveis fósseis e de fontes de energia de baixo carbono, chamada Matriz Energética. Com base na proporção de fontes de energia na rede local, a intensidade de carbono da eletricidade consumida pode ser calculada. Quando disponível, o CodeCarbon usa a intensidade de carbono da eletricidade por país (com dados do site Our World in Data).
+
+# Script de Medição com CodeCarbon
+Para avaliar o comportamento do CodeCarbon de forma isolada e limpa, utilizaremos o script `scripts/leitor-rapl-codecarbon.py`. Ele utiliza o gerenciador de contexto `OfflineEmissionsTracker` para criar uma janela de medição sobre a execução de um comando do `stress-ng`.
+
+Abaixo, podemos visualizar a implementação configurada para a realidade da matriz energética brasileira (`country_iso_code="BRA"`):
+```python
+
+
+#configuração dos argumentos passados via terminal
+parser = argparse.ArgumentParser(description="")
+parser.add_argument("func1", type=str, help="codigo para chamar função 1 do stress ng")
+parser.add_argument("freq", type=float, help="frequencia da amostragem do rapl (em segundos)")
+parser.add_argument("caminhoOutput", type=str, help="nome do arquivo para salvar resultados")
+args = parser.parse_args()
+
+args.func1 = args.func1.split()
+
+#--------------------- Inicio Medição ----------------------
+
+with OfflineEmissionsTracker(country_iso_code="BRA", measure_power_secs=args.freq, output_dir="output/", output_file=args.caminhoOutput, log_level="error") as tracker:
+    #inicia stressng
+    stress = subprocess.Popen(args.func)
+    while(stress.poll() == None):
+        time.sleep(args.freq)
+
+#--------------------- Fim Medição -------------------------
+```
+## Como Executar?
+Siga os passos abaixo para E
+1. **Ative o ambiente virtual**:
+Na raiz do repositório, digite:
+```bash
+source venv/bin/activate
+``` 
+
+2. **Execute o script**:
+```bash
+# Sintaxe: sudo venv/bin/python scripts/leitor-rapl-codecarbon.py <"comando_estressor"> <frequência_amostragem> <nome_base_saida>
+sudo venv/bin/python scripts/leitor-rapl-codecarbon.py "stress-ng --matrix 0 --matrix-method prod -t 30s" 1 medicao-codecarbon.json
+```
+
+# Analisando a Saída:
 
 
 ## Navegação
