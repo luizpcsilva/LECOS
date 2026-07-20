@@ -200,4 +200,4 @@ Compare o resultado. **Os valores são iguais?**
 Em seguida, utilizaremos a ferramenta codecarbon para calcular as emissões de carbono das medições realizadas.
 
 ## Navegação
-[⬅️ Passo Anterior: Tratamento de Dados da Medição de Processos Concorrentes](04_tratamento_de_dados_2.md) | [➡️ Passo Seguinte: Medição de Emissoões de Carbono](06_emissoes_codecarbon.md)
+[⬅️ Passo Anterior: Tratamento de Dados da Medição de Processos Concorrentes](04_tratamento_de_dados_2.md) | [➡️ Passo Seguinte: Medição de Emissões de Carbono](06_emissoes_codecarbon.md)

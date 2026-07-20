@@ -13,6 +13,11 @@ Abra o terminal e execute o comando abaixo:
 sudo apt update
 sudo apt install stress-ng docker.io python3-venv python-is-python3
 ```
+
+Certifique-se de habilitar o docker caso ele já esteja instalado:
+```bash
+sudo systemctl enable docker.service
+```
 ## Configurar Ambiente virtual Python
 
 Para a execução dos scripts, precisamos estar em um ambiente virtual Python com as seguintes bibliotecas: `numpy`, `matplotlib`, `codecarbon`.
