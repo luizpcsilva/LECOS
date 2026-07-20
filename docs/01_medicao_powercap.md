@@ -71,6 +71,36 @@ stress-ng --matrix 0 --matrix-method prod --matrix-size 512 -t 1m
 
 *``-t 1m``: Define a duração máxima do  1 minuto.
 
+# Loop de Medição Principal
+Abaixo, podemos visualizar o loop principal do script de medição:
+
+```python
+#--------------------- Inicio Medição ----------------------
+
+#10 segundos de testagem sem stress
+loopLeitorRapl(10, output)
+
+#inicia stressng
+stress = subprocess.Popen(args.func)
+while(stress.poll() == None):
+    leitura = [0] * 2
+
+    leitura[0] = leitorRapl()
+    leitura[1] = time.perf_counter()
+
+    output.append(leitura)
+    time.sleep(args.freq)
+    
+
+#10 segundos de testagem sem stress
+loopLeitorRapl(10, output)
+
+#--------------------- Fim Medição -------------------------
+
+#salva cada elemento em um arquivo de texto
+
+```
+
 # Executando o Código
 
 Siga os passos abaixo para executar a medição no seu ambiente:
