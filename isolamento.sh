@@ -1,0 +1,39 @@
+#!/bin/bash
+
+#aborta o script no caso de erros
+set -e
+
+#lista de serviços que serão desativados
+DAEMONS_RUIDOSOS="cron snapd snapd.socket ModemManager udisks2 upower tailscaled wpa_supplicant unattended-upgrades multipathd multipathd.socket"
+
+restaurar_ambiente() {
+    echo "Restaurando configurações..."
+    sudo systemctl start $DAEMONS_RUIDOSOS
+    echo "Processos religados"
+
+    echo "Religando placas de rede..."
+    for placa in $INTERFACES_FISICAS; do
+        sudo ip link set "$placa" up
+        echo "    - placa de rede $placa religada."
+    done
+
+}
+
+#chama restaurar ambiente no caso de erros e no fim da execução
+trap 'restaurar_ambiente' EXIT ERR SIGINT
+
+#desliga processos de fundo:
+echo "Desligando processos de fundo..."
+sudo systemctl stop $DAEMONS_RUIDOSOS
+echo "Processos de fundo desligados"
+
+#identifica placas de rede do sistema:
+INTERFACES_FISICAS=$(ls /sys/class/net/ | grep -E '^(en|wl|eth)')
+
+#desliga placas de rede identificadas
+echo "Desligando placas de rede..."
+for placa in $INTERFACES_FISICAS; do
+    sudo ip link set "$placa" down
+    echo "    - placa de rede $placa desligada."
+done
+
