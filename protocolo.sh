@@ -17,6 +17,7 @@ restaurar_ambiente() {
 
     echo "Restaurando configurações..."
     sudo systemctl start snapd.socket
+    sudo systemctl start multipathd.socket
     sudo systemctl start $DAEMONS_RUIDOSOS
     echo "Processos religados"
 }
@@ -27,6 +28,7 @@ trap 'restaurar_ambiente' EXIT ERR SIGINT
 #desliga processos de fundo:
 echo "Desligando processos de fundo..."
 sudo systemctl stop snapd.socket
+sudo systemctl stop multipathd.socket
 sudo systemctl stop $DAEMONS_RUIDOSOS
 echo "Processos de fundo desligados"
 
@@ -41,5 +43,4 @@ for placa in $INTERFACES_FISICAS; do
 done
 
 #chame abaixo os novos scripts que realizarão o protocolo de testagem.
-
-(cd /scripts && ./medicao-idle.py 30 1)
+sudo venv/bin/python scripts/medicao-idle.py 30 1

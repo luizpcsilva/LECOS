@@ -36,15 +36,15 @@ def loopLeitorRapl(duracao, output, freq):
 loopLeitorRapl(args.duracao, output, args.freq)
 #--------------------- Fim Medição -------------------------
 
-#anexando output em csv do experimento
-nome_csv = "idle_" + str(datetime.now()) + ".csv"
+#criando output em csv do experimento
+nome_csv = "idle_" + datetime.now().strftime('%Y%m%d_%H%M%S') + ".csv"
 with open("testes/idle/"+nome_csv, mode="w") as arquivo_csv:
     escritor = csv.writer(arquivo_csv)
     escritor.writerow(["energia_uj", "timestamp_s"])
     escritor.writerows(output)
 
 #calcula a melhor media do idle com pandas(intervalo de 10 segundos com menor desvio padrao)
-df = pd.read_csv(nome_csv)
+df = pd.read_csv("testes/idle/"+nome_csv)
 
 #calcula os deltas de tempo e energia
 df['delta_t'] = df['timestamp_s'].diff()
