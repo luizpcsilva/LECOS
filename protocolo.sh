@@ -7,16 +7,15 @@ set -e
 DAEMONS_RUIDOSOS="cron snapd snapd.socket ModemManager udisks2 upower tailscaled wpa_supplicant unattended-upgrades multipathd multipathd.socket"
 
 restaurar_ambiente() {
-    echo "Restaurando configurações..."
-    sudo systemctl start $DAEMONS_RUIDOSOS
-    echo "Processos religados"
-
     echo "Religando placas de rede..."
     for placa in $INTERFACES_FISICAS; do
         sudo ip link set "$placa" up
         echo "    - placa de rede $placa religada."
     done
 
+    echo "Restaurando configurações..."
+    sudo systemctl start $DAEMONS_RUIDOSOS
+    echo "Processos religados"
 }
 
 #chama restaurar ambiente no caso de erros e no fim da execução
