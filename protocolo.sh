@@ -42,3 +42,4 @@ done
 
 #chame abaixo os novos scripts que realizarão o protocolo de testagem.
 
+(cd /scripts && ./medicao-idle.py 30 1)
