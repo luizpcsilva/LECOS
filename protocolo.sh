@@ -13,6 +13,8 @@ restaurar_ambiente() {
         echo "    - placa de rede $placa religada."
     done
 
+    sleep 5
+
     echo "Restaurando configurações..."
     sudo systemctl start $DAEMONS_RUIDOSOS
     echo "Processos religados"
