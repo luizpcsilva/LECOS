@@ -37,3 +37,5 @@ for placa in $INTERFACES_FISICAS; do
     echo "    - placa de rede $placa desligada."
 done
 
+#chame abaixo os novos scripts que realizarão o protocolo de testagem.
+
