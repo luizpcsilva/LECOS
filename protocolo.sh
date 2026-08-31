@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #aborta o script no caso de erros
-set -e
+set +e
 
 #lista de serviços que serão desativados
-DAEMONS_RUIDOSOS="cron snapd snapd.socket ModemManager udisks2 upower tailscaled wpa_supplicant unattended-upgrades multipathd multipathd.socket"
+DAEMONS_RUIDOSOS="cron snapd ModemManager udisks2 upower tailscaled wpa_supplicant unattended-upgrades multipathd"
 
 restaurar_ambiente() {
     echo "Religando placas de rede..."
@@ -16,6 +16,7 @@ restaurar_ambiente() {
     sleep 5
 
     echo "Restaurando configurações..."
+    sudo systemctl start snapd.socket
     sudo systemctl start $DAEMONS_RUIDOSOS
     echo "Processos religados"
 }
@@ -25,6 +26,7 @@ trap 'restaurar_ambiente' EXIT ERR SIGINT
 
 #desliga processos de fundo:
 echo "Desligando processos de fundo..."
+sudo systemctl stop snapd.socket
 sudo systemctl stop $DAEMONS_RUIDOSOS
 echo "Processos de fundo desligados"
 
