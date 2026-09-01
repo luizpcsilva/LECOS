@@ -41,7 +41,7 @@ with open(caminho_csv, mode="w") as arquivo_csv:
 
 #calcula a melhor media do idle com pandas(intervalo de 10 segundos com menor desvio padrao)
 resultado = subprocess.run(
-    ["python", "calculo-melhor-media-e-std.py", nome_csv, caminho_csv],
+    ["venv/bin/python", "calculo-melhor-media-e-std.py", nome_csv, caminho_csv],
     capture_output=True,
     text=True
 )
