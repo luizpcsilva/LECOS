@@ -43,4 +43,6 @@ for placa in $INTERFACES_FISICAS; do
 done
 
 #chame abaixo os novos scripts que realizarão o protocolo de testagem.
-sudo venv/bin/python scripts/medicao-idle.py 30 1
+MEDIA_IDLE=$(sudo venv/bin/python scripts/medicao-idle.py 30 1)
+MEDIA_RESIDUAL_TOTAL=$(sudo venv/bin/python scripts/medicao-consumo-residual.py 1 "taskset -c 0 stress-ng --cpu 1 --maximize -t 30")
+sudo venv/bin/python scripts/calculo-residual.py $MEDIA_IDLE $MEDIA_RESIDUAL_TOTAL
