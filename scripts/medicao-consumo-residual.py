@@ -20,7 +20,7 @@ def leitorRapl():
         return valor
     
 #--------------------- Inicio Medição ----------------------
-processo_estressor = subprocess.Popen(args.estressor)
+processo_estressor = subprocess.Popen(args.estressor, stdout=subprocess.DEVNULL)
 while(processo_estressor.poll() == None):
     leitura = [0] * 2
 
