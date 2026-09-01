@@ -44,7 +44,7 @@ with open(caminho_csv, mode="w") as arquivo_csv:
     escritor.writerows(output)
 
 resultado = subprocess.run(
-    ["venv/bin/python", "calculo-melhor-media-e-std.py", nome_csv, caminho_csv],
+    ["venv/bin/python", "scripts/calculo-melhor-media-e-std.py", nome_csv, caminho_csv],
     capture_output=True,
     text=True
 )

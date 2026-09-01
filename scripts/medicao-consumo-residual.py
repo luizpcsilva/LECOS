@@ -3,7 +3,6 @@ import argparse
 import csv
 from datetime import datetime
 import subprocess
-import sys
 
 #configuração dos argumentos passados via terminal
 parser = argparse.ArgumentParser(description="")
@@ -42,7 +41,7 @@ with open(caminho_csv, mode="w") as arquivo_csv:
 
 #calcula a melhor media do idle com pandas(intervalo de 10 segundos com menor desvio padrao)
 resultado = subprocess.run(
-    ["sys.executa", "calculo-melhor-media-e-std.py", nome_csv, caminho_csv],
+    ["venv/bin/python", "scripts/calculo-melhor-media-e-std.py", nome_csv, caminho_csv],
     capture_output=True,
     text=True
 )
