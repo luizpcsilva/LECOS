@@ -10,7 +10,7 @@ parser.add_argument("freq", type=float, help="frequencia da amostragem do rapl (
 parser.add_argument("estressor", type=str, help="estressor para medir o consumo residual")
 
 args = parser.parse_args()
-args.estresse = args.estresse.split()
+args.estressor = args.estressor.split()
 
 output = []
 
@@ -20,8 +20,8 @@ def leitorRapl():
         return valor
     
 #--------------------- Inicio Medição ----------------------
-estresse = subprocess.Popen(args.estressor)
-while(estresse.poll() == None):
+processo_estressor = subprocess.Popen(args.estressor)
+while(processo_estressor.poll() == None):
     leitura = [0] * 2
 
     leitura[0] = leitorRapl()
