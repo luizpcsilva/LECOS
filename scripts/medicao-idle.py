@@ -50,3 +50,4 @@ resultado = subprocess.run(
 )
 
 print(resultado.stdout)
+print(resultado.stderr)
