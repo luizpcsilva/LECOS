@@ -10,6 +10,7 @@ parser.add_argument("freq", type=float, help="frequencia da amostragem do rapl (
 parser.add_argument("estressor", type=str, help="estressor para medir o consumo residual")
 
 args = parser.parse_args()
+args.estresse = args.estresse.split()
 
 output = []
 
