@@ -24,7 +24,7 @@ restaurar_ambiente() {
 
 resfriar_componentes(){
     echo "Iniciando timer para reesfriar componentes (180s)..."
-    sleep(180)
+    sleep 180
 }
 
 #chama restaurar ambiente no caso de erros e no fim da execução
