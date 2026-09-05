@@ -7,7 +7,7 @@ import subprocess
 #configuração dos argumentos passados via terminal
 parser = argparse.ArgumentParser(description="")
 parser.add_argument("freq", type=float, help="frequencia da amostragem do rapl (em segundos)")
-parser.add_argument("estressor", type=str, help="estressor para medir o consumo residual")
+parser.add_argument("estressor", type=str, help="estressor alvo para se medir o consumo")
 
 args = parser.parse_args()
 args.estressor = args.estressor.split()
@@ -32,14 +32,14 @@ while(processo_estressor.poll() == None):
 #--------------------- Fim Medição -------------------------
 
 #criando output em csv do experimento
-nome_csv = "residual_total" + datetime.now().strftime('%Y%m%d_%H%M%S') + ".csv"
-caminho_csv = "testes/residual/" + nome_csv
+nome_csv = args.estressor + datetime.now().strftime('%Y%m%d_%H%M%S') + ".csv"
+caminho_csv = "testes/estressores/" + nome_csv
 with open(caminho_csv, mode="w") as arquivo_csv:
     escritor = csv.writer(arquivo_csv)
     escritor.writerow(["energia_uj", "timestamp_s"])
     escritor.writerows(output)
 
-#calcula a melhor media do idle com pandas(intervalo de 10 segundos com menor desvio padrao)
+#calcula a melhor media da medicao com pandas(intervalo de 10 segundos com menor desvio padrao)
 resultado = subprocess.run(
     ["venv/bin/python", "scripts/calculo-melhor-media-e-std.py", nome_csv, caminho_csv],
     capture_output=True,

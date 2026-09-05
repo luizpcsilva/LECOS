@@ -22,6 +22,11 @@ restaurar_ambiente() {
     echo "Processos religados"
 }
 
+resfriar_componentes(){
+    echo "Iniciando timer para reesfriar componentes (180s)..."
+    sleep(180)
+}
+
 #chama restaurar ambiente no caso de erros e no fim da execução
 trap 'restaurar_ambiente' EXIT ERR SIGINT
 
@@ -42,14 +47,23 @@ for placa in $INTERFACES_FISICAS; do
     echo "    - placa de rede $placa desligada."
 done
 
-#abaixo os scripts que realizarão o protocolo de testagem.
+#abaixo os scripts que realizarão o protocolo de testagem:
+
+#medicao idle
 echo "Iniciando medição idle..."
 MEDIA_IDLE=$(sudo venv/bin/python scripts/medicao-idle.py 30 1)
 echo $MEDIA_IDLE
 
+#medicao consumo residual
 echo "Iniciando medição do consumo residual..."
-MEDIA_RESIDUAL_TOTAL=$(sudo venv/bin/python scripts/medicao-consumo-residual.py 1 "taskset -c 0 stress-ng --cpu 1 --maximize -t 30")
+MEDIA_RESIDUAL_TOTAL=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "taskset -c 0 stress-ng --cpu 1 --maximize -t 30")
 echo $MEDIA_RESIDUAL_TOTAL
-
 sudo venv/bin/python scripts/calculo-residual.py $MEDIA_IDLE $MEDIA_RESIDUAL_TOTAL
+
+resfriar_componentes
+
+#medicao sequencial aplicação 1
+echo "Iniciando medição sequencial da aplicação 1..."
+CONSUMO_TOTAL_P1=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "stress-ng --cpu 0 --maximize -t 30")
+
 

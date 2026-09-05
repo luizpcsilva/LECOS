@@ -12,15 +12,24 @@ Inicialmente, utilizaremos um ambiente bare-metal com Ubuntu Server e processado
 
 **Leia Antes de Executar os Scripts**: Durante a execução do isolamento da máquina, o wifi/tailscale é desativado. Assim, nunca execute o script diretamente no terminal do ssh, pois isso irá causar o encerramento da sessão e a conexão será perdida, sem que a placa de rede e os serviços de rede sejam reativados. Siga [esses passos](#obs-sessões-de-terminais-persistentes) para a execução em ambiente ssh.
 
-## 0. Clone o Repositório:
+## 0. Configurações Iniciais:
+
+### 1. Clone o repositório
 ```bash
 git clone --single-branch --branch code/protocolo-avaliacao-power-models https://github.com/luizpcsilva/LECOS.git
 ```
+
+### 2. Dê permissão de execução para protocolo.sh
+```bash
+cd LECOS
+sudo chmod +x protocolo.sh
+```
+
 ## 1. Isolamento da Máquina
 
 Para diminuir o ruído de fundo do sistema, é importante implementar medidas como o desligamento de atualizações de sistema, controle de temperatura, etc. As boas práticas de medição identificadas estão descritas [aqui - seção 1.3.4](https://doi.org/10.5753/sbc.20175.9.1)
 
-Assim, desenvolvemos o script bash `isolamento.sh`. O script executa os seguintes passos:
+Assim, desenvolvemos o script bash `protocolo.sh`. O script executa os seguintes passos:
 
 ### Desligamento de serviços de fundo:
 
@@ -40,6 +49,12 @@ Para o desligamento total da conexão wifi, as placas físicas devem ser desliga
 
 Como os scripts serão executados via ssh, é importante que sejam utilizadas sessões de terminais persistentes para que, ao interromper os serviços de rede, a execução do script não seja abortada pelo fim da conexão ssh.
 
-Assim, deve-se utilizar ferramentas conhecidas como multiplexadores de terminal. No caso, utilizaremos o `tmux`.
+Assim, deve-se utilizar ferramentas conhecidas como multiplexadores de terminal. No caso, utilizaremos o `tmux`. Execute `tmux` no terminal ao logar no ssh para abrir o terminal tmux, identificado por uma barra verde no canto inferior da tela. Utilize-o como um terminal comum.
+
+Caso saia da sessão, use o comando `tmux ls` para listar as sessões abertas e `tmux attach-session -t [numero da sessão]` para relogar
+
+## Medição idle
+
+Após isolar a máqu
 
 
