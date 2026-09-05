@@ -11,6 +11,7 @@ parser.add_argument("media_residual", type=float, help="media do consumo residua
 args = parser.parse_args()
 
 ativo = args.media_consumo_total - args.media_residual
+print(ativo)
 
 nome = f"ativo-{args.media_consumo_total}-{args.media_residual}-{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 #anexando valor final no log de testes
