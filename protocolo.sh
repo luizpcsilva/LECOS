@@ -73,6 +73,16 @@ echo "Consumo Ativo P1: $CONSUMO_ATIVO_P1"
 #medicao sequencial aplicação 2
 echo "Iniciando medição sequencial da aplicação 1..."
 CONSUMO_TOTAL_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "stress-ng --matrix 0 --maximize -t 30")
-echo "Consumo Total P1: $CONSUMO_TOTAL_P2"
+echo "Consumo Total P2: $CONSUMO_TOTAL_P2"
 CONSUMO_ATIVO_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py $CONSUMO_TOTAL_P2 $CONSUMO_RESIDUAL)
 echo "Consumo Ativo P1: $CONSUMO_ATIVO_P2"
+
+#medicao paralela p1 + p2
+echo "Iniciando Medição Paralela P1 + P2"
+CONSUMO_TOTAL_P1_P2=(sudo venv/bin/python scripts/medicao-estressor.py 1 "stress-ng --matrix 0 --maximize -t 30 stress-ng --matrix 0 --maximize -t 30")
+cho "Consumo Total P2: $CONSUMO_TOTAL_P2"
+CONSUMO_ATIVO_P1_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py $CONSUMO_TOTAL_P1_P2 $CONSUMO_RESIDUAL)
+echo "Consumo Ativo P1_P2: $CONSUMO_ATIVO_P2"
+
+#calculo do baseline
+{ read BASELINE_P1; read BASELINE_P2; } <<< "$(sudo venv/bin/python scripts/calculo-baseline.py $CONSUMO_ATIVO_P1_P2 $CONSUMO_ATIVO_P1 $CONSUMO_ATIVO_P2)"
