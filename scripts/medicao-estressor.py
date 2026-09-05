@@ -33,7 +33,7 @@ while(processo_estressor.poll() == None):
 #--------------------- Fim Medição -------------------------
 
 #criando output em csv do experimento
-nome_csv = nome_estressor + datetime.now().strftime('%Y%m%d_%H%M%S') + ".csv"
+nome_csv = nome_estressor.replace(" ", "-") + "-" + datetime.now().strftime('%Y%m%d_%H%M%S') + ".csv"
 caminho_csv = "testes/estressores/" + nome_csv
 with open(caminho_csv, mode="w") as arquivo_csv:
     escritor = csv.writer(arquivo_csv)
