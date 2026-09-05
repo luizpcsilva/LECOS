@@ -10,7 +10,8 @@ parser.add_argument("media_residual_total", type=float, help="media do consumo r
 
 args = parser.parse_args()
 
-residual = args.media_residual_total - args.media_idle 
+residual = args.media_residual_total - args.media_idle
+print(residual)
 
 nome = f"residual-{args.media_residual_total}-{args.media_idle}-{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 #anexando valor final no log de testes
