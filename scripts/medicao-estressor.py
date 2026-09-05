@@ -10,6 +10,7 @@ parser.add_argument("freq", type=float, help="frequencia da amostragem do rapl (
 parser.add_argument("estressor", type=str, help="estressor alvo para se medir o consumo")
 
 args = parser.parse_args()
+nome_estressor = args.estressor
 args.estressor = args.estressor.split()
 
 output = []
@@ -32,7 +33,7 @@ while(processo_estressor.poll() == None):
 #--------------------- Fim Medição -------------------------
 
 #criando output em csv do experimento
-nome_csv = args.estressor + datetime.now().strftime('%Y%m%d_%H%M%S') + ".csv"
+nome_csv = nome_estressor + datetime.now().strftime('%Y%m%d_%H%M%S') + ".csv"
 caminho_csv = "testes/estressores/" + nome_csv
 with open(caminho_csv, mode="w") as arquivo_csv:
     escritor = csv.writer(arquivo_csv)
