@@ -79,7 +79,7 @@ echo "Consumo Ativo P1: $CONSUMO_ATIVO_P2"
 
 #medicao paralela p1 + p2
 echo "Iniciando Medição Paralela P1 + P2"
-CONSUMO_TOTAL_P1_P2=(sudo venv/bin/python scripts/medicao-estressor.py 1 "stress-ng --matrix 0 --maximize -t 30 stress-ng --matrix 0 --maximize -t 30")
+CONSUMO_TOTAL_P1_P2=(sudo venv/bin/python scripts/medicao-estressor.py 1 "stress-ng --cpu 0 --maximize -t 30" "stress-ng --matrix 0 --maximize -t 30")
 cho "Consumo Total P2: $CONSUMO_TOTAL_P2"
 CONSUMO_ATIVO_P1_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py $CONSUMO_TOTAL_P1_P2 $CONSUMO_RESIDUAL)
 echo "Consumo Ativo P1_P2: $CONSUMO_ATIVO_P2"
