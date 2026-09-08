@@ -105,4 +105,5 @@ resfriar_componentes
 { read BASELINE_P1; read BASELINE_P2; } <<< "$(sudo venv/bin/python scripts/calculo-baseline.py $CONSUMO_ATIVO_P1_P2 $CONSUMO_ATIVO_P1 $CONSUMO_ATIVO_P2)"
 echo "Baseline P1: $BASELINE_P1"
 echo "Baseline P2: $BASELINE_P2"
-echo "Soma dos baselines: $BASELINE_P1 + $BASELINE_P2 (esperado: $CONSUMO_ATIVO_P1_P2)"
+SOMA_BASELINES=$(python3 -c "print($BASELINE_P1 + $BASELINE_P2)")
+echo "Soma dos baselines: $SOMA_BASELINES (esperado: $CONSUMO_ATIVO_P1_P2)"
