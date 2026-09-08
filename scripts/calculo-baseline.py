@@ -5,9 +5,9 @@ from datetime import datetime
 
 #configuração dos argumentos passados via terminal
 parser = argparse.ArgumentParser(description="")
-parser.add_argument("consumo-ativo-total", type=float, help="consumo ativo total da medicao paralela")
-parser.add_argument("consumo-ativo-P1", type=float, help="media do consumo ativo de p1")
-parser.add_argument("consumo-ativo-P2", type=float, help="media do consumo ativo de p2")
+parser.add_argument("consumo_ativo_total", type=float, help="consumo ativo total da medicao paralela")
+parser.add_argument("consumo_ativo_P1", type=float, help="media do consumo ativo de p1")
+parser.add_argument("consumo_ativo_P2", type=float, help="media do consumo ativo de p2")
 
 args = parser.parse_args()
 
