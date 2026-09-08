@@ -19,7 +19,7 @@ restaurar_ambiente(){
     sleep 5
 
     echo "Restaurando configurações..."
-    echo "0" | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo
+    echo "0" > /sys/devices/system/cpu/intel_pstate/no_turbo
     echo on > /sys/devices/system/cpu/smt/control
     sudo systemctl start snapd.socket
     sudo systemctl start multipathd.socket
@@ -36,7 +36,7 @@ resfriar_componentes(){
 trap 'restaurar_ambiente' EXIT ERR SIGINT
 
 #desativa turboboost
-echo "1" | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo
+echo "1" > /sys/devices/system/cpu/intel_pstate/no_turbo
 
 #desativa hyperthreading
 echo off > /sys/devices/system/cpu/smt/control
