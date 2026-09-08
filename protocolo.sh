@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#ativa venv do python
+source venv/bin/activate
+
 #aborta o script no caso de erros
 set -e
 
@@ -58,8 +61,7 @@ echo $MEDIA_IDLE
 echo "Iniciando medição do consumo residual..."
 MEDIA_RESIDUAL_TOTAL=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "taskset -c 0 stress-ng --cpu 1 --maximize -t 30")
 CONSUMO_RESIDUAL=$(sudo venv/bin/python scripts/calculo-residual.py $MEDIA_IDLE $MEDIA_RESIDUAL_TOTAL)
-
-
+echo $CONSUMO_RESIDUAL
 
 #medicao sequencial aplicação 1
 echo "Iniciando medição sequencial da aplicação 1..."
