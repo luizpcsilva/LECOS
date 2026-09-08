@@ -8,10 +8,15 @@ import subprocess
 parser = argparse.ArgumentParser(description="")
 parser.add_argument("freq", type=float, help="frequencia da amostragem do rapl (em segundos)")
 parser.add_argument("estressor", type=str, help="estressor alvo para se medir o consumo")
+parser.add_argument("estressor2", type=str, nargs="?", default=None, help="segundo estressor alvo opcional")
 
 args = parser.parse_args()
 nome_estressor = args.estressor
 args.estressor = args.estressor.split()
+
+if args.estressor2:
+    nome_estressor += f"-{args.estressor2}"
+    args.estressor2 = args.estressor2.split()
 
 output = []
 
@@ -22,7 +27,11 @@ def leitorRapl():
     
 #--------------------- Inicio Medição ----------------------
 processo_estressor = subprocess.Popen(args.estressor, stdout=subprocess.DEVNULL)
-while(processo_estressor.poll() == None):
+
+if args.estressor2:
+    processo_estressor2 = subprocess.Popen(args.estressor2, stdout=subprocess.DEVNULL)
+
+while(processo_estressor.poll() is None) or (processo_estressor2 and processo_estressor2.poll() is None):
     leitura = [0] * 2
 
     leitura[0] = leitorRapl()
