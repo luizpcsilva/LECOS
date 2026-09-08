@@ -88,3 +88,5 @@ echo "Consumo Ativo P1_P2: $CONSUMO_ATIVO_P1_P2"
 
 #calculo do baseline
 { read BASELINE_P1; read BASELINE_P2; } <<< "$(sudo venv/bin/python scripts/calculo-baseline.py $CONSUMO_ATIVO_P1_P2 $CONSUMO_ATIVO_P1 $CONSUMO_ATIVO_P2)"
+echo "Baseline P1: $BASELINE_P1"
+echo "Baseline P2: $BASELINE_P2"

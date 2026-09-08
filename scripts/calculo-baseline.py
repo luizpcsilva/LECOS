@@ -11,9 +11,9 @@ parser.add_argument("consumo_ativo_P2", type=float, help="media do consumo ativo
 
 args = parser.parse_args()
 
-baseline_p1 = args.consumo_ativo_total * (args.consumo_ativo_P1 / args.consumo_ativo_P1 + args.consumo_ativo_P2)
+baseline_p1 = args.consumo_ativo_total * (args.consumo_ativo_P1 / (args.consumo_ativo_P1 + args.consumo_ativo_P2))
 print(baseline_p1)
-baseline_p2 = args.consumo_ativo_total * (args.consumo_ativo_P2 / args.consumo_ativo_P1 + args.consumo_ativo_P2)
+baseline_p2 = args.consumo_ativo_total * (args.consumo_ativo_P2 / (args.consumo_ativo_P1 + args.consumo_ativo_P2))
 print(baseline_p2)
 
 nome1 = f"baselineP1-{baseline_p1}-{datetime.now().strftime('%Y%m%d_%H%M%S')}"
