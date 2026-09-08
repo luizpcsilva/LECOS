@@ -28,6 +28,7 @@ def leitorRapl():
 #--------------------- Inicio Medição ----------------------
 processo_estressor = subprocess.Popen(args.estressor, stdout=subprocess.DEVNULL)
 
+processo_estressor2 = None
 if args.estressor2:
     processo_estressor2 = subprocess.Popen(args.estressor2, stdout=subprocess.DEVNULL)
 
