@@ -7,7 +7,7 @@ source venv/bin/activate
 set -e
 
 #lista de serviços que serão desativados
-DAEMONS_RUIDOSOS="cron snapd ModemManager udisks2 upower tailscaled wpa_supplicant unattended-upgrades multipathd"
+DAEMONS_RUIDOSOS="cron snapd ModemManager udisks2 upower tailscaled wpa_supplicant unattended-upgrades multipathd prometheus"
 
 restaurar_ambiente(){
     echo "Religando placas de rede..."
@@ -23,6 +23,7 @@ restaurar_ambiente(){
     echo on > /sys/devices/system/cpu/smt/control
     sudo systemctl start snapd.socket
     sudo systemctl start multipathd.socket
+    sudo systemctl start prometheus.socket
     sudo systemctl start $DAEMONS_RUIDOSOS
     echo "Processos religados"
 }
@@ -45,6 +46,7 @@ echo off > /sys/devices/system/cpu/smt/control
 echo "Desligando processos de fundo..."
 sudo systemctl stop snapd.socket
 sudo systemctl stop multipathd.socket
+sudo systemctl stop prometheus.socket
 sudo systemctl stop $DAEMONS_RUIDOSOS
 
 #identifica placas de rede do sistema:
@@ -99,11 +101,28 @@ echo "Consumo Total P1+P2: $CONSUMO_TOTAL_P1_P2"
 CONSUMO_ATIVO_P1_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py $CONSUMO_TOTAL_P1_P2 $CONSUMO_RESIDUAL)
 echo "Consumo Ativo P1_P2: $CONSUMO_ATIVO_P1_P2"
 
-resfriar_componentes
-
 #calculo do baseline
 { read BASELINE_P1; read BASELINE_P2; } <<< "$(sudo venv/bin/python scripts/calculo-baseline.py $CONSUMO_ATIVO_P1_P2 $CONSUMO_ATIVO_P1 $CONSUMO_ATIVO_P2)"
 echo "Baseline P1: $BASELINE_P1"
 echo "Baseline P2: $BASELINE_P2"
 SOMA_BASELINES=$(python3 -c "print($BASELINE_P1 + $BASELINE_P2)")
 echo "Soma dos baselines: $SOMA_BASELINES (esperado: $CONSUMO_ATIVO_P1_P2)"
+
+resfriar_componentes
+
+#Iniciando Scaphandre 
+echo "Iniciando Medição com Scaphandre de P1 + P2... (Enviando dados para Prometheus)"
+sudo scaphandre prometheus > /tmp/scaphandre.log 2>&1 &
+SCAPH_PID=$!
+sleep 10
+
+# Executa os estressores em paralelo e aguarda ambos terminarem
+echo "Iniciando estressores stress-ng..."
+sudo stress-ng --cpu 3 -t 30 &
+PID1=$!
+sudo stress-ng --matrix 3 -t 30 &
+PID2=$!
+wait $PID1 $PID2
+sleep 5
+
+sudo kill $SCAPH_PID
