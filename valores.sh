@@ -3,8 +3,9 @@ export N_CORES="6"
 export T_DURACAO="-t 30"
 
 #estressores - codigo do stress-ng:
-export ESTRESSOR_1=
-export ESTRESSOR_2=
+#OBS: escreva apenas stress-ng --tipo_do_estresse. oculte a qtd de núcleos e a duração do estresse
+export TIPO_ESTRESSOR_1=
+export TIPO_ESTRESSOR_2=
 
 #medicoes -> variavel vazia força uma nova medição
 export CONSUMO_RESIDUAL=
