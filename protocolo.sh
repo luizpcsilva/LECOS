@@ -7,7 +7,7 @@ source venv/bin/activate
 set -e
 
 #lista de serviços que serão desativados
-DAEMONS_RUIDOSOS="cron snapd ModemManager udisks2 upower tailscaled wpa_supplicant unattended-upgrades multipathd prometheus"
+DAEMONS_RUIDOSOS="cron snapd ModemManager udisks2 upower tailscaled wpa_supplicant unattended-upgrades multipathd prometheus docker"
 
 restaurar_ambiente(){
     echo "Religando placas de rede..."
@@ -24,7 +24,9 @@ restaurar_ambiente(){
     sudo systemctl start snapd.socket
     sudo systemctl start multipathd.socket
     sudo systemctl start prometheus.socket
+    sudo systemctl start docker.socket
     sudo systemctl start $DAEMONS_RUIDOSOS
+    sleep 5
     echo "Processos religados"
 }
 
@@ -108,21 +110,22 @@ echo "Baseline P2: $BASELINE_P2"
 SOMA_BASELINES=$(python3 -c "print($BASELINE_P1 + $BASELINE_P2)")
 echo "Soma dos baselines: $SOMA_BASELINES (esperado: $CONSUMO_ATIVO_P1_P2)"
 
+restaurar_ambiente #restaura prometheus.service e docker.service -> importante para medicao com scaphandre
 resfriar_componentes
 
 #Iniciando Scaphandre 
 echo "Iniciando Medição com Scaphandre de P1 + P2... (Enviando dados para Prometheus)"
-sudo scaphandre prometheus > /tmp/scaphandre.log 2>&1 &
-SCAPH_PID=$!
-sleep 10
+sudo sudo docker run --privileged -v /sys/class/powercap:/sys/class/powercap -v /proc:/proc -ti hubblo/scaphandre prometheus > scaphandre.log 2>&1 &
+sleep 5
 
 # Executa os estressores em paralelo e aguarda ambos terminarem
 echo "Iniciando estressores stress-ng..."
+
+HORA_INICIO=$(date -u +"%Y-%m-%d %H:%M:%S")
 sudo stress-ng --cpu 3 -t 30 &
 PID1=$!
 sudo stress-ng --matrix 3 -t 30 &
 PID2=$!
 wait $PID1 $PID2
-sleep 5
+HORA_FIM=$(date -u +"%Y-%m-%d %H:%M:%S")
 
-sudo kill $SCAPH_PID
