@@ -65,11 +65,6 @@ done
 
 resfriar_componentes
 
-#medicao idle
-echo "Iniciando medição idle..."
-MEDIA_IDLE=$(sudo venv/bin/python scripts/medicao-idle.py 30 1)
-echo $MEDIA_IDLE
-
 #medicao consumo residual
 echo "Iniciando medição do consumo residual..."
 CONSUMO_RESIDUAL=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "taskset -c 0 stress-ng --cpu 1 -t 30")
