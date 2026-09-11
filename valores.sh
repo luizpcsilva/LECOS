@@ -1,4 +1,5 @@
 #valores que serão utilizados pelo protocolo.sh:
+export N_CORES="6"
 
 #estressores - codigo do stress-ng:
 export ESTRESSOR_1=
