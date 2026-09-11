@@ -44,7 +44,7 @@ potencia_media = df.loc[indice_melhor_janela, 'media_janela']
 desvio_padrao = df.loc[indice_melhor_janela, 'desvio_padrao_janela']
 
 #anexando valor final no log de testes
-with open("../log.csv", mode="a") as log_csv:
+with open("log.csv", mode="a") as log_csv:
     escritor = csv.writer(log_csv)
     escritor.writerow([args.nome_csv, potencia_media, desvio_padrao])
 

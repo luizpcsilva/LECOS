@@ -19,7 +19,7 @@ print(baseline_p2)
 nome1 = f"baselineP1-{baseline_p1}-{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 nome2 = f"baselineP2-{baseline_p2}-{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 #anexando valor final no log de testes
-with open("../log.csv", mode="a") as log_csv:
+with open("log.csv", mode="a") as log_csv:
     escritor = csv.writer(log_csv)
     escritor.writerow([nome1, baseline_p1, "null"])
     escritor.writerow([nome2, baseline_p2, "null"])

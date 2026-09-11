@@ -13,7 +13,7 @@ residual = args.media_residual_total
 
 nome = f"residual-{args.media_residual_total}-{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 #anexando valor final no log de testes
-with open("../log.csv", mode="a") as log_csv:
+with open("log.csv", mode="a") as log_csv:
     escritor = csv.writer(log_csv)
     escritor.writerow([nome, residual, "null"])
 

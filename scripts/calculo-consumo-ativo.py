@@ -15,7 +15,7 @@ print(ativo)
 
 nome = f"ativo-{args.media_consumo_total}-{args.media_residual}-{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 #anexando valor final no log de testes
-with open("../log.csv", mode="a") as log_csv:
+with open("log.csv", mode="a") as log_csv:
     escritor = csv.writer(log_csv)
     escritor.writerow([nome, ativo, "null"])
 
