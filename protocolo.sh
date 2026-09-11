@@ -29,7 +29,6 @@ restaurar_ambiente(){
     echo on > /sys/devices/system/cpu/smt/control
     sudo systemctl start snapd.socket
     sudo systemctl start multipathd.socket
-    sudo systemctl start prometheus.socket
     sudo systemctl start docker.socket
     sudo systemctl start $DAEMONS_RUIDOSOS
     sleep 5
@@ -47,7 +46,6 @@ isolar_ambiente(){
     echo "Desligando processos de fundo..."
     sudo systemctl stop snapd.socket
     sudo systemctl stop multipathd.socket
-    sudo systemctl stop prometheus.socket
     sudo systemctl stop $DAEMONS_RUIDOSOS
 
     #identifica placas de rede do sistema:
