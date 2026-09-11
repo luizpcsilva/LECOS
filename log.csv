@@ -1,2 +1,18 @@
-Nome/Origem,Média ,Desvio Padrao
-idle_20260831_170541.csv,3.510952675487659,0.11334322490734001
+restaurar_ambiente #restaura prometheus.service e docker.service -> importante para medicao com scaphandre
+resfriar_componentes
+
+#Iniciando Scaphandre 
+echo "Iniciando Medição com Scaphandre de P1 + P2... (Enviando dados para Prometheus)"
+sudo sudo docker run --privileged -v /sys/class/powercap:/sys/class/powercap -v /proc:/proc -ti hubblo/scaphandre prometheus > scaphandre.log 2>&1 &
+sleep 5
+
+# Executa os estressores em paralelo e aguarda ambos terminarem
+echo "Iniciando estressores stress-ng..."
+
+HORA_INICIO=$(date -u +"%Y-%m-%d %H:%M:%S")
+sudo stress-ng --cpu 3 -t 30 &
+PID1=$!
+sudo stress-ng --matrix 3 -t 30 &
+PID2=$!
+wait $PID1 $PID2
+HORA_FIM=$(date -u +"%Y-%m-%d %H:%M:%S")

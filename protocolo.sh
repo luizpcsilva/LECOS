@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#carrega valores
+source valores.sh
+
 #ativa venv do python
 source venv/bin/activate
 
@@ -10,6 +13,9 @@ set -e
 DAEMONS_RUIDOSOS="cron snapd ModemManager udisks2 upower tailscaled wpa_supplicant unattended-upgrades multipathd prometheus docker"
 
 restaurar_ambiente(){
+    #desliga o abort automático dentro do trap para garantir a restauração completa
+    set +e
+    
     echo "Religando placas de rede..."
     for placa in $INTERFACES_FISICAS; do
         sudo ip link set "$placa" up
@@ -30,97 +36,101 @@ restaurar_ambiente(){
     echo "Processos religados"
 }
 
+isolar_ambiente(){
+    echo "Desativando TurboBoost..."
+    echo "1" > /sys/devices/system/cpu/intel_pstate/no_turbo
+
+    echo "Desativando Hyperthreading..."
+    echo off > /sys/devices/system/cpu/smt/control
+
+    #desliga processos de fundo:
+    echo "Desligando processos de fundo..."
+    sudo systemctl stop snapd.socket
+    sudo systemctl stop multipathd.socket
+    sudo systemctl stop prometheus.socket
+    sudo systemctl stop $DAEMONS_RUIDOSOS
+
+    #identifica placas de rede do sistema:
+    INTERFACES_FISICAS=$(ls /sys/class/net/ | grep -E '^(en|wl|eth)')
+
+    #desliga placas de rede identificadas
+    echo "Desligando placas de rede..."
+    for placa in $INTERFACES_FISICAS; do
+        sudo ip link set "$placa" down
+        echo "    - placa de rede $placa desligada."
+    done
+}
+
 resfriar_componentes(){
     echo "Iniciando timer para reesfriar componentes (180s)..."
     sleep 180
 }
 
-#chama restaurar ambiente no caso de erros e no fim da execução
-trap 'restaurar_ambiente' EXIT ERR SIGINT
+if [ "$DO_ISOLAMENTO" == "1" ]; then
+    trap 'restaurar_ambiente' EXIT ERR SIGINT
+    isolar_ambiente
+fi
 
-echo "Desativando TurboBoost..."
-echo "1" > /sys/devices/system/cpu/intel_pstate/no_turbo
+if [ "$DO_RESFRIAMENTO" == "1" ]; then
+    resfriar_componentes
+fi
 
-echo "Desativando Hyperthreading..."
-echo off > /sys/devices/system/cpu/smt/control
+if [ -z "$CONSUMO_RESIDUAL" ]; then
+    #medicao consumo residual
+    echo "Iniciando medição do consumo residual..."
+    CONSUMO_RESIDUAL=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "taskset -c 0 stress-ng --cpu 1 -t 30")
+    sudo venv/bin/python scripts/salvar-residual.py "$CONSUMO_RESIDUAL"
+    echo "$CONSUMO_RESIDUAL"
+fi
 
-#desliga processos de fundo:
-echo "Desligando processos de fundo..."
-sudo systemctl stop snapd.socket
-sudo systemctl stop multipathd.socket
-sudo systemctl stop prometheus.socket
-sudo systemctl stop $DAEMONS_RUIDOSOS
+if [ "$DO_RESFRIAMENTO" == "1" ]; then
+    resfriar_componentes
+fi
 
-#identifica placas de rede do sistema:
-INTERFACES_FISICAS=$(ls /sys/class/net/ | grep -E '^(en|wl|eth)')
+if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
 
-#desliga placas de rede identificadas
-echo "Desligando placas de rede..."
-for placa in $INTERFACES_FISICAS; do
-    sudo ip link set "$placa" down
-    echo "    - placa de rede $placa desligada."
-done
+    if [ -z "$CONSUMO_ATIVO_P1" ]; then
+        #medicao sequencial aplicação 1
+        echo "Iniciando medição sequencial da aplicação 1..."
+        CONSUMO_TOTAL_P1=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "sudo stress-ng --cpu 6 -t 30")
+        echo "Consumo Total P1: $CONSUMO_TOTAL_P1"
+        CONSUMO_ATIVO_P1=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P1" "$CONSUMO_RESIDUAL")
+        echo "Consumo Ativo P1: $CONSUMO_ATIVO_P1"
+    fi
 
-#abaixo os scripts que realizarão o protocolo de testagem:
+    if [ "$DO_RESFRIAMENTO" == "1" ]; then
+        resfriar_componentes
+    fi
 
-resfriar_componentes
+    if [ -z "$CONSUMO_ATIVO_P2" ]; then
+        #medicao sequencial aplicação 2
+        echo "Iniciando medição sequencial da aplicação 2..."
+        CONSUMO_TOTAL_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "sudo stress-ng --matrix 6 -t 30")
+        echo "Consumo Total P2: $CONSUMO_TOTAL_P2"
+        CONSUMO_ATIVO_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P2" "$CONSUMO_RESIDUAL")
+        echo "Consumo Ativo P2: $CONSUMO_ATIVO_P2"
+    fi
 
-#medicao consumo residual
-echo "Iniciando medição do consumo residual..."
-CONSUMO_RESIDUAL=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "taskset -c 0 stress-ng --cpu 1 -t 30")
-sudo venv/bin/python scripts/salvar-residual.py $CONSUMO_RESIDUAL
-echo $CONSUMO_RESIDUAL
+    if [ "$DO_RESFRIAMENTO" == "1" ]; then
+        resfriar_componentes
+    fi
 
-resfriar_componentes
+    if [ -z "$CONSUMO_ATIVO_P1_P2" ]; then
+        #medicao paralela p1 + p2
+        echo "Iniciando Medição Paralela P1 + P2"
+        CONSUMO_TOTAL_P1_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "sudo stress-ng --cpu 3 -t 30" "sudo stress-ng --matrix 3 -t 30")
+        echo "Consumo Total P1+P2: $CONSUMO_TOTAL_P1_P2"
+        CONSUMO_ATIVO_P1_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P1_P2" "$CONSUMO_RESIDUAL")
+        echo "Consumo Ativo P1_P2: $CONSUMO_ATIVO_P1_P2"
+    fi
 
-#medicao sequencial aplicação 1
-echo "Iniciando medição sequencial da aplicação 1..."
-CONSUMO_TOTAL_P1=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "sudo stress-ng --cpu 6 -t 30")
-echo "Consumo Total P1: $CONSUMO_TOTAL_P1"
-CONSUMO_ATIVO_P1=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py $CONSUMO_TOTAL_P1 $CONSUMO_RESIDUAL)
-echo "Consumo Ativo P1: $CONSUMO_ATIVO_P1"
+    #calculo do baseline
+    { read BASELINE_P1; read BASELINE_P2; } <<< "$(sudo venv/bin/python scripts/calculo-baseline.py "$CONSUMO_ATIVO_P1_P2" "$CONSUMO_ATIVO_P1" "$CONSUMO_ATIVO_P2")"
+    echo "Baseline P1: $BASELINE_P1"
+    echo "Baseline P2: $BASELINE_P2"
+    
+    # Conversão explícita para float na soma final para evitar erros do interpretador caso a variável venha nula
+    SOMA_BASELINES=$(python3 -c "print(float('${BASELINE_P1:-0}') + float('${BASELINE_P2:-0}'))")
+    echo "Soma dos baselines: $SOMA_BASELINES (esperado: $CONSUMO_ATIVO_P1_P2)"
 
-resfriar_componentes
-
-#medicao sequencial aplicação 2
-echo "Iniciando medição sequencial da aplicação 2..."
-CONSUMO_TOTAL_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "sudo stress-ng --matrix 6 -t 30")
-echo "Consumo Total P2: $CONSUMO_TOTAL_P2"
-CONSUMO_ATIVO_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py $CONSUMO_TOTAL_P2 $CONSUMO_RESIDUAL)
-echo "Consumo Ativo P2: $CONSUMO_ATIVO_P2"
-
-resfriar_componentes
-
-#medicao paralela p1 + p2
-echo "Iniciando Medição Paralela P1 + P2"
-CONSUMO_TOTAL_P1_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "sudo stress-ng --cpu 3 -t 30" "sudo stress-ng --matrix 3 -t 30")
-echo "Consumo Total P1+P2: $CONSUMO_TOTAL_P1_P2"
-CONSUMO_ATIVO_P1_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py $CONSUMO_TOTAL_P1_P2 $CONSUMO_RESIDUAL)
-echo "Consumo Ativo P1_P2: $CONSUMO_ATIVO_P1_P2"
-
-#calculo do baseline
-{ read BASELINE_P1; read BASELINE_P2; } <<< "$(sudo venv/bin/python scripts/calculo-baseline.py $CONSUMO_ATIVO_P1_P2 $CONSUMO_ATIVO_P1 $CONSUMO_ATIVO_P2)"
-echo "Baseline P1: $BASELINE_P1"
-echo "Baseline P2: $BASELINE_P2"
-SOMA_BASELINES=$(python3 -c "print($BASELINE_P1 + $BASELINE_P2)")
-echo "Soma dos baselines: $SOMA_BASELINES (esperado: $CONSUMO_ATIVO_P1_P2)"
-
-restaurar_ambiente #restaura prometheus.service e docker.service -> importante para medicao com scaphandre
-resfriar_componentes
-
-#Iniciando Scaphandre 
-echo "Iniciando Medição com Scaphandre de P1 + P2... (Enviando dados para Prometheus)"
-sudo sudo docker run --privileged -v /sys/class/powercap:/sys/class/powercap -v /proc:/proc -ti hubblo/scaphandre prometheus > scaphandre.log 2>&1 &
-sleep 5
-
-# Executa os estressores em paralelo e aguarda ambos terminarem
-echo "Iniciando estressores stress-ng..."
-
-HORA_INICIO=$(date -u +"%Y-%m-%d %H:%M:%S")
-sudo stress-ng --cpu 3 -t 30 &
-PID1=$!
-sudo stress-ng --matrix 3 -t 30 &
-PID2=$!
-wait $PID1 $PID2
-HORA_FIM=$(date -u +"%Y-%m-%d %H:%M:%S")
-
+fi

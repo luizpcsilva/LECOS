@@ -14,5 +14,5 @@ export CONSUMO_ATIVO_P2=
 export CONSUMO_ATIVO_P1_P2=
 
 #configurações
-export DO_ISOLAMENTO=$0   #1 para isolar e 0 para nao isolar
-export DO_RESFRIAMENTO=$0 #1 para aplicar timer de resfriamento entre medições e 0 para não fazer isso
+export DO_ISOLAMENTO="0"   #1 para isolar e 0 para nao isolar
+export DO_RESFRIAMENTO="0" #1 para aplicar timer de resfriamento entre medições e 0 para não fazer isso
