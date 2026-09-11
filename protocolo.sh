@@ -89,10 +89,28 @@ fi
 
 if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
 
-    if [ -z "$CONSUMO_ATIVO_P1" ]; then
-        #medicao sequencial aplicação 1
+    # define a quantidade de núcleos com base no Isolamento 
+    if [ "$DO_ISOLAMENTO" == "0" ]; then
+        # ht ligado -> dobro de núcleos lógicos disponíveis
+        CORES_SEQ=$((N_CORES * 2))
+        CORES_PAR=$N_CORES
+    else
+        #ht desligado -> apenas núcleos físicos
+        CORES_SEQ=$N_CORES
+        CORES_PAR=$((N_CORES / 2))
+    fi
+
+    #monta as strings dos estressores sequenciais
+    ESTRESSOR_1_SEQ="$TIPO_ESTRESSOR_1 $CORES_SEQ $T_DURACAO"
+    ESTRESSOR_2_SEQ="$TIPO_ESTRESSOR_2 $CORES_SEQ $T_DURACAO"
+
+    #monta as strings dos estressores paralelos
+    ESTRESSOR_1_PAR="$TIPO_ESTRESSOR_1 $CORES_PAR $T_DURACAO"
+    ESTRESSOR_2_PAR="$TIPO_ESTRESSOR_2 $CORES_PAR $T_DURACAO"
+
+   if [ -z "$CONSUMO_ATIVO_P1" ]; then
         echo "Iniciando medição sequencial da aplicação 1..."
-        CONSUMO_TOTAL_P1=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "sudo stress-ng --cpu 6 -t 30")
+        CONSUMO_TOTAL_P1=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_1_SEQ")
         echo "Consumo Total P1: $CONSUMO_TOTAL_P1"
         CONSUMO_ATIVO_P1=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P1" "$CONSUMO_RESIDUAL")
         echo "Consumo Ativo P1: $CONSUMO_ATIVO_P1"
@@ -103,9 +121,8 @@ if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
     fi
 
     if [ -z "$CONSUMO_ATIVO_P2" ]; then
-        #medicao sequencial aplicação 2
         echo "Iniciando medição sequencial da aplicação 2..."
-        CONSUMO_TOTAL_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "sudo stress-ng --matrix 6 -t 30")
+        CONSUMO_TOTAL_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_2_SEQ")
         echo "Consumo Total P2: $CONSUMO_TOTAL_P2"
         CONSUMO_ATIVO_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P2" "$CONSUMO_RESIDUAL")
         echo "Consumo Ativo P2: $CONSUMO_ATIVO_P2"
@@ -116,9 +133,8 @@ if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
     fi
 
     if [ -z "$CONSUMO_ATIVO_P1_P2" ]; then
-        #medicao paralela p1 + p2
         echo "Iniciando Medição Paralela P1 + P2"
-        CONSUMO_TOTAL_P1_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "sudo stress-ng --cpu 3 -t 30" "sudo stress-ng --matrix 3 -t 30")
+        CONSUMO_TOTAL_P1_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_1_PAR" "$ESTRESSOR_2_PAR")
         echo "Consumo Total P1+P2: $CONSUMO_TOTAL_P1_P2"
         CONSUMO_ATIVO_P1_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P1_P2" "$CONSUMO_RESIDUAL")
         echo "Consumo Ativo P1_P2: $CONSUMO_ATIVO_P1_P2"
