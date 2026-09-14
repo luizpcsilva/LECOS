@@ -27,10 +27,10 @@ restaurar_ambiente(){
     echo "Restaurando configurações..."
     echo "0" > /sys/devices/system/cpu/intel_pstate/no_turbo
     echo on > /sys/devices/system/cpu/smt/control
+    sudo systemctl start $DAEMONS_RUIDOSOS
     sudo systemctl start snapd.socket
     sudo systemctl start multipathd.socket
     sudo systemctl start docker.socket
-    sudo systemctl start $DAEMONS_RUIDOSOS
     sleep 5
     echo "Processos religados"
 }
@@ -46,6 +46,7 @@ isolar_ambiente(){
     echo "Desligando processos de fundo..."
     sudo systemctl stop snapd.socket
     sudo systemctl stop multipathd.socket
+    sudo systemctl stop docker.socket
     sudo systemctl stop $DAEMONS_RUIDOSOS
 
     #identifica placas de rede do sistema:
@@ -77,9 +78,9 @@ if [ -z "$CONSUMO_RESIDUAL" ]; then
 
     #medicao consumo residual
     echo "Iniciando medição do consumo residual..."
-    CONSUMO_RESIDUAL=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "taskset -c 0 "${ESTRESSOR_RESIDUAL})
+    CONSUMO_RESIDUAL=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "taskset -c 0 $ESTRESSOR_RESIDUAL")
     echo "$CONSUMO_RESIDUAL"
-    sudo venv/bin/python scripts/salvar-residual.py "$CONSUMO_RESIDUAL"
+    sudo venv/bin/python scripts/salvar-residual.py "$ESTRESSOR_RESIDUAL" "$CONSUMO_RESIDUAL"
 fi
 
 if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
