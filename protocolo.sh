@@ -10,7 +10,7 @@ source venv/bin/activate
 set -e
 
 #lista de serviços que serão desativados
-DAEMONS_RUIDOSOS="cron snapd ModemManager udisks2 upower tailscaled wpa_supplicant unattended-upgrades multipathd prometheus docker"
+DAEMONS_RUIDOSOS="cron snapd ModemManager udisks2 upower tailscaled wpa_supplicant unattended-upgrades multipathd docker"
 
 restaurar_ambiente(){
     #desliga o abort automático dentro do trap para garantir a restauração completa
