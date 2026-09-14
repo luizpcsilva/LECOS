@@ -27,10 +27,13 @@ restaurar_ambiente(){
     echo "Restaurando configurações..."
     echo "0" > /sys/devices/system/cpu/intel_pstate/no_turbo
     echo on > /sys/devices/system/cpu/smt/control
-    sudo systemctl start $DAEMONS_RUIDOSOS
+
     sudo systemctl start snapd.socket
     sudo systemctl start multipathd.socket
     sudo systemctl start docker.socket
+
+    sudo systemctl start $DAEMONS_RUIDOSOS
+    
     sleep 5
     echo "Processos religados"
 }
