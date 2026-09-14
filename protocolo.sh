@@ -155,3 +155,33 @@ if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
     SOMA_BASELINES=$(python3 -c "print(float('${BASELINE_P1:-0}') + float('${BASELINE_P2:-0}'))")
     echo "Soma dos baselines: $SOMA_BASELINES (esperado: $CONSUMO_ATIVO_P1_P2)"
 fi
+
+#inicia medicao scaphandre:
+if [ -z "$CONSUMO_SCAPHANDRE" ]; then
+    sudo systemctl start docker.socket docker.service
+    sudo docker rm -f scaphandre 2>/dev/null || true
+        sudo docker run -d \
+        --name scaphandre \
+        --privileged \
+        -v /sys/class/powercap:/sys/class/powercap \
+        -v /proc:/proc \
+        -p 8080:8080 \
+        hubblo/scaphandre prometheus
+
+    sleep 5
+
+    if [ "$DO_RESFRIAMENTO" == "1" ]; then
+        resfriar_componentes
+    fi
+
+    echo "Iniciando estressores em paralelo..."
+    sudo stress-ng --cpu 3 -t 30 &
+    PID1=$!
+    sudo stress-ng --matrix 3 -t 30 &
+    PID2=$!
+
+    wait $PID1 $PID2
+    echo "Estressores finalizados."z
+    sleep 5
+    
+fi
