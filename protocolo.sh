@@ -69,20 +69,17 @@ if [ "$DO_ISOLAMENTO" == "1" ]; then
     isolar_ambiente
 fi
 
-if [ "$DO_RESFRIAMENTO" == "1" ]; then
-    resfriar_componentes
-fi
-
 if [ -z "$CONSUMO_RESIDUAL" ]; then
+
+    if [ "$DO_RESFRIAMENTO" == "1" ]; then
+    resfriar_componentes
+    fi
+
     #medicao consumo residual
     echo "Iniciando medição do consumo residual..."
     CONSUMO_RESIDUAL=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "taskset -c 0 "${ESTRESSOR_RESIDUAL})
-    sudo venv/bin/python scripts/salvar-residual.py "$CONSUMO_RESIDUAL"
     echo "$CONSUMO_RESIDUAL"
-fi
-
-if [ "$DO_RESFRIAMENTO" == "1" ]; then
-    resfriar_componentes
+    sudo venv/bin/python scripts/salvar-residual.py "$CONSUMO_RESIDUAL"
 fi
 
 if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
@@ -107,6 +104,11 @@ if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
     ESTRESSOR_2_PAR="$TIPO_ESTRESSOR_2 $CORES_PAR $T_DURACAO"
 
    if [ -z "$CONSUMO_ATIVO_P1" ]; then
+
+        if [ "$DO_RESFRIAMENTO" == "1" ]; then
+        resfriar_componentes
+        fi
+
         echo "Iniciando medição sequencial da aplicação 1..."
         CONSUMO_TOTAL_P1=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_1_SEQ")
         echo "Consumo Total P1: $CONSUMO_TOTAL_P1"
@@ -114,11 +116,12 @@ if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
         echo "Consumo Ativo P1: $CONSUMO_ATIVO_P1"
     fi
 
-    if [ "$DO_RESFRIAMENTO" == "1" ]; then
-        resfriar_componentes
-    fi
-
     if [ -z "$CONSUMO_ATIVO_P2" ]; then
+
+        if [ "$DO_RESFRIAMENTO" == "1" ]; then
+        resfriar_componentes
+        fi
+
         echo "Iniciando medição sequencial da aplicação 2..."
         CONSUMO_TOTAL_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_2_SEQ")
         echo "Consumo Total P2: $CONSUMO_TOTAL_P2"
@@ -126,11 +129,12 @@ if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
         echo "Consumo Ativo P2: $CONSUMO_ATIVO_P2"
     fi
 
-    if [ "$DO_RESFRIAMENTO" == "1" ]; then
-        resfriar_componentes
-    fi
-
     if [ -z "$CONSUMO_ATIVO_P1_P2" ]; then
+
+        if [ "$DO_RESFRIAMENTO" == "1" ]; then
+        resfriar_componentes
+        fi
+
         echo "Iniciando Medição Paralela P1 + P2"
         CONSUMO_TOTAL_P1_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_1_PAR" "$ESTRESSOR_2_PAR")
         echo "Consumo Total P1+P2: $CONSUMO_TOTAL_P1_P2"
@@ -146,5 +150,4 @@ if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
     # Conversão explícita para float na soma final para evitar erros do interpretador caso a variável venha nula
     SOMA_BASELINES=$(python3 -c "print(float('${BASELINE_P1:-0}') + float('${BASELINE_P2:-0}'))")
     echo "Soma dos baselines: $SOMA_BASELINES (esperado: $CONSUMO_ATIVO_P1_P2)"
-
 fi
