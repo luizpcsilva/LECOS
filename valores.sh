@@ -7,6 +7,9 @@ export T_DURACAO="-t 30"
 export TIPO_ESTRESSOR_1=
 export TIPO_ESTRESSOR_2=
 
+#para o estressor utilizado no consumo residual, pode escrever o comando todo (sem o taskset, apenas stress-ng)
+export ESTRESSOR_RESIDUAL=
+
 #medicoes -> variavel vazia força uma nova medição
 export CONSUMO_RESIDUAL=
 export BASELINE_P1=

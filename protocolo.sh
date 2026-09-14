@@ -76,7 +76,7 @@ fi
 if [ -z "$CONSUMO_RESIDUAL" ]; then
     #medicao consumo residual
     echo "Iniciando medição do consumo residual..."
-    CONSUMO_RESIDUAL=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "taskset -c 0 stress-ng --cpu 1 -t 30")
+    CONSUMO_RESIDUAL=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "taskset -c 0 $ESTRESSOR_RESIDUAL")
     sudo venv/bin/python scripts/salvar-residual.py "$CONSUMO_RESIDUAL"
     echo "$CONSUMO_RESIDUAL"
 fi
