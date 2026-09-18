@@ -1,6 +1,6 @@
 # Aborta em caso de erro
 set -e
-QTD_EXECUCOES=20
+QTD_EXECUCOES=15
 
 ESTRESSORES=(
     "stress-ng --cpu 1 --cpu-method ackermann -t 30"
@@ -17,11 +17,25 @@ ESTRESSORES=(
 ) 
 
 for comando in "${ESTRESSORES[@]}"; do
-    echo "========================================"
-    echo "Executando: $comando"
-    echo "========================================"
-    
-    $comando 
-    
-    sleep 2
+    echo "====================================================="
+    echo "Preparando ambiente para o estressor residual:"
+    echo "$comando"
+    echo "====================================================="
+
+    # altera dinamicamente o arquivo valores.sh a expressão busca a linha que começa com export ESTRESSOR_RESIDUAL= e a substitui inteira
+    sed -i "s/^export ESTRESSOR_RESIDUAL=.*/export ESTRESSOR_RESIDUAL=\"$comando\"/" valores.sh
+
+    # percorre as execuções para o estressor da iteração atual
+    for i in $(seq 1 $QTD_EXECUCOES); do
+        echo "iniciando teste $i de $QTD_EXECUCOES para [$comando]"
+        
+        sudo ./protocolo.sh
+        
+        #pausa de segurança para garantir a liberação de recursos entre as rodadas
+        sleep 5
+    done
 done
+
+echo "====================================================="
+echo "Todas as baterias de testes foram finalizadas!"
+echo "====================================================="

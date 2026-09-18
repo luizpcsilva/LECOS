@@ -181,7 +181,7 @@ if [ -z "$CONSUMO_SCAPHANDRE" ]; then
     PID2=$!
 
     wait $PID1 $PID2
-    echo "Estressores finalizados."z
+    echo "Estressores finalizados."
     sleep 5
     
 fi
