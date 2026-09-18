@@ -8,7 +8,6 @@ ESTRESSORES=(
     "stress-ng --cpu 1 --cpu-method fibonacci -t 30" 
     "stress-ng --cpu 1 --cpu-method float -t 30" 
     "stress-ng --cpu 1 --cpu-method int64 -t 30" 
-    "stress-ng --cpu 1 --cpu-method decimal64 -t 30" 
     "stress-ng --cpu 1 --cpu-method double -t 30" 
     "stress-ng --cpu 1 --cpu-method int64float -t 30" 
     "stress-ng --cpu 1 --cpu-method int64double -t 30" 
