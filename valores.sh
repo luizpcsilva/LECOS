@@ -5,7 +5,11 @@ export T_DURACAO="-t 30"
 #estressores - codigo do stress-ng:
 #OBS: escreva apenas stress-ng --tipo_do_estresse. oculte a qtd de núcleos e a duração do estresse
 export TIPO_ESTRESSOR_1=
+export METODO_ESTRESSOR_1=
+
+#OBS: escreva apenas --metodo.
 export TIPO_ESTRESSOR_2=
+export METODO_ESTRESSOR_2=
 
 #para o estressor utilizado no consumo residual, pode escrever o comando todo (sem o taskset, apenas stress-ng)
 export ESTRESSOR_RESIDUAL="stress-ng --cpu 1 -t 30"
