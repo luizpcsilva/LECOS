@@ -1,6 +1,7 @@
 import time
 import argparse
 import csv
+import sys
 from datetime import datetime
 import subprocess
 
@@ -57,5 +58,7 @@ resultado = subprocess.run(
     text=True
 )
 
-print(resultado.stdout)
-print(resultado.stderr)
+print(resultado.stdout, end="")
+if resultado.returncode != 0:
+    print(resultado.stderr, file=sys.stderr)
+    sys.exit(resultado.returncode)
