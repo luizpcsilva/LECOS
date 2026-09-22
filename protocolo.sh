@@ -3,8 +3,8 @@
 #carrega valores
 source valores.sh
 
-#seta frequency governor on demand
-sudo cpupower frequency-set -g ondemand
+#seta frequency governor PERFORMANCE
+sudo cpupower frequency-set -g performance
 
 #ativa venv do python
 source venv/bin/activate
