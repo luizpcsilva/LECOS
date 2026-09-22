@@ -21,6 +21,7 @@ URL = "http://localhost:8080/metrics"
 ESPERA = 2      #segundos ate os workers do stress-ng nascerem
 DESCARTAR = 2   #o scaphandre devolve zero enquanto nao tem duas requisicoes
 JANELA = 10     #amostras da janela usada no calculo da media
+DUMP_BRUTO = 8  #quantas das primeiras amostras salvam o /metrics cru, pra depurar
 
 METRICA_POTENCIA = "scaph_process_power_consumption_microwatts"
 METRICA_CPU = "scaph_process_cpu_usage_percentage"
@@ -41,6 +42,8 @@ COLUNAS = [
     "soma_todos_uw",
     "cpu_p1_pct",
     "cpu_p2_pct",
+    "viu_host",
+    "viu_processo",
 ]
 
 #configuração dos argumentos passados via terminal
@@ -72,16 +75,29 @@ def descendentes(pid):
     return encontrados
 
 
-def leitorScaphandre(pids_p1, pids_p2):
-    """faz uma requisicao ao /metrics e soma os valores por conjunto de pid"""
+def leitorScaphandre(pids_p1, pids_p2, caminho_bruto=None):
+    """faz uma requisicao ao /metrics e soma os valores por conjunto de pid.
+
+    se caminho_bruto for dado, salva o texto cru da resposta antes de parsear -
+    usado nas primeiras amostras pra depurar se o scaphandre ja esta emitindo
+    as metricas de processo/host ou se elas ainda nao apareceram no payload"""
     with urlopen(URL) as resposta:
         texto = resposta.read().decode()
 
+    if caminho_bruto:
+        with open(caminho_bruto, "w") as bruto:
+            bruto.write(texto)
+
     ce_p1 = ce_p2 = host = soma_todos = cpu_p1 = cpu_p2 = 0.0
+    viu_host = viu_processo = False
 
     for linha in texto.splitlines():
         if linha.startswith(METRICA_HOST):
-            host = float(LINHA_HOST.match(linha).group(1))
+            achado_host = LINHA_HOST.match(linha)
+            if achado_host is None:
+                continue   # cobre formatos inesperados (ex.: "NaN") sem quebrar
+            host = float(achado_host.group(1))
+            viu_host = True
             continue
 
         achado = LINHA_METRICA.match(linha)
@@ -97,6 +113,7 @@ def leitorScaphandre(pids_p1, pids_p2):
         pid = int(rotulo.group(1))
 
         if metrica == METRICA_POTENCIA:
+            viu_processo = True
             soma_todos += valor
             if pid in pids_p1:
                 ce_p1 += valor
@@ -108,10 +125,13 @@ def leitorScaphandre(pids_p1, pids_p2):
             elif pid in pids_p2:
                 cpu_p2 += valor
 
-    return [ce_p1, ce_p2, host, soma_todos, cpu_p1, cpu_p2]
+    return [ce_p1, ce_p2, host, soma_todos, cpu_p1, cpu_p2, viu_host, viu_processo]
 
 
 #--------------------- Inicio Medição ----------------------
+carimbo_execucao = datetime.now().strftime("%Y%m%d_%H%M%S")
+os.makedirs("testes/scaphandre/bruto", exist_ok=True)
+
 processo_estressor = subprocess.Popen(args.estressor, stdout=subprocess.DEVNULL)
 processo_estressor2 = subprocess.Popen(args.estressor2, stdout=subprocess.DEVNULL)
 
@@ -122,7 +142,13 @@ pids_p2 = descendentes(processo_estressor2.pid)
 
 n_amostra = 0
 while (processo_estressor.poll() is None) or (processo_estressor2.poll() is None):
-    leitura = leitorScaphandre(pids_p1, pids_p2)
+    #salva o /metrics cru das primeiras DUMP_BRUTO amostras pra depurar se as
+    #linhas de host/processo demoram a aparecer num container recem-criado
+    caminho_bruto = None
+    if n_amostra < DUMP_BRUTO:
+        caminho_bruto = f"testes/scaphandre/bruto/{carimbo_execucao}-amostra{n_amostra:02d}.txt"
+
+    leitura = leitorScaphandre(pids_p1, pids_p2, caminho_bruto)
     n_amostra += 1
 
     #as primeiras requisicoes nao tem janela anterior e devolvem zero
