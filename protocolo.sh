@@ -178,10 +178,10 @@ if [ -z "$CONSUMO_SCAPHANDRE" ]; then
     fi
 
     echo "Iniciando estressores em paralelo..."
-    sudo stress-ng --cpu 3 -t 30 &
-    PID1=$!
-    sudo stress-ng --matrix 3 -t 30 &
-    PID2=$!
+    { read CE_P1; read CE_P2; } <<< "$(venv/bin/python scripts/medicao-scaphandre.py 1 \
+    "$ESTRESSOR_1_PAR" "$ESTRESSOR_2_PAR")"
+    echo "Ce P1: $CE_P1"
+    echo "Ce P2: $CE_P2"
 
     wait $PID1 $PID2
     echo "Estressores finalizados."
