@@ -3,6 +3,7 @@ import argparse
 import csv
 import os
 import re
+import sys
 from datetime import datetime
 import subprocess
 from urllib.request import urlopen
@@ -26,11 +27,13 @@ DUMP_BRUTO = 8  #quantas das primeiras amostras salvam o /metrics cru, pra depur
 METRICA_POTENCIA = "scaph_process_power_consumption_microwatts"
 METRICA_CPU = "scaph_process_cpu_usage_percentage"
 METRICA_HOST = "scaph_host_power_microwatts"
+METRICA_ENERGIA = "scaph_host_energy_microjoules"
 
 #o valor e sempre o ultimo campo da linha, entao o .* guloso vai ate a ultima
 #chave; a ordem dos labels varia entre linhas e alguns vem vazios
 LINHA_METRICA = re.compile(r"^(scaph_\w+)\{(.*)\}\s+([-+0-9.eE]+)$")
 LINHA_HOST = re.compile(METRICA_HOST + r"(?:\{.*\})?\s+([-+0-9.eE]+)$")
+LINHA_ENERGIA = re.compile(r"^" + METRICA_ENERGIA + r"\s+([-+0-9.eE]+)$", re.M)
 LABEL_PID = re.compile(r'pid="(\d+)"')
 
 COLUNAS = [
@@ -73,6 +76,29 @@ def descendentes(pid):
                         encontrados.add(filho)
                         pilha.append(filho)
     return encontrados
+
+
+def esperar_scaphandre_pronto(timeout=30):
+    """espera scaph_host_energy_microjoules avancar pelo menos uma vez, confirmando
+    que o sensor RAPL do scaphandre completou um ciclo de leitura. sem isso, um
+    container recem-criado pode ficar com o contador congelado indefinidamente sob
+    carga pesada - achado de 2026-09-22, energia parada em 50079407746 por 8s"""
+    inicio = time.time()
+    primeiro_valor = None
+    while time.time() - inicio < timeout:
+        with urlopen(URL) as resposta:
+            texto = resposta.read().decode()
+        achado = LINHA_ENERGIA.search(texto)
+        if achado:
+            valor = float(achado.group(1))
+            if primeiro_valor is None:
+                primeiro_valor = valor
+            elif valor != primeiro_valor:
+                return   # contador avancou - sensor esta vivo
+        time.sleep(1)
+
+    sys.exit(f"scaphandre nao avancou {METRICA_ENERGIA} em {timeout}s; "
+              f"confira 'docker logs scaphandre' antes de prosseguir")
 
 
 def leitorScaphandre(pids_p1, pids_p2, caminho_bruto=None):
@@ -129,6 +155,10 @@ def leitorScaphandre(pids_p1, pids_p2, caminho_bruto=None):
 
 
 #--------------------- Inicio Medição ----------------------
+#garante que o sensor do scaphandre ja completou um ciclo ANTES de carregar a
+#maquina - sem isso, um container recem-criado pode nunca sair do zero
+esperar_scaphandre_pronto()
+
 carimbo_execucao = datetime.now().strftime("%Y%m%d_%H%M%S")
 os.makedirs("testes/scaphandre/bruto", exist_ok=True)
 
