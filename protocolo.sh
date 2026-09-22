@@ -164,6 +164,8 @@ fi
 
 #inicia medicao scaphandre:
 if [ -z "$CONSUMO_SCAPHANDRE" ]; then
+    sudo systemctl stop prometheus
+
     sudo systemctl start docker.socket docker.service
     sudo docker rm -f scaphandre 2>/dev/null || true
         sudo docker run -d \
@@ -188,6 +190,7 @@ if [ -z "$CONSUMO_SCAPHANDRE" ]; then
     echo "Ce P2: $CE_P2"
 
     echo "Estressores finalizados."
+    sudo systemctl start prometheus
     sleep 5
     
 fi
