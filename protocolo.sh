@@ -119,8 +119,8 @@ if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
         echo "Iniciando medição sequencial da aplicação 1..."
         CONSUMO_TOTAL_P1=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_1_SEQ")
         echo "Consumo Total P1: $CONSUMO_TOTAL_P1"
-        #CONSUMO_ATIVO_P1=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P1" "$CONSUMO_RESIDUAL")
-        #echo "Consumo Ativo P1: $CONSUMO_ATIVO_P1"
+        CONSUMO_ATIVO_P1=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P1" "$CONSUMO_RESIDUAL")
+        echo "Consumo Ativo P1: $CONSUMO_ATIVO_P1"
     fi
 
     if [ -z "$CONSUMO_ATIVO_P2" ]; then
@@ -132,8 +132,8 @@ if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
         echo "Iniciando medição sequencial da aplicação 2..."
         CONSUMO_TOTAL_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_2_SEQ")
         echo "Consumo Total P2: $CONSUMO_TOTAL_P2"
-        #CONSUMO_ATIVO_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P2" "$CONSUMO_RESIDUAL")
-        #echo "Consumo Ativo P2: $CONSUMO_ATIVO_P2"
+        CONSUMO_ATIVO_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P2" "$CONSUMO_RESIDUAL")
+        echo "Consumo Ativo P2: $CONSUMO_ATIVO_P2"
     fi
 
     if [ -z "$CONSUMO_ATIVO_P1_P2" ]; then
@@ -145,8 +145,8 @@ if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
         echo "Iniciando Medição Paralela P1 + P2"
         CONSUMO_TOTAL_P1_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_1_PAR" "$ESTRESSOR_2_PAR")
         echo "Consumo Total P1+P2: $CONSUMO_TOTAL_P1_P2"
-        #CONSUMO_ATIVO_P1_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P1_P2" "$CONSUMO_RESIDUAL")
-        #echo "Consumo Ativo P1_P2: $CONSUMO_ATIVO_P1_P2"
+        CONSUMO_ATIVO_P1_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P1_P2" "$CONSUMO_RESIDUAL")
+        echo "Consumo Ativo P1_P2: $CONSUMO_ATIVO_P1_P2"
     fi
 
     #calculo do baseline
