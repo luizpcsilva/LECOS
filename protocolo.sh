@@ -89,26 +89,29 @@ if [ -z "$CONSUMO_RESIDUAL" ]; then
     sudo venv/bin/python scripts/salvar-residual.py "$ESTRESSOR_RESIDUAL" "$CONSUMO_RESIDUAL"
 fi
 
+# define a quantidade de núcleos com base no Isolamento
+# calculado sempre (nao so quando BASELINE_P1/P2 estao vazios), pois a fase do
+# scaphandre tambem depende de ESTRESSOR_1_PAR/ESTRESSOR_2_PAR mesmo quando as fases
+# sequencial/paralela sao puladas via sentinelas em valores.sh
+if [ "$DO_ISOLAMENTO" == "0" ]; then
+    # ht ligado -> dobro de núcleos lógicos disponíveis
+    CORES_SEQ=$((N_CORES * 2))
+    CORES_PAR=$N_CORES
+else
+    #ht desligado -> apenas núcleos físicos
+    CORES_SEQ=$N_CORES
+    CORES_PAR=$((N_CORES / 2))
+fi
+
+#monta as strings dos estressores sequenciais
+ESTRESSOR_1_SEQ="$TIPO_ESTRESSOR_1 $CORES_SEQ $METODO_ESTRESSOR_1 $T_DURACAO"
+ESTRESSOR_2_SEQ="$TIPO_ESTRESSOR_2 $CORES_SEQ $METODO_ESTRESSOR_2 $T_DURACAO"
+
+#monta as strings dos estressores paralelos
+ESTRESSOR_1_PAR="$TIPO_ESTRESSOR_1 $CORES_PAR $METODO_ESTRESSOR_1 $T_DURACAO"
+ESTRESSOR_2_PAR="$TIPO_ESTRESSOR_2 $CORES_PAR $METODO_ESTRESSOR_2 $T_DURACAO"
+
 if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
-
-    # define a quantidade de núcleos com base no Isolamento 
-    if [ "$DO_ISOLAMENTO" == "0" ]; then
-        # ht ligado -> dobro de núcleos lógicos disponíveis
-        CORES_SEQ=$((N_CORES * 2))
-        CORES_PAR=$N_CORES
-    else
-        #ht desligado -> apenas núcleos físicos
-        CORES_SEQ=$N_CORES
-        CORES_PAR=$((N_CORES / 2))
-    fi
-
-        #monta as strings dos estressores sequenciais
-    ESTRESSOR_1_SEQ="$TIPO_ESTRESSOR_1 $CORES_SEQ $METODO_ESTRESSOR_1 $T_DURACAO"
-    ESTRESSOR_2_SEQ="$TIPO_ESTRESSOR_2 $CORES_SEQ $METODO_ESTRESSOR_2 $T_DURACAO"
-
-    #monta as strings dos estressores paralelos
-    ESTRESSOR_1_PAR="$TIPO_ESTRESSOR_1 $CORES_PAR $METODO_ESTRESSOR_1 $T_DURACAO"
-    ESTRESSOR_2_PAR="$TIPO_ESTRESSOR_2 $CORES_PAR $METODO_ESTRESSOR_2 $T_DURACAO"
 
    if [ -z "$CONSUMO_ATIVO_P1" ]; then
 
@@ -178,12 +181,12 @@ if [ -z "$CONSUMO_SCAPHANDRE" ]; then
     fi
 
     echo "Iniciando estressores em paralelo..."
+    echo "DEBUG: P1=[$ESTRESSOR_1_PAR] P2=[$ESTRESSOR_2_PAR]"
     { read CE_P1; read CE_P2; } <<< "$(venv/bin/python scripts/medicao-scaphandre.py 1 \
     "$ESTRESSOR_1_PAR" "$ESTRESSOR_2_PAR")"
     echo "Ce P1: $CE_P1"
     echo "Ce P2: $CE_P2"
 
-    wait $PID1 $PID2
     echo "Estressores finalizados."
     sleep 5
     
