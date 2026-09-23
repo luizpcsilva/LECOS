@@ -123,11 +123,60 @@ baseline_p2 = consumo_ativo_paralelo * (consumo_ativo_p2 / (consumo_ativo_p1 + c
 ```
 Esses valores são impressos e salvos no `log.csv`.
 
+## Medição com o Scaphandre
+
+Roda **o mesmo cenário paralelo** da etapa anterior (`ESTRESSOR_1_PAR` e `ESTRESSOR_2_PAR`),
+desta vez com o Scaphandre medindo, para obter o consumo **estimado pelo modelo** (`Ce`) de
+cada aplicação. É contra esses valores que o baseline será comparado.
+
+O `scripts/medicao-scaphandre.py` sobe o contêiner do Scaphandre com o **exportador JSON**,
+dispara os dois estressores e agrega o consumo de cada um:
+
+```bash
+docker run --rm --name scaphandre --privileged \
+    -v /sys/class/powercap:/sys/class/powercap \
+    -v /proc:/proc \
+    hubblo/scaphandre json -s 1 --max-top-consumers 50 --resources
+```
+
+Decisões que sustentam a validade da medição:
+
+* **Exportador JSON, não prometheus.** No exportador prometheus a janela de medição é definida
+  por *quem faz a requisição*: a primeira volta zerada, um segundo consumidor desalinha as
+  demais e, sob carga total, o contêiner é preterido e o contador congela. O exportador JSON
+  amostra no próprio timer (`--step`), então o consumidor sai do caminho crítico.
+* **Sem `-f`**, o relatório sai no `stdout` do contêiner. O script acumula em memória e só
+  grava o CSV depois que os estressores terminam — nada é escrito em disco dentro da janela.
+* **`--max-top-consumers 50`**: o default de 10 cortaria workers do `stress-ng` (3+3 workers
+  mais os dois pais já são 8, e há daemons disputando o ranking).
+* **Sem `--process-regex`**: preservar todos os consumidores mantém a coluna `soma_todos_uw`,
+  que é o que testa a premissa da Equação 4 (o modelo divide o *total*?).
+* **Separação por árvore de PIDs**, não por `cmdline`: o `stress-ng` apaga o método dos seus
+  workers, e em 10 dos 12 testes do artigo os dois lados são `--cpu-method` com string
+  idêntica. Filtrar por label seria impossível.
+
+A série bruta vai para `testes/scaphandre/<cenário>-<timestamp>.csv`. Além de `ce_p1_uw` e
+`ce_p2_uw`, o CSV traz colunas de diagnóstico:
+
+| Coluna | Para que serve |
+|---|---|
+| `socket0_uw` | domínio *package* — **mesma base** que o protocolo lê do RAPL em `intel-rapl:0` |
+| `host_uw` | consumo do host; é PSYS quando a placa expõe esse domínio |
+| `soma_todos_uw` | `soma_todos / socket0` testa a premissa da Equação 4 |
+| `cpu_p1_pct` / `cpu_p2_pct` | se `ce_p1/ce_p2 == cpu_p1/cpu_p2`, está demonstrado que a chave de rateio é tempo de CPU |
+| `delta_t_s` | espaçamento entre amostras; desvios indicam que o agente foi preterido |
+| `n_pids_p1` / `n_pids_p2` | quantos PIDs de cada árvore entraram na amostra |
+
+Como nas demais etapas, a média sai da janela de 10 amostras mais estável — aqui, a de menor
+desvio padrão **da fração** `ce_p1 / (ce_p1 + ce_p2)`, não do total: numa deriva
+anticorrelacionada o total fica plano justamente quando a divisão muda mais rápido.
+
 ## TODO
 
 O script ainda não implementa:
 
-1. Coleta de estimativas dos modelos (PowerAPI, Scaphandre) para comparação com o baseline.
+1. Coleta de estimativas do PowerAPI para comparação com o baseline. A do Scaphandre já
+está implementada em `scripts/medicao-scaphandre.py`, via exportador JSON.
 
 1. Aplicação da Equação 5 (cálculo do erro)
 

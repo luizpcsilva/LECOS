@@ -13,7 +13,7 @@ source venv/bin/activate
 set -e
 
 #lista de serviços que serão desativados
-DAEMONS_RUIDOSOS="cron snapd ModemManager udisks2 upower tailscaled wpa_supplicant unattended-upgrades multipathd docker"
+DAEMONS_RUIDOSOS="cron snapd ModemManager udisks2 upower tailscaled wpa_supplicant unattended-upgrades multipathd docker prometheus"
 
 restaurar_ambiente(){
     #desliga o abort automático dentro do trap para garantir a restauração completa
@@ -164,19 +164,9 @@ fi
 
 #inicia medicao scaphandre:
 if [ -z "$CONSUMO_SCAPHANDRE" ]; then
-    sudo systemctl stop prometheus
-
+    #o docker foi parado por isolar_ambiente; o scaphandre roda em container.
+    #o container em si e subido e derrubado por medicao-scaphandre.py
     sudo systemctl start docker.socket docker.service
-    sudo docker rm -f scaphandre 2>/dev/null || true
-        sudo docker run -d \
-        --name scaphandre \
-        --privileged \
-        -v /sys/class/powercap:/sys/class/powercap \
-        -v /proc:/proc \
-        -p 8080:8080 \
-        hubblo/scaphandre prometheus
-
-    sleep 5
 
     if [ "$DO_RESFRIAMENTO" == "1" ]; then
         resfriar_componentes
@@ -190,7 +180,4 @@ if [ -z "$CONSUMO_SCAPHANDRE" ]; then
     echo "Ce P2: $CE_P2"
 
     echo "Estressores finalizados."
-    sudo systemctl start prometheus
-    sleep 5
-    
 fi
