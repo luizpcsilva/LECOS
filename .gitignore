@@ -3,3 +3,4 @@ venv/
 .claude/*
 testes/scaphandre/bruto/
 __pycache__/
+tests/*

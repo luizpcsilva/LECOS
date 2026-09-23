@@ -130,10 +130,12 @@ desta vez com o Scaphandre medindo, para obter o consumo **estimado pelo modelo*
 cada aplicação. É contra esses valores que o baseline será comparado.
 
 O `scripts/medicao-scaphandre.py` sobe o contêiner do Scaphandre com o **exportador JSON**,
-dispara os dois estressores e agrega o consumo de cada um:
+dispara os dois estressores e agrega o consumo de cada um. Ele **não aplica equação nenhuma do
+protocolo** — reporta o que o Scaphandre atribuiu a cada aplicação, e a redução a escalar fica
+com o `scripts/calculo-melhor-janela-scaphandre.py`, como no caminho RAPL:
 
 ```bash
-docker run --rm --name scaphandre --privileged \
+docker run --rm --name scaphandre_json --privileged \
     -v /sys/class/powercap:/sys/class/powercap \
     -v /proc:/proc \
     hubblo/scaphandre json -s 1 --max-top-consumers 50 --resources
@@ -145,8 +147,10 @@ Decisões que sustentam a validade da medição:
   por *quem faz a requisição*: a primeira volta zerada, um segundo consumidor desalinha as
   demais e, sob carga total, o contêiner é preterido e o contador congela. O exportador JSON
   amostra no próprio timer (`--step`), então o consumidor sai do caminho crítico.
-* **Sem `-f`**, o relatório sai no `stdout` do contêiner. O script acumula em memória e só
-  grava o CSV depois que os estressores terminam — nada é escrito em disco dentro da janela.
+* **Sem `-f`**, o relatório sai no `stdout` do contêiner, que o script redireciona para um
+  arquivo em `/dev/shm` (tmpfs, que é RAM) — nada é escrito em disco dentro da janela medida.
+  Redirecionar em vez de usar `subprocess.PIPE` evita o buffer de 64 KiB do pipe, que faria o
+  Scaphandre bloquear no `write` e parar de medir no meio da janela.
 * **`--max-top-consumers 50`**: o default de 10 cortaria workers do `stress-ng` (3+3 workers
   mais os dois pais já são 8, e há daemons disputando o ranking).
 * **Sem `--process-regex`**: preservar todos os consumidores mantém a coluna `soma_todos_uw`,
@@ -170,6 +174,21 @@ A série bruta vai para `testes/scaphandre/<cenário>-<timestamp>.csv`. Além de
 Como nas demais etapas, a média sai da janela de 10 amostras mais estável — aqui, a de menor
 desvio padrão **da fração** `ce_p1 / (ce_p1 + ce_p2)`, não do total: numa deriva
 anticorrelacionada o total fica plano justamente quando a divisão muda mais rápido.
+
+## Testes
+
+A fase 3 tem bateria automatizada em `tests/`, que **não precisa de root, de Docker nem de
+RAPL** — roda na máquina de desenvolvimento:
+
+```bash
+venv/bin/python -m unittest discover -s tests -v
+```
+
+`tests/fake_scaphandre.py` emula o exportador JSON (array incremental, cadência própria, PIDs
+reais lidos de `/proc`, schema completo) com modos de falha injetáveis, e `tests/bin/docker` é
+um shim que intercepta `run`/`stop`/`rm`. Os estressores são `stress-ng` de verdade, então a
+separação por árvore de PIDs é exercitada contra processos reais. Como o emulador reporta 5 W
+por consumidor, os testes conferem a agregação na mão: `ce_p1 == n_pids_p1 × 5 W`.
 
 ## TODO
 
