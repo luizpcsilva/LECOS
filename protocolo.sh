@@ -90,9 +90,6 @@ if [ -z "$CONSUMO_RESIDUAL" ]; then
 fi
 
 # define a quantidade de núcleos com base no Isolamento
-# calculado sempre (nao so quando BASELINE_P1/P2 estao vazios), pois a fase do
-# scaphandre tambem depende de ESTRESSOR_1_PAR/ESTRESSOR_2_PAR mesmo quando as fases
-# sequencial/paralela sao puladas via sentinelas em valores.sh
 if [ "$DO_ISOLAMENTO" == "0" ]; then
     # ht ligado -> dobro de núcleos lógicos disponíveis
     CORES_SEQ=$((N_CORES * 2))

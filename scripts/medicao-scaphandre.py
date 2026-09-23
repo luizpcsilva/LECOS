@@ -24,7 +24,7 @@ Ao fim, imprime a media de Ce de P1 e de P2 (em watts) em linhas separadas, para
 o protocolo.sh capturar com { read CE_P1; read CE_P2; }
 """
 
-NOME_CONTAINER = "scaphandre"
+NOME_CONTAINER = "scaphandre_json"
 MAX_CONSUMIDORES = 50   #o default de 10 corta workers do stress-ng
 COM_RECURSOS = True     #flag --resources: habilita cpu_p1_pct/cpu_p2_pct
 SALVAR_BRUTO = True     #arquiva o json cru DEPOIS da medicao, pra depurar
