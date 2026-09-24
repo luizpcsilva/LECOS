@@ -108,46 +108,46 @@ ESTRESSOR_2_SEQ="$TIPO_ESTRESSOR_2 $CORES_SEQ $METODO_ESTRESSOR_2 $T_DURACAO"
 ESTRESSOR_1_PAR="$TIPO_ESTRESSOR_1 $CORES_PAR $METODO_ESTRESSOR_1 $T_DURACAO"
 ESTRESSOR_2_PAR="$TIPO_ESTRESSOR_2 $CORES_PAR $METODO_ESTRESSOR_2 $T_DURACAO"
 
+if [ -z "$CONSUMO_ATIVO_P1" ]; then
+
+    if [ "$DO_RESFRIAMENTO" == "1" ]; then
+    resfriar_componentes
+    fi
+
+    echo "Iniciando medição sequencial da aplicação 1..."
+    CONSUMO_TOTAL_P1=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_1_SEQ")
+    echo "Consumo Total P1: $CONSUMO_TOTAL_P1"
+    CONSUMO_ATIVO_P1=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P1" "$CONSUMO_RESIDUAL")
+    echo "Consumo Ativo P1: $CONSUMO_ATIVO_P1"
+fi
+
+if [ -z "$CONSUMO_ATIVO_P2" ]; then
+
+    if [ "$DO_RESFRIAMENTO" == "1" ]; then
+    resfriar_componentes
+    fi
+
+    echo "Iniciando medição sequencial da aplicação 2..."
+    CONSUMO_TOTAL_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_2_SEQ")
+    echo "Consumo Total P2: $CONSUMO_TOTAL_P2"
+    CONSUMO_ATIVO_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P2" "$CONSUMO_RESIDUAL")
+    echo "Consumo Ativo P2: $CONSUMO_ATIVO_P2"
+fi
+
+if [ -z "$CONSUMO_ATIVO_P1_P2" ]; then
+
+    if [ "$DO_RESFRIAMENTO" == "1" ]; then
+    resfriar_componentes
+    fi
+
+    echo "Iniciando Medição Paralela P1 + P2"
+    CONSUMO_TOTAL_P1_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_1_PAR" "$ESTRESSOR_2_PAR")
+    echo "Consumo Total P1+P2: $CONSUMO_TOTAL_P1_P2"
+    CONSUMO_ATIVO_P1_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P1_P2" "$CONSUMO_RESIDUAL")
+    echo "Consumo Ativo P1_P2: $CONSUMO_ATIVO_P1_P2"
+fi
+
 if [ -z "$BASELINE_P1" ] || [ -z "$BASELINE_P2" ]; then
-
-   if [ -z "$CONSUMO_ATIVO_P1" ]; then
-
-        if [ "$DO_RESFRIAMENTO" == "1" ]; then
-        resfriar_componentes
-        fi
-
-        echo "Iniciando medição sequencial da aplicação 1..."
-        CONSUMO_TOTAL_P1=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_1_SEQ")
-        echo "Consumo Total P1: $CONSUMO_TOTAL_P1"
-        CONSUMO_ATIVO_P1=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P1" "$CONSUMO_RESIDUAL")
-        echo "Consumo Ativo P1: $CONSUMO_ATIVO_P1"
-    fi
-
-    if [ -z "$CONSUMO_ATIVO_P2" ]; then
-
-        if [ "$DO_RESFRIAMENTO" == "1" ]; then
-        resfriar_componentes
-        fi
-
-        echo "Iniciando medição sequencial da aplicação 2..."
-        CONSUMO_TOTAL_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_2_SEQ")
-        echo "Consumo Total P2: $CONSUMO_TOTAL_P2"
-        CONSUMO_ATIVO_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P2" "$CONSUMO_RESIDUAL")
-        echo "Consumo Ativo P2: $CONSUMO_ATIVO_P2"
-    fi
-
-    if [ -z "$CONSUMO_ATIVO_P1_P2" ]; then
-
-        if [ "$DO_RESFRIAMENTO" == "1" ]; then
-        resfriar_componentes
-        fi
-
-        echo "Iniciando Medição Paralela P1 + P2"
-        CONSUMO_TOTAL_P1_P2=$(sudo venv/bin/python scripts/medicao-estressor.py 1 "$ESTRESSOR_1_PAR" "$ESTRESSOR_2_PAR")
-        echo "Consumo Total P1+P2: $CONSUMO_TOTAL_P1_P2"
-        CONSUMO_ATIVO_P1_P2=$(sudo venv/bin/python scripts/calculo-consumo-ativo.py "$CONSUMO_TOTAL_P1_P2" "$CONSUMO_RESIDUAL")
-        echo "Consumo Ativo P1_P2: $CONSUMO_ATIVO_P1_P2"
-    fi
 
     #calculo do baseline
     { read BASELINE_P1; read BASELINE_P2; } <<< "$(sudo venv/bin/python scripts/calculo-baseline.py "$CONSUMO_ATIVO_P1_P2" "$CONSUMO_ATIVO_P1" "$CONSUMO_ATIVO_P2")"
