@@ -10,13 +10,7 @@ medio de P1 e o de P2, em watts.
 Equivale ao calculo-melhor-media-e-std.py do caminho RAPL, com uma diferenca: la
 ha uma serie so, entao a janela e escolhida pela estabilidade da propria grandeza
 reportada. Aqui ha duas, e a janela e escolhida pela estabilidade da FRACAO
-ce_p1/(ce_p1+ce_p2) - numa deriva anticorrelacionada P1 cai o quanto P2 sobe, e o
-total fica plano justamente quando a divisao muda mais rapido. A fracao tambem e
-simetrica por construcao (frac_p1 + frac_p2 = 1, logo desvios identicos), entao a
-mesma janela vale para os dois - a Eq. 5 compara as duas fatias no MESMO instante.
-
-Separado da medicao de proposito: da para re-reduzir um csv arquivado sem remedir,
-e cada medicao custa 180s de resfriamento mais 30s de estresse.
+ce_p1/(ce_p1+ce_p2).
 
 Imprime os dois valores em linhas separadas, para o protocolo.sh capturar com
 { read CE_P1; read CE_P2; }
@@ -44,8 +38,6 @@ df["frac_p1"] = (df["ce_p1_uw"] / soma_ce).where(soma_ce != 0)
 tamanho_janela = min(JANELA, len(df))
 df["desvio_padrao_janela"] = df["frac_p1"].rolling(window=tamanho_janela).std()
 
-#o idxmin do pandas 3 levanta ValueError quando a serie inteira e NA, em vez de
-#devolver NaN - acontece quando ce_p1 + ce_p2 e zero em toda amostra
 try:
     indice_melhor_janela = df["desvio_padrao_janela"].idxmin()
 except ValueError:

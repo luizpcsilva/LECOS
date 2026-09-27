@@ -12,27 +12,19 @@ from pathlib import Path
 import psutil
 
 """
-Mede o consumo estimado (Ce) de DOIS estressores em paralelo, pelo exportador JSON
+Mede o consumo estimado (Ce) de dois estressores em paralelo, pelo exportador JSON
 do scaphandre.
-
-NAO aplica equacao nenhuma do protocolo: soma o que o scaphandre atribuiu a cada
-arvore de pids, converte uW para W e reporta. Eq. 4 e Eq. 5 ficam para a analise.
-
-Grava a serie em testes/scaphandre/*.csv e delega a reducao a escalar para o
-calculo-melhor-janela-scaphandre.py.
-
-Porques (exportador, flags, schema, armadilhas): references/scaphandre.md
 """
 
 NOME_CONTAINER = "scaphandre_json"
 MAX_CONSUMIDORES = 50   #o default de 10 corta workers do stress-ng
 COM_RECURSOS = True     #flag --resources: habilita cpu_p1_pct/cpu_p2_pct
-SALVAR_BRUTO = True     #arquiva o json cru DEPOIS da medicao, pra depurar
+SALVAR_BRUTO = True     #arquiva o json cru DEPOIS da medicao
 ESPERA = 2              #segundos ate os workers do stress-ng nascerem
 TIMEOUT_PRONTO = 30     #segundos esperando as 2 primeiras amostras do scaphandre
 TIMEOUT_PARADA = 30     #segundos esperando o container morrer apos o docker stop
 
-#tmpfs: e ram, nao disco - nada e escrito em disco dentro da janela medida
+#caminho p escrita dos arquivos em memória
 CAMINHO_JSON = "/dev/shm/scaphandre-saida.json"
 CAMINHO_ERRO = "/dev/shm/scaphandre-erro.log"
 
@@ -64,7 +56,7 @@ args.estressor2 = args.estressor2.split()
 
 
 def descendentes(pid):
-    """o proprio pid mais todos os descendentes, como um set"""
+    """retorna o proprio pid mais todos os processos filhos, como um set"""
     return {pid} | {filho.pid for filho in psutil.Process(pid).children(recursive=True)}
 
 
@@ -129,7 +121,7 @@ def cpu_do_consumidor(consumidor):
 
 def agregar(relatorios, pids_p1, pids_p2, epoch_inicio, epoch_abertura, epoch_fim):
     """soma o consumo por conjunto de pid em cada amostra dentro da janela.
-    a separacao e por arvore de pids, nao por label - ver scaphandre.md secao 4"""
+    a separacao e por arvore de pids"""
     linhas = []
     epoch_anterior = None
 
@@ -172,7 +164,7 @@ def agregar(relatorios, pids_p1, pids_p2, epoch_inicio, epoch_abertura, epoch_fi
 
 
 #--------------------- Inicio Medição ----------------------
-#stdout do container direto num arquivo em tmpfs: sem pipe, sem buffer para estourar
+#stdout do container direto num arquivo em tmpfs
 with open(CAMINHO_JSON, "w") as saida, open(CAMINHO_ERRO, "w") as erro:
     processo_scaphandre = subprocess.Popen(montar_comando(), stdout=saida, stderr=erro)
 
