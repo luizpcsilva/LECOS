@@ -91,18 +91,22 @@ def esperar_scaphandre(processo, minimo=2):
 
 
 def carregar_relatorios(texto):
-    """array incremental: abre com '[', anexa objetos e fecha com ']' na saida normal.
-    como paramos o container com sigterm, o ']' pode nao sair - ver scaphandre.md"""
-    texto = texto[texto.find("["):] if "[" in texto else texto
-    for candidato in (texto, texto + "]", texto[:texto.rfind("},") + 1] + "]"):
-        try:
-            relatorios = json.loads(candidato)
-        except (json.JSONDecodeError, ValueError):
-            continue
-        if relatorios:
-            return relatorios
+    """extrai as amostras completas da saida do scaphandre."""
+    decodificador = json.JSONDecoder()
+    relatorios = []
+    posicao = texto.find("{")
 
-    sys.exit("saida do scaphandre nao tem nenhuma amostra completa")
+    while posicao != -1:
+        try:
+            amostra, fim = decodificador.raw_decode(texto, posicao)
+        except json.JSONDecodeError:
+            break
+        relatorios.append(amostra)
+        posicao = texto.find("{", fim)
+
+    if not relatorios:
+        sys.exit("saida do scaphandre nao tem nenhuma amostra completa")
+    return relatorios
 
 
 def valor(dicionario, chave):
@@ -214,15 +218,16 @@ if SALVAR_BRUTO:
     os.makedirs("testes/scaphandre/bruto", exist_ok=True)
     shutil.copy(CAMINHO_JSON, f"testes/scaphandre/bruto/{carimbo}.json")
 
-for caminho in (CAMINHO_JSON, CAMINHO_ERRO):
-    os.remove(caminho)
-
 relatorios = carregar_relatorios(texto_json)
 output = agregar(relatorios, pids_p1, pids_p2, epoch_inicio, epoch_abertura, epoch_fim)
 
 if not output:
     sys.exit(f"nenhuma das {len(relatorios)} amostras do scaphandre caiu na janela "
              f"dos estressores; confira o passo (-s) e a duracao (-t)")
+
+#limpa o tmpfs 
+for caminho in (CAMINHO_JSON, CAMINHO_ERRO):
+    os.remove(caminho)
 
 #criando output em csv do experimento
 nome_csv = nome_cenario.replace(" ", "-") + "-" + carimbo + ".csv"
