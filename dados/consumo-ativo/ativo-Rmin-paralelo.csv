@@ -1,276 +1,276 @@
-,Stress-ng,Média,Variância,método,cpu,tempo,data
-0,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-queens--t-30-20260925_150624.csv,14.614732729462723,0.0109849780814186,ackermann,-cpu-3,30,stress
-2,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-queens--t-30-20260925_151015.csv,14.606585178086416,0.030873326035802,ackermann,-cpu-3,30,stress
-4,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-queens--t-30-20260925_151407.csv,14.597282037761225,0.0237767834205379,ackermann,-cpu-3,30,stress
-6,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-queens--t-30-20260925_151759.csv,14.633845188885005,0.0094547220701422,ackermann,-cpu-3,30,stress
-8,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-queens--t-30-20260925_152150.csv,14.635346964038568,0.0092237565041504,ackermann,-cpu-3,30,stress
-10,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_152542.csv,11.950990676163329,0.0301253529591951,ackermann,-cpu-3,30,stress
-12,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_152933.csv,12.044164131319103,0.0101384411945529,ackermann,-cpu-3,30,stress
-14,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_153325.csv,12.038248483378041,0.0213883551761846,ackermann,-cpu-3,30,stress
-16,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_153716.csv,11.96383494603488,0.0220958791297021,ackermann,-cpu-3,30,stress
-18,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_154108.csv,11.980186263712849,0.012256191208444,ackermann,-cpu-3,30,stress
-20,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_154459.csv,13.509349156638631,0.0072388323301651,ackermann,-cpu-3,30,stress
-22,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_154851.csv,13.538017286618249,0.0102888757363167,ackermann,-cpu-3,30,stress
-24,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_155243.csv,13.539934007515239,0.0122767632103168,ackermann,-cpu-3,30,stress
-26,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_155634.csv,13.51883681847995,0.0077928840269247,ackermann,-cpu-3,30,stress
-28,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_160026.csv,13.580305036873721,0.042968378071872,ackermann,-cpu-3,30,stress
-30,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_160418.csv,12.440780221702152,0.0035289168267275,ackermann,-cpu-3,30,stress
-32,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_160809.csv,12.444060037691841,0.0060998288880915,ackermann,-cpu-3,30,stress
-34,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_161201.csv,12.43354527732902,0.0105703906855883,ackermann,-cpu-3,30,stress
-36,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_161552.csv,12.389173673514044,0.0126745792285322,ackermann,-cpu-3,30,stress
-38,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_161944.csv,12.433403013187363,0.0060087267614041,ackermann,-cpu-3,30,stress
-40,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_162336.csv,14.683719531703066,0.0161660279667093,ackermann,-cpu-3,30,stress
-42,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_162728.csv,14.643736113034787,0.0143367519798581,ackermann,-cpu-3,30,stress
-44,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_163119.csv,14.67056873593464,0.0077566166583944,ackermann,-cpu-3,30,stress
-46,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_163511.csv,14.644907021274065,0.0122717845380046,ackermann,-cpu-3,30,stress
-48,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_163902.csv,14.669768574376171,0.0044903700451037,ackermann,-cpu-3,30,stress
-50,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_164254.csv,15.00104407789588,0.0107007099415206,ackermann,-cpu-3,30,stress
-52,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_164645.csv,15.005494235530684,0.0098604995608306,ackermann,-cpu-3,30,stress
-54,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_165037.csv,14.913507152957173,0.0198850609909287,ackermann,-cpu-3,30,stress
-56,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_165429.csv,14.98257093945487,0.0127941018421102,ackermann,-cpu-3,30,stress
-58,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_165821.csv,15.06814557595533,0.0200754717109489,ackermann,-cpu-3,30,stress
-60,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_170213.csv,14.224271358234454,0.0117858390462913,ackermann,-cpu-3,30,stress
-62,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_170605.csv,14.2607740700951,0.0201493494646496,ackermann,-cpu-3,30,stress
-64,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_170957.csv,14.268994708057697,0.0140054446434029,ackermann,-cpu-3,30,stress
-66,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_171348.csv,14.39436531506718,0.0093451370101414,ackermann,-cpu-3,30,stress
-68,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_171740.csv,14.26945725401104,0.0121504658321512,ackermann,-cpu-3,30,stress
-70,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_172132.csv,15.75232629381069,0.0154967459061657,ackermann,-cpu-3,30,stress
-72,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_172523.csv,15.76439643732932,0.0102194843799026,ackermann,-cpu-3,30,stress
-74,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_172915.csv,15.78071745540306,0.0117904647905325,ackermann,-cpu-3,30,stress
-76,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_173306.csv,15.886133554690407,0.0376811020851024,ackermann,-cpu-3,30,stress
-78,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_173658.csv,15.791330267616463,0.0149971731869,ackermann,-cpu-3,30,stress
-80,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_174050.csv,11.407632296323293,0.016881215122215,ackermann,-cpu-3,30,stress
-82,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_174441.csv,11.571198822330171,0.012563559421357,ackermann,-cpu-3,30,stress
-84,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_174833.csv,11.516606245410241,0.0244242545350231,ackermann,-cpu-3,30,stress
-86,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_175225.csv,11.37439529869362,0.0113201406450834,ackermann,-cpu-3,30,stress
-88,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_175616.csv,11.41164836703112,0.0121114901147241,ackermann,-cpu-3,30,stress
-90,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_180008.csv,13.192620799389147,0.0089704178552105,ackermann,-cpu-3,30,stress
-92,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_180359.csv,13.201232609186043,0.0045680177737931,ackermann,-cpu-3,30,stress
-94,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_180751.csv,13.157248745156128,0.0177724226847707,ackermann,-cpu-3,30,stress
-96,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_181143.csv,13.195624075917426,0.0050157179342767,ackermann,-cpu-3,30,stress
-98,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_181535.csv,13.20558432886012,0.0091379725998677,ackermann,-cpu-3,30,stress
-100,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_181926.csv,12.086816005960152,0.0120038823193715,queens,-cpu-3,30,stress
-102,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_182318.csv,12.352254320899217,0.0196504800977274,queens,-cpu-3,30,stress
-104,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_182709.csv,12.167405146906539,0.0384105960704017,queens,-cpu-3,30,stress
-106,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_183101.csv,12.361604493628583,0.0144054290432181,queens,-cpu-3,30,stress
-108,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_183452.csv,12.198698273044208,0.0222208158463562,queens,-cpu-3,30,stress
-110,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_183844.csv,13.888213879657386,0.0108768663045956,queens,-cpu-3,30,stress
-112,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_184235.csv,13.902963429894296,0.0089898678745919,queens,-cpu-3,30,stress
-114,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_184627.csv,13.882917079629092,0.0078450801732281,queens,-cpu-3,30,stress
-116,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_185019.csv,13.854237262526802,0.0270695595815096,queens,-cpu-3,30,stress
-118,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_185410.csv,13.847265443989091,0.0171778690016559,queens,-cpu-3,30,stress
-120,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_185802.csv,12.680325239951195,0.0225786559613551,queens,-cpu-3,30,stress
-122,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_190153.csv,12.69087881298542,0.0190336593264611,queens,-cpu-3,30,stress
-124,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_190545.csv,12.76007567407613,0.0123243477204021,queens,-cpu-3,30,stress
-126,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_190936.csv,12.807696923871056,0.0060558653110347,queens,-cpu-3,30,stress
-128,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_191328.csv,12.822323649676253,0.0152791868109972,queens,-cpu-3,30,stress
-130,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_191719.csv,14.999358812260251,0.0043790815388984,queens,-cpu-3,30,stress
-132,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_192111.csv,14.945595493034368,0.0201375151035333,queens,-cpu-3,30,stress
-134,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_192503.csv,14.934618293684942,0.0138022018307554,queens,-cpu-3,30,stress
-136,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_192854.csv,14.98609444930818,0.0117798763670688,queens,-cpu-3,30,stress
-138,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_193246.csv,14.966649180878498,0.0160169218640649,queens,-cpu-3,30,stress
-140,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_193637.csv,15.162553254170739,0.0251128897945205,queens,-cpu-3,30,stress
-142,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_194029.csv,15.57831467917098,0.019555003044246,queens,-cpu-3,30,stress
-144,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_194420.csv,14.97312942144055,0.0166768123484368,queens,-cpu-3,30,stress
-146,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_194812.csv,15.045591795232902,0.0330489332754656,queens,-cpu-3,30,stress
-148,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_195204.csv,15.006132486794552,0.0292223709254065,queens,-cpu-3,30,stress
-150,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_195555.csv,14.4712987084602,0.0222670022972507,queens,-cpu-3,30,stress
-152,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_195947.csv,14.471970658357247,0.0142673359292975,queens,-cpu-3,30,stress
-154,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_200338.csv,14.59803636237936,0.0204927122284909,queens,-cpu-3,30,stress
-156,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_200730.csv,14.61484065661486,0.0125302116604391,queens,-cpu-3,30,stress
-158,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_201121.csv,14.585440897062952,0.0136799341940122,queens,-cpu-3,30,stress
-160,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_201513.csv,16.15432680445004,0.0253503040096108,queens,-cpu-3,30,stress
-162,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_201905.csv,16.10364685500354,0.0196456553783786,queens,-cpu-3,30,stress
-164,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_202256.csv,16.164832883330583,0.0216696138254148,queens,-cpu-3,30,stress
-166,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_202648.csv,16.28569670470881,0.0258840661593351,queens,-cpu-3,30,stress
-168,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_203039.csv,16.182591381665475,0.0263946745932978,queens,-cpu-3,30,stress
-170,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_203431.csv,11.964155399664456,0.0087290956834802,queens,-cpu-3,30,stress
-172,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_203822.csv,11.947566832569851,0.0126798443355712,queens,-cpu-3,30,stress
-174,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_204214.csv,11.882468299262296,0.017450499124861,queens,-cpu-3,30,stress
-176,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_204605.csv,11.897545409085247,0.0234962735903097,queens,-cpu-3,30,stress
-178,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_204957.csv,11.88132861558185,0.011787072698378,queens,-cpu-3,30,stress
-180,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_205349.csv,13.519840747388692,0.0121248540512274,queens,-cpu-3,30,stress
-182,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_205740.csv,13.55251642856313,0.009153836903229,queens,-cpu-3,30,stress
-184,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_210132.csv,13.555008918579222,0.0063543021318424,queens,-cpu-3,30,stress
-186,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_210523.csv,13.545969903841542,0.0072446727237179,queens,-cpu-3,30,stress
-188,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_210915.csv,13.54858009323593,0.0070594234398581,queens,-cpu-3,30,stress
-190,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_211307.csv,10.956632497138347,0.0184938227450985,fibonacci,-cpu-3,30,stress
-192,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_211658.csv,11.14594860251988,0.0360691336063232,fibonacci,-cpu-3,30,stress
-194,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_212050.csv,11.235856789559783,0.02436627032276,fibonacci,-cpu-3,30,stress
-196,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_212442.csv,11.137211704370749,0.0219893388596761,fibonacci,-cpu-3,30,stress
-198,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_212833.csv,10.975228719890119,0.0386649935671842,fibonacci,-cpu-3,30,stress
-200,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_213225.csv,10.102944879428328,0.0290099116599377,fibonacci,-cpu-3,30,stress
-202,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_213616.csv,10.191766774847789,0.016396304869631,fibonacci,-cpu-3,30,stress
-204,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_214008.csv,10.067179393616048,0.038166744129522,fibonacci,-cpu-3,30,stress
-206,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_214400.csv,9.896147719928656,0.0204154843068745,fibonacci,-cpu-3,30,stress
-208,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_214751.csv,9.86189184741756,0.0147107993429624,fibonacci,-cpu-3,30,stress
-210,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_215143.csv,12.450732506307297,0.0041397094593333,fibonacci,-cpu-3,30,stress
-212,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_215534.csv,12.460539115781451,0.0049790870267569,fibonacci,-cpu-3,30,stress
-214,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_215926.csv,12.454333254434555,0.0018732299417203,fibonacci,-cpu-3,30,stress
-216,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_220318.csv,12.437586840524641,0.0078415688057285,fibonacci,-cpu-3,30,stress
-218,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_220709.csv,12.45250142035512,0.0069182048175346,fibonacci,-cpu-3,30,stress
-220,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_221101.csv,12.49163197461069,0.0126717258475947,fibonacci,-cpu-3,30,stress
-222,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_221452.csv,12.447170719642092,0.0189289150597439,fibonacci,-cpu-3,30,stress
-224,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_221844.csv,12.61495547682905,0.0466817688940144,fibonacci,-cpu-3,30,stress
-226,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_222235.csv,12.470527301385399,0.0135038485031143,fibonacci,-cpu-3,30,stress
-228,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_222627.csv,12.476928211657352,0.0213521226007555,fibonacci,-cpu-3,30,stress
-230,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_223018.csv,12.12218538102918,0.0125761900530997,fibonacci,-cpu-3,30,stress
-232,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_223410.csv,11.930229639028585,0.0205045361151394,fibonacci,-cpu-3,30,stress
-234,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_223801.csv,11.826215140781283,0.0179329262574391,fibonacci,-cpu-3,30,stress
-236,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_224153.csv,11.864873827734929,0.014053451224992,fibonacci,-cpu-3,30,stress
-238,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_224545.csv,11.92024989024275,0.0151176640396069,fibonacci,-cpu-3,30,stress
-240,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_224936.csv,13.54183612916393,0.0073575920050652,fibonacci,-cpu-3,30,stress
-242,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_225328.csv,13.52831187092361,0.0132318799146001,fibonacci,-cpu-3,30,stress
-244,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_225720.csv,13.524179281985521,0.0125852891771544,fibonacci,-cpu-3,30,stress
-246,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_230111.csv,13.552343700132269,0.0064345897102483,fibonacci,-cpu-3,30,stress
-248,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_230503.csv,13.439669600071088,0.0191300319113012,fibonacci,-cpu-3,30,stress
-250,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_230854.csv,8.99809035770732,0.0166269292293682,fibonacci,-cpu-3,30,stress
-252,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_231246.csv,9.03562473824752,0.0091505215188521,fibonacci,-cpu-3,30,stress
-254,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_231637.csv,9.035791633256416,0.0133578489398053,fibonacci,-cpu-3,30,stress
-256,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_232029.csv,9.071378655088445,0.0162248837204229,fibonacci,-cpu-3,30,stress
-258,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_232420.csv,9.045824829932755,0.0107567177994041,fibonacci,-cpu-3,30,stress
-260,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_232812.csv,10.670087229896566,0.0202459725703232,fibonacci,-cpu-3,30,stress
-262,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_233204.csv,10.903783905783857,0.0194556816678179,fibonacci,-cpu-3,30,stress
-264,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_233555.csv,10.869282275796671,0.0315230657912415,fibonacci,-cpu-3,30,stress
-266,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_233947.csv,10.912649057564536,0.0217137757910841,fibonacci,-cpu-3,30,stress
-268,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_234339.csv,10.596008898718761,0.0117277371658067,fibonacci,-cpu-3,30,stress
-270,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_234730.csv,11.692995374143369,0.006546403944448,float,-cpu-3,30,stress
-272,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_235122.csv,11.699349462655722,0.0099439998070111,float,-cpu-3,30,stress
-274,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_235513.csv,11.678408436628011,0.0168665022113807,float,-cpu-3,30,stress
-276,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_235905.csv,11.704420460252813,0.0029296196070344,float,-cpu-3,30,stress
-278,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260926_000256.csv,11.69975211470268,0.0110242039112109,float,-cpu-3,30,stress
-280,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_000648.csv,13.924682982752621,0.0129564464824807,float,-cpu-3,30,stress
-282,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_001039.csv,13.906126646943296,0.0097301227499988,float,-cpu-3,30,stress
-284,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_001432.csv,14.046258851569327,0.0264441004602023,float,-cpu-3,30,stress
-286,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_001823.csv,13.920451763659365,0.0055584986130864,float,-cpu-3,30,stress
-288,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_002215.csv,13.89435314931281,0.008808622130796,float,-cpu-3,30,stress
-290,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_002606.csv,14.28628633674565,0.0046990597732777,float,-cpu-3,30,stress
-292,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_002958.csv,14.275598159484279,0.0060129005665311,float,-cpu-3,30,stress
-294,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_003349.csv,14.245070517785056,0.0216008183996992,float,-cpu-3,30,stress
-296,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_003741.csv,14.10862402413029,0.0187996624653394,float,-cpu-3,30,stress
-298,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_004132.csv,14.28173394329248,0.0055479426506287,float,-cpu-3,30,stress
-300,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_004524.csv,13.496903885633788,0.0142861033539346,float,-cpu-3,30,stress
-302,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_004916.csv,13.502390497796203,0.010060606107946,float,-cpu-3,30,stress
-304,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_005307.csv,13.63407953562902,0.0106967278075427,float,-cpu-3,30,stress
-306,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_005659.csv,13.43653603739456,0.0163734567038112,float,-cpu-3,30,stress
-308,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_010051.csv,13.60174161472425,0.0083500721738297,float,-cpu-3,30,stress
-310,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_010442.csv,14.984868971147371,0.014107908302042,float,-cpu-3,30,stress
-312,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_010834.csv,14.997430749531567,0.0070800767646787,float,-cpu-3,30,stress
-314,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_011225.csv,14.97865253942971,0.013786218766335,float,-cpu-3,30,stress
-316,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_011617.csv,15.022019309497189,0.005464450286628,float,-cpu-3,30,stress
-318,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_012009.csv,15.022667224355981,0.0017382192352963,float,-cpu-3,30,stress
-320,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_012400.csv,10.56839362421399,0.0084997295574843,float,-cpu-3,30,stress
-322,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_012752.csv,10.534953008058626,0.0269805461533473,float,-cpu-3,30,stress
-324,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_013143.csv,10.622961427599819,0.0157567207232991,float,-cpu-3,30,stress
-326,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_013535.csv,10.575337556377072,0.0082521741976818,float,-cpu-3,30,stress
-328,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_013927.csv,10.688025463131961,0.0166878016431521,float,-cpu-3,30,stress
-330,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_014318.csv,12.382189448795192,0.0203944561650686,float,-cpu-3,30,stress
-332,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_014710.csv,12.469240308486452,0.0078239378963726,float,-cpu-3,30,stress
-334,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_015101.csv,12.456986782058088,0.0074836942539909,float,-cpu-3,30,stress
-336,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_015453.csv,12.448758506948096,0.0111887073306483,float,-cpu-3,30,stress
-338,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_015844.csv,12.442675857946359,0.0081731519996625,float,-cpu-3,30,stress
-340,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_020236.csv,12.79805569124704,0.0128575166142754,int64,-cpu-3,30,stress
-342,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_020627.csv,12.81832810055969,0.0030455458993645,int64,-cpu-3,30,stress
-344,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_021019.csv,13.17668930256924,0.0134129694990699,int64,-cpu-3,30,stress
-346,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_021410.csv,12.802904948160439,0.0112694819226159,int64,-cpu-3,30,stress
-348,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_021802.csv,12.903524018895048,0.0211353948214586,int64,-cpu-3,30,stress
-350,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_022153.csv,13.179185756914428,0.0071272312920983,int64,-cpu-3,30,stress
-352,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_022545.csv,13.159993710582487,0.0077606100395613,int64,-cpu-3,30,stress
-354,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_022936.csv,13.182184587463471,0.0080949238919554,int64,-cpu-3,30,stress
-356,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_023328.csv,13.179432803213263,0.0052264303765761,int64,-cpu-3,30,stress
-358,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_023719.csv,13.16446566145136,0.006457044240882,int64,-cpu-3,30,stress
-360,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_024111.csv,12.426766879798041,0.009166532841988,int64,-cpu-3,30,stress
-362,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_024503.csv,12.44767553095512,0.0159409459637108,int64,-cpu-3,30,stress
-364,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_024854.csv,12.436857773602856,0.0167023329597503,int64,-cpu-3,30,stress
-366,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_025246.csv,12.436085006116048,0.0093228025802256,int64,-cpu-3,30,stress
-368,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_025637.csv,12.49295329712637,0.0093986301249369,int64,-cpu-3,30,stress
-370,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_030029.csv,13.94982596081368,0.0073809652575225,int64,-cpu-3,30,stress
-372,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_030420.csv,14.245245030560653,0.025043522275009,int64,-cpu-3,30,stress
-374,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_030812.csv,14.206952678454527,0.035344653667581,int64,-cpu-3,30,stress
-376,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_031203.csv,14.231646632792579,0.0267780422131746,int64,-cpu-3,30,stress
-378,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_031555.csv,13.963854373167315,0.0203749901313118,int64,-cpu-3,30,stress
-380,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_031947.csv,9.52388188368614,0.0160473352445154,int64,-cpu-3,30,stress
-382,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_032338.csv,9.629409696090853,0.020448641374232,int64,-cpu-3,30,stress
-384,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_032730.csv,9.511127812849569,0.0121301044726472,int64,-cpu-3,30,stress
-386,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_033121.csv,9.47571578095473,0.0074435574968866,int64,-cpu-3,30,stress
-388,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_033513.csv,9.519803269193801,0.0171779457282887,int64,-cpu-3,30,stress
-390,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_033904.csv,11.342411441958362,0.0086882708930913,int64,-cpu-3,30,stress
-392,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_034256.csv,11.322560232567348,0.0167353978011391,int64,-cpu-3,30,stress
-394,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_034647.csv,11.34640972774545,0.004723066875457,int64,-cpu-3,30,stress
-396,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_035039.csv,11.357318260055585,0.0034926043535292,int64,-cpu-3,30,stress
-398,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_035430.csv,11.338512987874783,0.0080197252763632,int64,-cpu-3,30,stress
-400,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_035822.csv,15.390602095228665,0.0038389478129289,double,-cpu-3,30,stress
-402,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_040214.csv,15.372997127217111,0.0076034021850518,double,-cpu-3,30,stress
-404,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_040605.csv,15.583533195198363,0.0284990207366397,double,-cpu-3,30,stress
-406,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_040957.csv,15.367038794336025,0.0088429049811708,double,-cpu-3,30,stress
-408,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_041348.csv,15.34185629990317,0.0241242549965999,double,-cpu-3,30,stress
-410,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_041740.csv,14.710717405534503,0.0124670683604775,double,-cpu-3,30,stress
-412,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_042132.csv,14.69768904640128,0.0058081774339465,double,-cpu-3,30,stress
-414,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_042523.csv,14.709503366287109,0.0133470712520425,double,-cpu-3,30,stress
-416,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_042915.csv,14.8831581026814,0.0073692256083364,double,-cpu-3,30,stress
-418,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_043306.csv,14.72232706139124,0.007287743041933,double,-cpu-3,30,stress
-420,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_043658.csv,16.46263956970982,0.0163377292125877,double,-cpu-3,30,stress
-422,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_044049.csv,16.40791766712838,0.0151493656659909,double,-cpu-3,30,stress
-424,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_044441.csv,16.42576751373109,0.0129007888287168,double,-cpu-3,30,stress
-426,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_044832.csv,16.45497547050208,0.0064694796264348,double,-cpu-3,30,stress
-428,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_045224.csv,16.44859063295237,0.0054538504884384,double,-cpu-3,30,stress
-430,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_045616.csv,12.043662256296152,0.0107494508220836,double,-cpu-3,30,stress
-432,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_050007.csv,12.04961539158429,0.0110139331796675,double,-cpu-3,30,stress
-434,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_050359.csv,12.053540672489465,0.0047455802781345,double,-cpu-3,30,stress
-436,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_050751.csv,11.97057659566812,0.0104333092009994,double,-cpu-3,30,stress
-438,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_051142.csv,12.053824072442819,0.0056687127192415,double,-cpu-3,30,stress
-440,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_051534.csv,13.56447136538624,0.012567474662416,double,-cpu-3,30,stress
-442,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_051925.csv,13.529117447004268,0.0100621450697797,double,-cpu-3,30,stress
-444,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_052317.csv,13.529200826023388,0.0198643773447357,double,-cpu-3,30,stress
-446,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_052709.csv,13.89745367911165,0.0049494731888722,double,-cpu-3,30,stress
-448,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_053100.csv,13.90785523940685,0.010132221314534,double,-cpu-3,30,stress
-450,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_053452.csv,14.935252133946143,0.0135085070322783,int64float,-cpu-3,30,stress
-452,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_053843.csv,14.976222596569592,0.014401213566403,int64float,-cpu-3,30,stress
-454,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_054235.csv,14.84707186352372,0.009494918589108,int64float,-cpu-3,30,stress
-456,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_054626.csv,14.933791516674685,0.0103084558178683,int64float,-cpu-3,30,stress
-458,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_055018.csv,14.876735263947971,0.0079751237825078,int64float,-cpu-3,30,stress
-460,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_055409.csv,16.482173532829307,0.0113531022639946,int64float,-cpu-3,30,stress
-462,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_055801.csv,16.488923089688505,0.0087923994197174,int64float,-cpu-3,30,stress
-464,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_060152.csv,16.488242941043502,0.0055455576663109,int64float,-cpu-3,30,stress
-466,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_060544.csv,16.481044097913383,0.0054770200635888,int64float,-cpu-3,30,stress
-468,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_060935.csv,16.45033432277765,0.01236386398622,int64float,-cpu-3,30,stress
-470,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_061327.csv,12.0811291125573,0.0076372227160902,int64float,-cpu-3,30,stress
-472,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_061718.csv,12.30245176005582,0.0203763267789056,int64float,-cpu-3,30,stress
-474,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_062110.csv,12.111343367177248,0.0145317495921179,int64float,-cpu-3,30,stress
-476,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_062502.csv,12.089095963913724,0.0146630937143914,int64float,-cpu-3,30,stress
-478,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_062853.csv,12.104600381765323,0.0087977025330043,int64float,-cpu-3,30,stress
-480,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_063245.csv,13.927831031665256,0.0068688831014577,int64float,-cpu-3,30,stress
-482,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_063636.csv,13.81420314316005,0.0363128694500836,int64float,-cpu-3,30,stress
-484,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_064028.csv,13.928839660268345,0.0068299081154753,int64float,-cpu-3,30,stress
-486,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_064419.csv,13.934308042970898,0.0107278997589185,int64float,-cpu-3,30,stress
-488,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_064811.csv,13.94295758269828,0.0092604455975982,int64float,-cpu-3,30,stress
-490,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_065203.csv,15.8761778070734,0.0125921283166641,int64double,-cpu-3,30,stress
-492,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_065554.csv,15.901261332619224,0.011377112751768,int64double,-cpu-3,30,stress
-494,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_065946.csv,15.865044780859737,0.0103257242304666,int64double,-cpu-3,30,stress
-496,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_070337.csv,15.9444864183024,0.007611753128335,int64double,-cpu-3,30,stress
-498,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_070729.csv,16.024902581582573,0.0135784552174692,int64double,-cpu-3,30,stress
-500,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_071121.csv,11.522522067355805,0.0092400114439668,int64double,-cpu-3,30,stress
-502,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_071512.csv,11.492801392850858,0.0086493337998143,int64double,-cpu-3,30,stress
-504,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_071904.csv,11.464078610387773,0.0155348647623723,int64double,-cpu-3,30,stress
-506,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_072255.csv,11.512893312341085,0.008398997882825,int64double,-cpu-3,30,stress
-508,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_072647.csv,11.494516115448619,0.0135209109395787,int64double,-cpu-3,30,stress
-510,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_073038.csv,13.21846427031835,0.0111651023374035,int64double,-cpu-3,30,stress
-512,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_073430.csv,13.23319215461608,0.0130543093981303,int64double,-cpu-3,30,stress
-514,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_073821.csv,13.18825924585547,0.0088384824708099,int64double,-cpu-3,30,stress
-516,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_074213.csv,13.22999384451516,0.007914566178768,int64double,-cpu-3,30,stress
-518,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_074604.csv,13.216676919716228,0.0105524417931474,int64double,-cpu-3,30,stress
-520,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_074956.csv,13.20503911088067,0.0090279107498778,prod,-matrix-3,30,stress
-522,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_075348.csv,13.18506410086776,0.0069977180101746,prod,-matrix-3,30,stress
-524,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_075739.csv,13.164522973190572,0.0082742589285972,prod,-matrix-3,30,stress
-526,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_080131.csv,13.179680572233515,0.0090434448093795,prod,-matrix-3,30,stress
-528,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_080523.csv,13.172836073458281,0.0070240821746542,prod,-matrix-3,30,stress
-530,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_080914.csv,14.881201940407784,0.0277594204213625,prod,-matrix-3,30,stress
-532,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_081306.csv,14.676006964665959,0.0168000326355205,prod,-matrix-3,30,stress
-534,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_081657.csv,14.66054763740101,0.0191222450430753,prod,-matrix-3,30,stress
-536,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_082049.csv,14.655208047825479,0.0090040015761271,prod,-matrix-3,30,stress
-538,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_082440.csv,14.662642340909297,0.0069255913349973,prod,-matrix-3,30,stress
-540,stress-ng---cpu-3---cpu-method-rand--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_082832.csv,10.453161174448521,0.0166723856297549,rand,-cpu-3,30,stress
-542,stress-ng---cpu-3---cpu-method-rand--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_083224.csv,10.281560628320879,0.0147599039205446,rand,-cpu-3,30,stress
-544,stress-ng---cpu-3---cpu-method-rand--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_083615.csv,10.399835832386312,0.0157143584746058,rand,-cpu-3,30,stress
-546,stress-ng---cpu-3---cpu-method-rand--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_084007.csv,10.32273006430244,0.0187809230384699,rand,-cpu-3,30,stress
-548,stress-ng---cpu-3---cpu-method-rand--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_084358.csv,10.475798069316092,0.0135736279895062,rand,-cpu-3,30,stress
+,Stress-ng,Média,Variância,método,método2,par,cpu,tempo,data
+0,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-queens--t-30-20260925_150624.csv,14.614732729462723,0.0109849780814186,ackermann,queens,"('ackermann', 'queens')",-cpu-3,30,stress
+2,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-queens--t-30-20260925_151015.csv,14.606585178086416,0.030873326035802,ackermann,queens,"('ackermann', 'queens')",-cpu-3,30,stress
+4,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-queens--t-30-20260925_151407.csv,14.597282037761225,0.0237767834205379,ackermann,queens,"('ackermann', 'queens')",-cpu-3,30,stress
+6,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-queens--t-30-20260925_151759.csv,14.633845188885005,0.0094547220701422,ackermann,queens,"('ackermann', 'queens')",-cpu-3,30,stress
+8,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-queens--t-30-20260925_152150.csv,14.635346964038568,0.0092237565041504,ackermann,queens,"('ackermann', 'queens')",-cpu-3,30,stress
+10,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_152542.csv,11.950990676163329,0.0301253529591951,ackermann,fibonacci,"('ackermann', 'fibonacci')",-cpu-3,30,stress
+12,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_152933.csv,12.044164131319103,0.0101384411945529,ackermann,fibonacci,"('ackermann', 'fibonacci')",-cpu-3,30,stress
+14,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_153325.csv,12.038248483378041,0.0213883551761846,ackermann,fibonacci,"('ackermann', 'fibonacci')",-cpu-3,30,stress
+16,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_153716.csv,11.96383494603488,0.0220958791297021,ackermann,fibonacci,"('ackermann', 'fibonacci')",-cpu-3,30,stress
+18,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_154108.csv,11.980186263712849,0.012256191208444,ackermann,fibonacci,"('ackermann', 'fibonacci')",-cpu-3,30,stress
+20,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_154459.csv,13.509349156638631,0.0072388323301651,ackermann,float,"('ackermann', 'float')",-cpu-3,30,stress
+22,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_154851.csv,13.538017286618249,0.0102888757363167,ackermann,float,"('ackermann', 'float')",-cpu-3,30,stress
+24,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_155243.csv,13.539934007515239,0.0122767632103168,ackermann,float,"('ackermann', 'float')",-cpu-3,30,stress
+26,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_155634.csv,13.51883681847995,0.0077928840269247,ackermann,float,"('ackermann', 'float')",-cpu-3,30,stress
+28,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_160026.csv,13.580305036873721,0.042968378071872,ackermann,float,"('ackermann', 'float')",-cpu-3,30,stress
+30,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_160418.csv,12.440780221702152,0.0035289168267275,ackermann,int64,"('ackermann', 'int64')",-cpu-3,30,stress
+32,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_160809.csv,12.444060037691841,0.0060998288880915,ackermann,int64,"('ackermann', 'int64')",-cpu-3,30,stress
+34,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_161201.csv,12.43354527732902,0.0105703906855883,ackermann,int64,"('ackermann', 'int64')",-cpu-3,30,stress
+36,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_161552.csv,12.389173673514044,0.0126745792285322,ackermann,int64,"('ackermann', 'int64')",-cpu-3,30,stress
+38,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_161944.csv,12.433403013187363,0.0060087267614041,ackermann,int64,"('ackermann', 'int64')",-cpu-3,30,stress
+40,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_162336.csv,14.683719531703066,0.0161660279667093,ackermann,double,"('ackermann', 'double')",-cpu-3,30,stress
+42,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_162728.csv,14.643736113034787,0.0143367519798581,ackermann,double,"('ackermann', 'double')",-cpu-3,30,stress
+44,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_163119.csv,14.67056873593464,0.0077566166583944,ackermann,double,"('ackermann', 'double')",-cpu-3,30,stress
+46,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_163511.csv,14.644907021274065,0.0122717845380046,ackermann,double,"('ackermann', 'double')",-cpu-3,30,stress
+48,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_163902.csv,14.669768574376171,0.0044903700451037,ackermann,double,"('ackermann', 'double')",-cpu-3,30,stress
+50,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_164254.csv,15.00104407789588,0.0107007099415206,ackermann,int64float,"('ackermann', 'int64float')",-cpu-3,30,stress
+52,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_164645.csv,15.005494235530684,0.0098604995608306,ackermann,int64float,"('ackermann', 'int64float')",-cpu-3,30,stress
+54,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_165037.csv,14.913507152957173,0.0198850609909287,ackermann,int64float,"('ackermann', 'int64float')",-cpu-3,30,stress
+56,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_165429.csv,14.98257093945487,0.0127941018421102,ackermann,int64float,"('ackermann', 'int64float')",-cpu-3,30,stress
+58,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_165821.csv,15.06814557595533,0.0200754717109489,ackermann,int64float,"('ackermann', 'int64float')",-cpu-3,30,stress
+60,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_170213.csv,14.224271358234454,0.0117858390462913,ackermann,int64double,"('ackermann', 'int64double')",-cpu-3,30,stress
+62,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_170605.csv,14.2607740700951,0.0201493494646496,ackermann,int64double,"('ackermann', 'int64double')",-cpu-3,30,stress
+64,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_170957.csv,14.268994708057697,0.0140054446434029,ackermann,int64double,"('ackermann', 'int64double')",-cpu-3,30,stress
+66,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_171348.csv,14.39436531506718,0.0093451370101414,ackermann,int64double,"('ackermann', 'int64double')",-cpu-3,30,stress
+68,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_171740.csv,14.26945725401104,0.0121504658321512,ackermann,int64double,"('ackermann', 'int64double')",-cpu-3,30,stress
+70,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_172132.csv,15.75232629381069,0.0154967459061657,ackermann,prod,"('ackermann', 'prod')",-cpu-3,30,stress
+72,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_172523.csv,15.76439643732932,0.0102194843799026,ackermann,prod,"('ackermann', 'prod')",-cpu-3,30,stress
+74,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_172915.csv,15.78071745540306,0.0117904647905325,ackermann,prod,"('ackermann', 'prod')",-cpu-3,30,stress
+76,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_173306.csv,15.886133554690407,0.0376811020851024,ackermann,prod,"('ackermann', 'prod')",-cpu-3,30,stress
+78,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_173658.csv,15.791330267616463,0.0149971731869,ackermann,prod,"('ackermann', 'prod')",-cpu-3,30,stress
+80,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_174050.csv,11.407632296323293,0.016881215122215,ackermann,rand,"('ackermann', 'rand')",-cpu-3,30,stress
+82,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_174441.csv,11.571198822330171,0.012563559421357,ackermann,rand,"('ackermann', 'rand')",-cpu-3,30,stress
+84,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_174833.csv,11.516606245410241,0.0244242545350231,ackermann,rand,"('ackermann', 'rand')",-cpu-3,30,stress
+86,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_175225.csv,11.37439529869362,0.0113201406450834,ackermann,rand,"('ackermann', 'rand')",-cpu-3,30,stress
+88,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_175616.csv,11.41164836703112,0.0121114901147241,ackermann,rand,"('ackermann', 'rand')",-cpu-3,30,stress
+90,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_180008.csv,13.192620799389147,0.0089704178552105,ackermann,jmp,"('ackermann', 'jmp')",-cpu-3,30,stress
+92,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_180359.csv,13.201232609186043,0.0045680177737931,ackermann,jmp,"('ackermann', 'jmp')",-cpu-3,30,stress
+94,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_180751.csv,13.157248745156128,0.0177724226847707,ackermann,jmp,"('ackermann', 'jmp')",-cpu-3,30,stress
+96,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_181143.csv,13.195624075917426,0.0050157179342767,ackermann,jmp,"('ackermann', 'jmp')",-cpu-3,30,stress
+98,stress-ng---cpu-3---cpu-method-ackermann--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_181535.csv,13.20558432886012,0.0091379725998677,ackermann,jmp,"('ackermann', 'jmp')",-cpu-3,30,stress
+100,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_181926.csv,12.086816005960152,0.0120038823193715,queens,fibonacci,"('fibonacci', 'queens')",-cpu-3,30,stress
+102,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_182318.csv,12.352254320899217,0.0196504800977274,queens,fibonacci,"('fibonacci', 'queens')",-cpu-3,30,stress
+104,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_182709.csv,12.167405146906539,0.0384105960704017,queens,fibonacci,"('fibonacci', 'queens')",-cpu-3,30,stress
+106,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_183101.csv,12.361604493628583,0.0144054290432181,queens,fibonacci,"('fibonacci', 'queens')",-cpu-3,30,stress
+108,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-fibonacci--t-30-20260925_183452.csv,12.198698273044208,0.0222208158463562,queens,fibonacci,"('fibonacci', 'queens')",-cpu-3,30,stress
+110,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_183844.csv,13.888213879657386,0.0108768663045956,queens,float,"('float', 'queens')",-cpu-3,30,stress
+112,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_184235.csv,13.902963429894296,0.0089898678745919,queens,float,"('float', 'queens')",-cpu-3,30,stress
+114,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_184627.csv,13.882917079629092,0.0078450801732281,queens,float,"('float', 'queens')",-cpu-3,30,stress
+116,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_185019.csv,13.854237262526802,0.0270695595815096,queens,float,"('float', 'queens')",-cpu-3,30,stress
+118,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_185410.csv,13.847265443989091,0.0171778690016559,queens,float,"('float', 'queens')",-cpu-3,30,stress
+120,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_185802.csv,12.680325239951195,0.0225786559613551,queens,int64,"('int64', 'queens')",-cpu-3,30,stress
+122,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_190153.csv,12.69087881298542,0.0190336593264611,queens,int64,"('int64', 'queens')",-cpu-3,30,stress
+124,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_190545.csv,12.76007567407613,0.0123243477204021,queens,int64,"('int64', 'queens')",-cpu-3,30,stress
+126,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_190936.csv,12.807696923871056,0.0060558653110347,queens,int64,"('int64', 'queens')",-cpu-3,30,stress
+128,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_191328.csv,12.822323649676253,0.0152791868109972,queens,int64,"('int64', 'queens')",-cpu-3,30,stress
+130,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_191719.csv,14.999358812260251,0.0043790815388984,queens,double,"('double', 'queens')",-cpu-3,30,stress
+132,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_192111.csv,14.945595493034368,0.0201375151035333,queens,double,"('double', 'queens')",-cpu-3,30,stress
+134,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_192503.csv,14.934618293684942,0.0138022018307554,queens,double,"('double', 'queens')",-cpu-3,30,stress
+136,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_192854.csv,14.98609444930818,0.0117798763670688,queens,double,"('double', 'queens')",-cpu-3,30,stress
+138,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_193246.csv,14.966649180878498,0.0160169218640649,queens,double,"('double', 'queens')",-cpu-3,30,stress
+140,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_193637.csv,15.162553254170739,0.0251128897945205,queens,int64float,"('int64float', 'queens')",-cpu-3,30,stress
+142,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_194029.csv,15.57831467917098,0.019555003044246,queens,int64float,"('int64float', 'queens')",-cpu-3,30,stress
+144,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_194420.csv,14.97312942144055,0.0166768123484368,queens,int64float,"('int64float', 'queens')",-cpu-3,30,stress
+146,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_194812.csv,15.045591795232902,0.0330489332754656,queens,int64float,"('int64float', 'queens')",-cpu-3,30,stress
+148,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_195204.csv,15.006132486794552,0.0292223709254065,queens,int64float,"('int64float', 'queens')",-cpu-3,30,stress
+150,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_195555.csv,14.4712987084602,0.0222670022972507,queens,int64double,"('int64double', 'queens')",-cpu-3,30,stress
+152,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_195947.csv,14.471970658357247,0.0142673359292975,queens,int64double,"('int64double', 'queens')",-cpu-3,30,stress
+154,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_200338.csv,14.59803636237936,0.0204927122284909,queens,int64double,"('int64double', 'queens')",-cpu-3,30,stress
+156,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_200730.csv,14.61484065661486,0.0125302116604391,queens,int64double,"('int64double', 'queens')",-cpu-3,30,stress
+158,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_201121.csv,14.585440897062952,0.0136799341940122,queens,int64double,"('int64double', 'queens')",-cpu-3,30,stress
+160,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_201513.csv,16.15432680445004,0.0253503040096108,queens,prod,"('prod', 'queens')",-cpu-3,30,stress
+162,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_201905.csv,16.10364685500354,0.0196456553783786,queens,prod,"('prod', 'queens')",-cpu-3,30,stress
+164,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_202256.csv,16.164832883330583,0.0216696138254148,queens,prod,"('prod', 'queens')",-cpu-3,30,stress
+166,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_202648.csv,16.28569670470881,0.0258840661593351,queens,prod,"('prod', 'queens')",-cpu-3,30,stress
+168,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_203039.csv,16.182591381665475,0.0263946745932978,queens,prod,"('prod', 'queens')",-cpu-3,30,stress
+170,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_203431.csv,11.964155399664456,0.0087290956834802,queens,rand,"('queens', 'rand')",-cpu-3,30,stress
+172,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_203822.csv,11.947566832569851,0.0126798443355712,queens,rand,"('queens', 'rand')",-cpu-3,30,stress
+174,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_204214.csv,11.882468299262296,0.017450499124861,queens,rand,"('queens', 'rand')",-cpu-3,30,stress
+176,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_204605.csv,11.897545409085247,0.0234962735903097,queens,rand,"('queens', 'rand')",-cpu-3,30,stress
+178,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_204957.csv,11.88132861558185,0.011787072698378,queens,rand,"('queens', 'rand')",-cpu-3,30,stress
+180,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_205349.csv,13.519840747388692,0.0121248540512274,queens,jmp,"('jmp', 'queens')",-cpu-3,30,stress
+182,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_205740.csv,13.55251642856313,0.009153836903229,queens,jmp,"('jmp', 'queens')",-cpu-3,30,stress
+184,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_210132.csv,13.555008918579222,0.0063543021318424,queens,jmp,"('jmp', 'queens')",-cpu-3,30,stress
+186,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_210523.csv,13.545969903841542,0.0072446727237179,queens,jmp,"('jmp', 'queens')",-cpu-3,30,stress
+188,stress-ng---cpu-3---cpu-method-queens--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_210915.csv,13.54858009323593,0.0070594234398581,queens,jmp,"('jmp', 'queens')",-cpu-3,30,stress
+190,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_211307.csv,10.956632497138347,0.0184938227450985,fibonacci,float,"('fibonacci', 'float')",-cpu-3,30,stress
+192,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_211658.csv,11.14594860251988,0.0360691336063232,fibonacci,float,"('fibonacci', 'float')",-cpu-3,30,stress
+194,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_212050.csv,11.235856789559783,0.02436627032276,fibonacci,float,"('fibonacci', 'float')",-cpu-3,30,stress
+196,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_212442.csv,11.137211704370749,0.0219893388596761,fibonacci,float,"('fibonacci', 'float')",-cpu-3,30,stress
+198,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-float--t-30-20260925_212833.csv,10.975228719890119,0.0386649935671842,fibonacci,float,"('fibonacci', 'float')",-cpu-3,30,stress
+200,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_213225.csv,10.102944879428328,0.0290099116599377,fibonacci,int64,"('fibonacci', 'int64')",-cpu-3,30,stress
+202,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_213616.csv,10.191766774847789,0.016396304869631,fibonacci,int64,"('fibonacci', 'int64')",-cpu-3,30,stress
+204,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_214008.csv,10.067179393616048,0.038166744129522,fibonacci,int64,"('fibonacci', 'int64')",-cpu-3,30,stress
+206,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_214400.csv,9.896147719928656,0.0204154843068745,fibonacci,int64,"('fibonacci', 'int64')",-cpu-3,30,stress
+208,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_214751.csv,9.86189184741756,0.0147107993429624,fibonacci,int64,"('fibonacci', 'int64')",-cpu-3,30,stress
+210,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_215143.csv,12.450732506307297,0.0041397094593333,fibonacci,double,"('double', 'fibonacci')",-cpu-3,30,stress
+212,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_215534.csv,12.460539115781451,0.0049790870267569,fibonacci,double,"('double', 'fibonacci')",-cpu-3,30,stress
+214,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_215926.csv,12.454333254434555,0.0018732299417203,fibonacci,double,"('double', 'fibonacci')",-cpu-3,30,stress
+216,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_220318.csv,12.437586840524641,0.0078415688057285,fibonacci,double,"('double', 'fibonacci')",-cpu-3,30,stress
+218,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260925_220709.csv,12.45250142035512,0.0069182048175346,fibonacci,double,"('double', 'fibonacci')",-cpu-3,30,stress
+220,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_221101.csv,12.49163197461069,0.0126717258475947,fibonacci,int64float,"('fibonacci', 'int64float')",-cpu-3,30,stress
+222,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_221452.csv,12.447170719642092,0.0189289150597439,fibonacci,int64float,"('fibonacci', 'int64float')",-cpu-3,30,stress
+224,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_221844.csv,12.61495547682905,0.0466817688940144,fibonacci,int64float,"('fibonacci', 'int64float')",-cpu-3,30,stress
+226,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_222235.csv,12.470527301385399,0.0135038485031143,fibonacci,int64float,"('fibonacci', 'int64float')",-cpu-3,30,stress
+228,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260925_222627.csv,12.476928211657352,0.0213521226007555,fibonacci,int64float,"('fibonacci', 'int64float')",-cpu-3,30,stress
+230,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_223018.csv,12.12218538102918,0.0125761900530997,fibonacci,int64double,"('fibonacci', 'int64double')",-cpu-3,30,stress
+232,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_223410.csv,11.930229639028585,0.0205045361151394,fibonacci,int64double,"('fibonacci', 'int64double')",-cpu-3,30,stress
+234,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_223801.csv,11.826215140781283,0.0179329262574391,fibonacci,int64double,"('fibonacci', 'int64double')",-cpu-3,30,stress
+236,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_224153.csv,11.864873827734929,0.014053451224992,fibonacci,int64double,"('fibonacci', 'int64double')",-cpu-3,30,stress
+238,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260925_224545.csv,11.92024989024275,0.0151176640396069,fibonacci,int64double,"('fibonacci', 'int64double')",-cpu-3,30,stress
+240,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_224936.csv,13.54183612916393,0.0073575920050652,fibonacci,prod,"('fibonacci', 'prod')",-cpu-3,30,stress
+242,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_225328.csv,13.52831187092361,0.0132318799146001,fibonacci,prod,"('fibonacci', 'prod')",-cpu-3,30,stress
+244,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_225720.csv,13.524179281985521,0.0125852891771544,fibonacci,prod,"('fibonacci', 'prod')",-cpu-3,30,stress
+246,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_230111.csv,13.552343700132269,0.0064345897102483,fibonacci,prod,"('fibonacci', 'prod')",-cpu-3,30,stress
+248,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260925_230503.csv,13.439669600071088,0.0191300319113012,fibonacci,prod,"('fibonacci', 'prod')",-cpu-3,30,stress
+250,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_230854.csv,8.99809035770732,0.0166269292293682,fibonacci,rand,"('fibonacci', 'rand')",-cpu-3,30,stress
+252,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_231246.csv,9.03562473824752,0.0091505215188521,fibonacci,rand,"('fibonacci', 'rand')",-cpu-3,30,stress
+254,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_231637.csv,9.035791633256416,0.0133578489398053,fibonacci,rand,"('fibonacci', 'rand')",-cpu-3,30,stress
+256,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_232029.csv,9.071378655088445,0.0162248837204229,fibonacci,rand,"('fibonacci', 'rand')",-cpu-3,30,stress
+258,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260925_232420.csv,9.045824829932755,0.0107567177994041,fibonacci,rand,"('fibonacci', 'rand')",-cpu-3,30,stress
+260,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_232812.csv,10.670087229896566,0.0202459725703232,fibonacci,jmp,"('fibonacci', 'jmp')",-cpu-3,30,stress
+262,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_233204.csv,10.903783905783857,0.0194556816678179,fibonacci,jmp,"('fibonacci', 'jmp')",-cpu-3,30,stress
+264,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_233555.csv,10.869282275796671,0.0315230657912415,fibonacci,jmp,"('fibonacci', 'jmp')",-cpu-3,30,stress
+266,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_233947.csv,10.912649057564536,0.0217137757910841,fibonacci,jmp,"('fibonacci', 'jmp')",-cpu-3,30,stress
+268,stress-ng---cpu-3---cpu-method-fibonacci--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260925_234339.csv,10.596008898718761,0.0117277371658067,fibonacci,jmp,"('fibonacci', 'jmp')",-cpu-3,30,stress
+270,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_234730.csv,11.692995374143369,0.006546403944448,float,int64,"('float', 'int64')",-cpu-3,30,stress
+272,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_235122.csv,11.699349462655722,0.0099439998070111,float,int64,"('float', 'int64')",-cpu-3,30,stress
+274,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_235513.csv,11.678408436628011,0.0168665022113807,float,int64,"('float', 'int64')",-cpu-3,30,stress
+276,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260925_235905.csv,11.704420460252813,0.0029296196070344,float,int64,"('float', 'int64')",-cpu-3,30,stress
+278,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64--t-30-20260926_000256.csv,11.69975211470268,0.0110242039112109,float,int64,"('float', 'int64')",-cpu-3,30,stress
+280,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_000648.csv,13.924682982752621,0.0129564464824807,float,double,"('double', 'float')",-cpu-3,30,stress
+282,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_001039.csv,13.906126646943296,0.0097301227499988,float,double,"('double', 'float')",-cpu-3,30,stress
+284,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_001432.csv,14.046258851569327,0.0264441004602023,float,double,"('double', 'float')",-cpu-3,30,stress
+286,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_001823.csv,13.920451763659365,0.0055584986130864,float,double,"('double', 'float')",-cpu-3,30,stress
+288,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_002215.csv,13.89435314931281,0.008808622130796,float,double,"('double', 'float')",-cpu-3,30,stress
+290,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_002606.csv,14.28628633674565,0.0046990597732777,float,int64float,"('float', 'int64float')",-cpu-3,30,stress
+292,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_002958.csv,14.275598159484279,0.0060129005665311,float,int64float,"('float', 'int64float')",-cpu-3,30,stress
+294,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_003349.csv,14.245070517785056,0.0216008183996992,float,int64float,"('float', 'int64float')",-cpu-3,30,stress
+296,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_003741.csv,14.10862402413029,0.0187996624653394,float,int64float,"('float', 'int64float')",-cpu-3,30,stress
+298,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_004132.csv,14.28173394329248,0.0055479426506287,float,int64float,"('float', 'int64float')",-cpu-3,30,stress
+300,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_004524.csv,13.496903885633788,0.0142861033539346,float,int64double,"('float', 'int64double')",-cpu-3,30,stress
+302,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_004916.csv,13.502390497796203,0.010060606107946,float,int64double,"('float', 'int64double')",-cpu-3,30,stress
+304,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_005307.csv,13.63407953562902,0.0106967278075427,float,int64double,"('float', 'int64double')",-cpu-3,30,stress
+306,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_005659.csv,13.43653603739456,0.0163734567038112,float,int64double,"('float', 'int64double')",-cpu-3,30,stress
+308,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_010051.csv,13.60174161472425,0.0083500721738297,float,int64double,"('float', 'int64double')",-cpu-3,30,stress
+310,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_010442.csv,14.984868971147371,0.014107908302042,float,prod,"('float', 'prod')",-cpu-3,30,stress
+312,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_010834.csv,14.997430749531567,0.0070800767646787,float,prod,"('float', 'prod')",-cpu-3,30,stress
+314,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_011225.csv,14.97865253942971,0.013786218766335,float,prod,"('float', 'prod')",-cpu-3,30,stress
+316,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_011617.csv,15.022019309497189,0.005464450286628,float,prod,"('float', 'prod')",-cpu-3,30,stress
+318,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_012009.csv,15.022667224355981,0.0017382192352963,float,prod,"('float', 'prod')",-cpu-3,30,stress
+320,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_012400.csv,10.56839362421399,0.0084997295574843,float,rand,"('float', 'rand')",-cpu-3,30,stress
+322,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_012752.csv,10.534953008058626,0.0269805461533473,float,rand,"('float', 'rand')",-cpu-3,30,stress
+324,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_013143.csv,10.622961427599819,0.0157567207232991,float,rand,"('float', 'rand')",-cpu-3,30,stress
+326,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_013535.csv,10.575337556377072,0.0082521741976818,float,rand,"('float', 'rand')",-cpu-3,30,stress
+328,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_013927.csv,10.688025463131961,0.0166878016431521,float,rand,"('float', 'rand')",-cpu-3,30,stress
+330,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_014318.csv,12.382189448795192,0.0203944561650686,float,jmp,"('float', 'jmp')",-cpu-3,30,stress
+332,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_014710.csv,12.469240308486452,0.0078239378963726,float,jmp,"('float', 'jmp')",-cpu-3,30,stress
+334,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_015101.csv,12.456986782058088,0.0074836942539909,float,jmp,"('float', 'jmp')",-cpu-3,30,stress
+336,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_015453.csv,12.448758506948096,0.0111887073306483,float,jmp,"('float', 'jmp')",-cpu-3,30,stress
+338,stress-ng---cpu-3---cpu-method-float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_015844.csv,12.442675857946359,0.0081731519996625,float,jmp,"('float', 'jmp')",-cpu-3,30,stress
+340,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_020236.csv,12.79805569124704,0.0128575166142754,int64,double,"('double', 'int64')",-cpu-3,30,stress
+342,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_020627.csv,12.81832810055969,0.0030455458993645,int64,double,"('double', 'int64')",-cpu-3,30,stress
+344,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_021019.csv,13.17668930256924,0.0134129694990699,int64,double,"('double', 'int64')",-cpu-3,30,stress
+346,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_021410.csv,12.802904948160439,0.0112694819226159,int64,double,"('double', 'int64')",-cpu-3,30,stress
+348,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-double--t-30-20260926_021802.csv,12.903524018895048,0.0211353948214586,int64,double,"('double', 'int64')",-cpu-3,30,stress
+350,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_022153.csv,13.179185756914428,0.0071272312920983,int64,int64float,"('int64', 'int64float')",-cpu-3,30,stress
+352,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_022545.csv,13.159993710582487,0.0077606100395613,int64,int64float,"('int64', 'int64float')",-cpu-3,30,stress
+354,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_022936.csv,13.182184587463471,0.0080949238919554,int64,int64float,"('int64', 'int64float')",-cpu-3,30,stress
+356,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_023328.csv,13.179432803213263,0.0052264303765761,int64,int64float,"('int64', 'int64float')",-cpu-3,30,stress
+358,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_023719.csv,13.16446566145136,0.006457044240882,int64,int64float,"('int64', 'int64float')",-cpu-3,30,stress
+360,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_024111.csv,12.426766879798041,0.009166532841988,int64,int64double,"('int64', 'int64double')",-cpu-3,30,stress
+362,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_024503.csv,12.44767553095512,0.0159409459637108,int64,int64double,"('int64', 'int64double')",-cpu-3,30,stress
+364,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_024854.csv,12.436857773602856,0.0167023329597503,int64,int64double,"('int64', 'int64double')",-cpu-3,30,stress
+366,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_025246.csv,12.436085006116048,0.0093228025802256,int64,int64double,"('int64', 'int64double')",-cpu-3,30,stress
+368,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_025637.csv,12.49295329712637,0.0093986301249369,int64,int64double,"('int64', 'int64double')",-cpu-3,30,stress
+370,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_030029.csv,13.94982596081368,0.0073809652575225,int64,prod,"('int64', 'prod')",-cpu-3,30,stress
+372,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_030420.csv,14.245245030560653,0.025043522275009,int64,prod,"('int64', 'prod')",-cpu-3,30,stress
+374,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_030812.csv,14.206952678454527,0.035344653667581,int64,prod,"('int64', 'prod')",-cpu-3,30,stress
+376,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_031203.csv,14.231646632792579,0.0267780422131746,int64,prod,"('int64', 'prod')",-cpu-3,30,stress
+378,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_031555.csv,13.963854373167315,0.0203749901313118,int64,prod,"('int64', 'prod')",-cpu-3,30,stress
+380,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_031947.csv,9.52388188368614,0.0160473352445154,int64,rand,"('int64', 'rand')",-cpu-3,30,stress
+382,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_032338.csv,9.629409696090853,0.020448641374232,int64,rand,"('int64', 'rand')",-cpu-3,30,stress
+384,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_032730.csv,9.511127812849569,0.0121301044726472,int64,rand,"('int64', 'rand')",-cpu-3,30,stress
+386,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_033121.csv,9.47571578095473,0.0074435574968866,int64,rand,"('int64', 'rand')",-cpu-3,30,stress
+388,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_033513.csv,9.519803269193801,0.0171779457282887,int64,rand,"('int64', 'rand')",-cpu-3,30,stress
+390,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_033904.csv,11.342411441958362,0.0086882708930913,int64,jmp,"('int64', 'jmp')",-cpu-3,30,stress
+392,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_034256.csv,11.322560232567348,0.0167353978011391,int64,jmp,"('int64', 'jmp')",-cpu-3,30,stress
+394,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_034647.csv,11.34640972774545,0.004723066875457,int64,jmp,"('int64', 'jmp')",-cpu-3,30,stress
+396,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_035039.csv,11.357318260055585,0.0034926043535292,int64,jmp,"('int64', 'jmp')",-cpu-3,30,stress
+398,stress-ng---cpu-3---cpu-method-int64--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_035430.csv,11.338512987874783,0.0080197252763632,int64,jmp,"('int64', 'jmp')",-cpu-3,30,stress
+400,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_035822.csv,15.390602095228665,0.0038389478129289,double,int64float,"('double', 'int64float')",-cpu-3,30,stress
+402,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_040214.csv,15.372997127217111,0.0076034021850518,double,int64float,"('double', 'int64float')",-cpu-3,30,stress
+404,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_040605.csv,15.583533195198363,0.0284990207366397,double,int64float,"('double', 'int64float')",-cpu-3,30,stress
+406,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_040957.csv,15.367038794336025,0.0088429049811708,double,int64float,"('double', 'int64float')",-cpu-3,30,stress
+408,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64float--t-30-20260926_041348.csv,15.34185629990317,0.0241242549965999,double,int64float,"('double', 'int64float')",-cpu-3,30,stress
+410,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_041740.csv,14.710717405534503,0.0124670683604775,double,int64double,"('double', 'int64double')",-cpu-3,30,stress
+412,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_042132.csv,14.69768904640128,0.0058081774339465,double,int64double,"('double', 'int64double')",-cpu-3,30,stress
+414,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_042523.csv,14.709503366287109,0.0133470712520425,double,int64double,"('double', 'int64double')",-cpu-3,30,stress
+416,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_042915.csv,14.8831581026814,0.0073692256083364,double,int64double,"('double', 'int64double')",-cpu-3,30,stress
+418,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_043306.csv,14.72232706139124,0.007287743041933,double,int64double,"('double', 'int64double')",-cpu-3,30,stress
+420,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_043658.csv,16.46263956970982,0.0163377292125877,double,prod,"('double', 'prod')",-cpu-3,30,stress
+422,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_044049.csv,16.40791766712838,0.0151493656659909,double,prod,"('double', 'prod')",-cpu-3,30,stress
+424,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_044441.csv,16.42576751373109,0.0129007888287168,double,prod,"('double', 'prod')",-cpu-3,30,stress
+426,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_044832.csv,16.45497547050208,0.0064694796264348,double,prod,"('double', 'prod')",-cpu-3,30,stress
+428,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_045224.csv,16.44859063295237,0.0054538504884384,double,prod,"('double', 'prod')",-cpu-3,30,stress
+430,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_045616.csv,12.043662256296152,0.0107494508220836,double,rand,"('double', 'rand')",-cpu-3,30,stress
+432,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_050007.csv,12.04961539158429,0.0110139331796675,double,rand,"('double', 'rand')",-cpu-3,30,stress
+434,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_050359.csv,12.053540672489465,0.0047455802781345,double,rand,"('double', 'rand')",-cpu-3,30,stress
+436,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_050751.csv,11.97057659566812,0.0104333092009994,double,rand,"('double', 'rand')",-cpu-3,30,stress
+438,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_051142.csv,12.053824072442819,0.0056687127192415,double,rand,"('double', 'rand')",-cpu-3,30,stress
+440,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_051534.csv,13.56447136538624,0.012567474662416,double,jmp,"('double', 'jmp')",-cpu-3,30,stress
+442,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_051925.csv,13.529117447004268,0.0100621450697797,double,jmp,"('double', 'jmp')",-cpu-3,30,stress
+444,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_052317.csv,13.529200826023388,0.0198643773447357,double,jmp,"('double', 'jmp')",-cpu-3,30,stress
+446,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_052709.csv,13.89745367911165,0.0049494731888722,double,jmp,"('double', 'jmp')",-cpu-3,30,stress
+448,stress-ng---cpu-3---cpu-method-double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_053100.csv,13.90785523940685,0.010132221314534,double,jmp,"('double', 'jmp')",-cpu-3,30,stress
+450,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_053452.csv,14.935252133946143,0.0135085070322783,int64float,int64double,"('int64double', 'int64float')",-cpu-3,30,stress
+452,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_053843.csv,14.976222596569592,0.014401213566403,int64float,int64double,"('int64double', 'int64float')",-cpu-3,30,stress
+454,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_054235.csv,14.84707186352372,0.009494918589108,int64float,int64double,"('int64double', 'int64float')",-cpu-3,30,stress
+456,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_054626.csv,14.933791516674685,0.0103084558178683,int64float,int64double,"('int64double', 'int64float')",-cpu-3,30,stress
+458,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-int64double--t-30-20260926_055018.csv,14.876735263947971,0.0079751237825078,int64float,int64double,"('int64double', 'int64float')",-cpu-3,30,stress
+460,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_055409.csv,16.482173532829307,0.0113531022639946,int64float,prod,"('int64float', 'prod')",-cpu-3,30,stress
+462,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_055801.csv,16.488923089688505,0.0087923994197174,int64float,prod,"('int64float', 'prod')",-cpu-3,30,stress
+464,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_060152.csv,16.488242941043502,0.0055455576663109,int64float,prod,"('int64float', 'prod')",-cpu-3,30,stress
+466,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_060544.csv,16.481044097913383,0.0054770200635888,int64float,prod,"('int64float', 'prod')",-cpu-3,30,stress
+468,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_060935.csv,16.45033432277765,0.01236386398622,int64float,prod,"('int64float', 'prod')",-cpu-3,30,stress
+470,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_061327.csv,12.0811291125573,0.0076372227160902,int64float,rand,"('int64float', 'rand')",-cpu-3,30,stress
+472,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_061718.csv,12.30245176005582,0.0203763267789056,int64float,rand,"('int64float', 'rand')",-cpu-3,30,stress
+474,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_062110.csv,12.111343367177248,0.0145317495921179,int64float,rand,"('int64float', 'rand')",-cpu-3,30,stress
+476,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_062502.csv,12.089095963913724,0.0146630937143914,int64float,rand,"('int64float', 'rand')",-cpu-3,30,stress
+478,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_062853.csv,12.104600381765323,0.0087977025330043,int64float,rand,"('int64float', 'rand')",-cpu-3,30,stress
+480,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_063245.csv,13.927831031665256,0.0068688831014577,int64float,jmp,"('int64float', 'jmp')",-cpu-3,30,stress
+482,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_063636.csv,13.81420314316005,0.0363128694500836,int64float,jmp,"('int64float', 'jmp')",-cpu-3,30,stress
+484,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_064028.csv,13.928839660268345,0.0068299081154753,int64float,jmp,"('int64float', 'jmp')",-cpu-3,30,stress
+486,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_064419.csv,13.934308042970898,0.0107278997589185,int64float,jmp,"('int64float', 'jmp')",-cpu-3,30,stress
+488,stress-ng---cpu-3---cpu-method-int64float--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_064811.csv,13.94295758269828,0.0092604455975982,int64float,jmp,"('int64float', 'jmp')",-cpu-3,30,stress
+490,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_065203.csv,15.8761778070734,0.0125921283166641,int64double,prod,"('int64double', 'prod')",-cpu-3,30,stress
+492,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_065554.csv,15.901261332619224,0.011377112751768,int64double,prod,"('int64double', 'prod')",-cpu-3,30,stress
+494,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_065946.csv,15.865044780859737,0.0103257242304666,int64double,prod,"('int64double', 'prod')",-cpu-3,30,stress
+496,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_070337.csv,15.9444864183024,0.007611753128335,int64double,prod,"('int64double', 'prod')",-cpu-3,30,stress
+498,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---matrix-3---matrix-method-prod--t-30-20260926_070729.csv,16.024902581582573,0.0135784552174692,int64double,prod,"('int64double', 'prod')",-cpu-3,30,stress
+500,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_071121.csv,11.522522067355805,0.0092400114439668,int64double,rand,"('int64double', 'rand')",-cpu-3,30,stress
+502,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_071512.csv,11.492801392850858,0.0086493337998143,int64double,rand,"('int64double', 'rand')",-cpu-3,30,stress
+504,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_071904.csv,11.464078610387773,0.0155348647623723,int64double,rand,"('int64double', 'rand')",-cpu-3,30,stress
+506,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_072255.csv,11.512893312341085,0.008398997882825,int64double,rand,"('int64double', 'rand')",-cpu-3,30,stress
+508,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_072647.csv,11.494516115448619,0.0135209109395787,int64double,rand,"('int64double', 'rand')",-cpu-3,30,stress
+510,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_073038.csv,13.21846427031835,0.0111651023374035,int64double,jmp,"('int64double', 'jmp')",-cpu-3,30,stress
+512,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_073430.csv,13.23319215461608,0.0130543093981303,int64double,jmp,"('int64double', 'jmp')",-cpu-3,30,stress
+514,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_073821.csv,13.18825924585547,0.0088384824708099,int64double,jmp,"('int64double', 'jmp')",-cpu-3,30,stress
+516,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_074213.csv,13.22999384451516,0.007914566178768,int64double,jmp,"('int64double', 'jmp')",-cpu-3,30,stress
+518,stress-ng---cpu-3---cpu-method-int64double--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_074604.csv,13.216676919716228,0.0105524417931474,int64double,jmp,"('int64double', 'jmp')",-cpu-3,30,stress
+520,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_074956.csv,13.20503911088067,0.0090279107498778,prod,rand,"('prod', 'rand')",-matrix-3,30,stress
+522,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_075348.csv,13.18506410086776,0.0069977180101746,prod,rand,"('prod', 'rand')",-matrix-3,30,stress
+524,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_075739.csv,13.164522973190572,0.0082742589285972,prod,rand,"('prod', 'rand')",-matrix-3,30,stress
+526,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_080131.csv,13.179680572233515,0.0090434448093795,prod,rand,"('prod', 'rand')",-matrix-3,30,stress
+528,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-rand--t-30-20260926_080523.csv,13.172836073458281,0.0070240821746542,prod,rand,"('prod', 'rand')",-matrix-3,30,stress
+530,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_080914.csv,14.881201940407784,0.0277594204213625,prod,jmp,"('jmp', 'prod')",-matrix-3,30,stress
+532,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_081306.csv,14.676006964665959,0.0168000326355205,prod,jmp,"('jmp', 'prod')",-matrix-3,30,stress
+534,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_081657.csv,14.66054763740101,0.0191222450430753,prod,jmp,"('jmp', 'prod')",-matrix-3,30,stress
+536,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_082049.csv,14.655208047825479,0.0090040015761271,prod,jmp,"('jmp', 'prod')",-matrix-3,30,stress
+538,stress-ng---matrix-3---matrix-method-prod--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_082440.csv,14.662642340909297,0.0069255913349973,prod,jmp,"('jmp', 'prod')",-matrix-3,30,stress
+540,stress-ng---cpu-3---cpu-method-rand--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_082832.csv,10.453161174448521,0.0166723856297549,rand,jmp,"('jmp', 'rand')",-cpu-3,30,stress
+542,stress-ng---cpu-3---cpu-method-rand--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_083224.csv,10.281560628320879,0.0147599039205446,rand,jmp,"('jmp', 'rand')",-cpu-3,30,stress
+544,stress-ng---cpu-3---cpu-method-rand--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_083615.csv,10.399835832386312,0.0157143584746058,rand,jmp,"('jmp', 'rand')",-cpu-3,30,stress
+546,stress-ng---cpu-3---cpu-method-rand--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_084007.csv,10.32273006430244,0.0187809230384699,rand,jmp,"('jmp', 'rand')",-cpu-3,30,stress
+548,stress-ng---cpu-3---cpu-method-rand--t-30-stress-ng---cpu-3---cpu-method-jmp--t-30-20260926_084358.csv,10.475798069316092,0.0135736279895062,rand,jmp,"('jmp', 'rand')",-cpu-3,30,stress
