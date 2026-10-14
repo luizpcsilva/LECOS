@@ -52,7 +52,53 @@ abaixo, explica cada um com mais detalhe.
 | `tratamento-dados/` | Notebook e gráfico do consumo residual por método (`residual-por-metodo.png`). |
 | `testes/idle/` | Um exemplo de amostra bruta do RAPL (consumo idle). Não usado no resultado final |
 
+## Como Replicar os Experimentos
+
+Roteiro prático para executar o protocolo do zero.
+
+### 1. Coleta
+
+Todas as baterias abaixo executam `sudo ./protocolo.sh` por baixo, uma vez por estressor/dupla. `protocolo.sh` Copia os dados de `valores.sh`. Configure esse arquivo conforme desejar.
+Os resultados são salvos em `log.csv`.
+
+```bash
+sudo ./agendador_residual.sh            # 11 métodos x 15 execuções -> mede R
+# copie log.csv para dados/log-consumo-residual.csv
+
+sudo ./agendador_estressor.sh           # 11 métodos x 15 execuções -> fase isolada
+# copie log.csv para dados/log_medicao_sequencial.csv
+
+sudo ./agendador_estressor_paralelo.sh  # 55 duplas x 5 execuções -> fase paralela + Scaphandre
+# copie log.csv para dados/log_medicao_paralela.csv
+# dados/log_medicao_scaphandre.csv já é gravado direto por medicao-scaphandre.py
+```
+
+Cada bateria roda 165, 165 e 275 medições de 30 s, respectivamente, mais o tempo de
+resfriamento entre elas (`DO_RESFRIAMENTO=1` em `valores.sh`, 180 s a cada medição) assim, bateria paralela sozinha leva muitas horas.
+
+### 2. PowerAPI (fora deste repositório)
+
+Rode o PowerAPI manualmente sobre as mesmas 55 duplas × 5 execuções (ver "Medição com o
+PowerAPI"). Salve o resultado como `dados/resultados_powerapifinal.csv`, com as colunas
+`stressor_1`, `stressor_2`, `data_hora`, `potencia_media_1_w`, `potencia_media_2_w`,
+`desvio_fracao` são elas que a célula de conversão em `dados/filtro.ipynb` espera.
+
+### 3. Análise
+
+Notebooks e scripts, **nesta ordem**. Repare no diretório de trabalho de cada um, os
+caminhos dentro deles são relativos:
+
+| Ordem | Notebook/script | Rodar a partir de | Produz |
+|---|---|---|---|
+| 1 | `dados/filtro.ipynb` | `dados/` | `paralela.csv`; a conversão do PowerAPI; os gráficos de dispersão/heatmap |
+| 2 | `dados/consumo-ativo/gerar_consumo_ativo.ipynb` | `dados/consumo-ativo/` | `ativo-R{min,max}-*.csv`, `media_{sequencial,paralelo}_{min,max}.csv` |
+| 3 | `calcular-baseline.ipynb` | raiz do repositório | `dados/baseline/baseline-R{min,max}.csv` |
+| 4 | `calcular_erro.py`, `calcular_erro_powerapi.py` | raiz do repositório | `dados/erro-*.csv` |
+
 # Passos para a execução do protocolo:
+
+> Esta seção explica **o que cada etapa mede e por quê** — a metodologia por trás do
+> `protocolo.sh`. Para só rodar os experimentos, veja "Como Replicar os Experimentos" acima.
 
 **Leia Antes de Executar os Scripts**: Durante a execução do isolamento da máquina, o wifi/tailscale é desativado. Assim, nunca execute o script diretamente em terminal via ssh, pois isso irá causar o encerramento da sessão e a conexão será perdida, sem que a placa de rede e os serviços de rede sejam reativados. Siga [esses passos](#obs-sessões-de-terminais-persistentes) para a execução em ambiente ssh.
 
