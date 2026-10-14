@@ -8,7 +8,7 @@ O seguinte repositório contém os algoritmos necessários para executar o proto
 
 Esta branch (`code/protocolo-avaliacao-power-models`) implementa e automatiza esse protocolo, implementando as etapas de: isolamento do ambiente bare-metal, coleta do consumo real via RAPL, coleta do consumo estimado por dois modelos de rateio de energia por processo (**Scaphandre** e **PowerAPI**) e o cálculo do erro (Equação 5 do artigo) para os dois, nos 55 pares possíveis entre as 11 cargas de teste do `stress-ng` usadas como aplicações. 
 
-As etapas implementadas e os resultados obtidos foram apresentados na **15º Semana de Integração Acadêmica (SIAC) da Universidade Federal do Rio de Janeiro (UFRJ)**, durante a Sessão Oral de Segurança da Informação, Arquitetura de Sistemas e Redes..
+As etapas implementadas e os resultados obtidos foram apresentados na **15º Semana de Integração Acadêmica (SIAC) da Universidade Federal do Rio de Janeiro (UFRJ)**, durante a Sessão Oral de Segurança da Informação, Arquitetura de Sistemas e Redes.
 
 
 Inicialmente, utilizaremos um ambiente bare-metal com Ubuntu Server e processador 12th Gen Intel(R) Core(TM) i5-12400
@@ -49,7 +49,7 @@ Os seguintes serviços do SO são desligados para evitar interrupções de siste
 
 1. `cron`: Evita a execução de tarefas agendadas do SO e rotinas de manutenção inesperadas.
 2. `snapd` e `snapd.socket`: Interrompem a verificação e o download de atualizações automáticas do SO.
-3. `docker` e `docker.socket`: desliga o daemon do Docker. Ele é religado explicitamente mais adiante, só para a fase de medição com o Scaphandre (o contêiner do Scaphandre depende dele) — ver "Medição com o Scaphandre".
+3. `docker` e `docker.socket`: desliga o daemon do Docker. Ele é religado explicitamente mais adiante, só para a fase de medição com o Scaphandre (o contêiner do Scaphandre depende dele).
 4. `ModemManager`, `wpa_supplicant` e `tailscaled`: Silencia o gerenciamento de conexões de rede e Wi-Fi, garantindo que o sistema não gaste energia tentando reestabelecer conexões derrubadas.
 5. `udisks2`, `upower` e `multipathd`: Desativam o monitoramento dos discos e de energia.
 6. `prometheus`: desliga o serviço de monitoramento instalado na máquina de testes, para que ele não dispute recursos durante a medição.
@@ -191,7 +191,7 @@ Os dados brutos vão para `testes/scaphandre/<cenário>-<timestamp>.csv`. Além 
 
 | Coluna | Para que serve |
 |---|---|
-| `socket0_uw` | domínio *package* — **mesma base** que o protocolo lê do RAPL em `intel-rapl:0` |
+| `socket0_uw` | domínio *package* **mesma base** que o protocolo lê do RAPL em `intel-rapl:0` |
 | `host_uw` | consumo do host; é PSYS quando a placa expõe esse domínio |
 | `soma_todos_uw` | `soma_todos / socket0` testa a premissa da Equação 4 |
 | `cpu_p1_pct` / `cpu_p2_pct` | se `ce_p1/ce_p2 == cpu_p1/cpu_p2`, está demonstrado que a chave da divisão é tempo de CPU |
@@ -253,10 +253,8 @@ dados/erro-resumo[-powerapi].csv      uma linha por cenário (média e máximo e
 completos estão na tabela de "Comparação com o artigo-base" logo abaixo, que já junta LECOS e
 artigo numa única tabela.
 
-O pior par é diferente para cada modelo. Para o **Scaphandre** é `prod` × `rand` — os dois
-extremos do próprio consumo residual. Para o **PowerAPI** é `fibonacci` × `float`, e não por
-acaso: nos 10 pares em que `fibonacci` participa, o PowerAPI **sempre** sobrestima o quanto
-ele consome (71,1 % atribuídos contra 42,7 % esperados no par com `float`, cenário R mínimo).
+O pior par é diferente para cada modelo. Para o **Scaphandre** é `prod` × `rand` (Os dois
+extremos do próprio consumo residual). Para o **PowerAPI** é `fibonacci` × `float`. Nos 10 pares em que `fibonacci` participa, o PowerAPI **sempre** sobrestima o quanto ele consome (71,1 % atribuídos contra 42,7 % esperados no par com `float`, cenário R mínimo).
 
 ![Erro (Equação 5) por par de métodos — Scaphandre, R mínimo](graficos/erro-heatmap-min.png)
 ![Erro (Equação 5) por par de métodos — Scaphandre, R máximo](graficos/erro-heatmap-max.png)
@@ -291,11 +289,11 @@ repete. Os autores relatam o PowerAPI subestimando estressor`float64` quando ele
 dos métodos que mais consomem (o mesmo padrão aparece no LECOS, no par `fibonacci`/`float`.)
 
 No Scaphandre, o par de estressores envolvido no maior erro se repete. O artigo aponta
-que o erro máximo ocorre nos pares que juntam fibonacci — (a função menos consumidora) com
+que o erro máximo ocorre nos pares que juntam fibonacci (a função menos consumidora) com
 uma das mais consumidoras (matrixprod, int64float ou jmp). No LECOS, esses mesmos
 estressores aparecem nos piores pares do Scaphandre.
 O pior par absoluto no LECOS,
-porém, é prod × rand, não prod × fibonacci — porque, nesta máquina, rand é o
+porém, é prod × rand, não prod × fibonacci. Isso porque, nesta máquina, rand é o
 estressor de menor consumo real, mais baixo até que fibonacci (ver tabela de postos
 acima). Dos 8 piores pares de Scaphandre no LECOS, 6 envolvem rand; os outros 2 trocam
 rand por outro parceiro de prod (fibonacci e int64). Ou seja, o princípio do
@@ -308,16 +306,11 @@ LECOS.
 * [`graficos/sequencial-por-estressor.png`](graficos/sequencial-por-estressor.png) — ver "Medição das Aplicações Isoladas".
 * [`graficos/consumo-paralelo.png`](graficos/consumo-paralelo.png) e [`graficos/consumo-paralelo-heatmap.png`](graficos/consumo-paralelo-heatmap.png) — ver "Medição Paralela".
 
-## TODO
+## Trabalhos Futuros
 
-~~Coleta de estimativas do PowerAPI~~ e ~~aplicação da Equação 5 (cálculo do erro)~~ —
-concluídos. Ver "Medição com o PowerAPI", "Cálculo do Erro (Equação 5)" e "Resultados".
-
-Falta alinhar o protocolo às práticas mais recentes de validação:
+Futuramente, vale modificar o protocolo para atender às práticas mais recentes, propostas por BELLAL, Z. et al. Investigating the Potential of Kepler Toward Power Observability for Sustainable Cloud Computing. IEEE Transactions on Green Communications and Networking, v. 10, 2026, p. 2118-2135. São elas, por exemplo:
 
 * Desativação de C-states (estados ociosos profundos), que afetam o consumo do pacote.
 * Frequência de uncore fixa.
 * Variação de co-runners e cargas memory-bound.
 * Análise por domínio RAPL (PKG vs. DRAM), em vez de só o pacote inteiro.
-
-* BELLAL, Z. et al. Investigating the Potential of Kepler Toward Power Observability for Sustainable Cloud Computing. IEEE Transactions on Green Communications and Networking, v. 10, 2026, p. 2118-2135.
