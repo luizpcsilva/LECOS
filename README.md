@@ -13,6 +13,45 @@ As etapas implementadas e os resultados obtidos foram apresentados na **15º Sem
 
 Inicialmente, utilizaremos um ambiente bare-metal com Ubuntu Server e processador 12th Gen Intel(R) Core(TM) i5-12400
 
+## Estrutura do Repositório
+
+Mapa de cada arquivo/diretório versionado neste branch. O passo a passo de execução, logo
+abaixo, explica cada um com mais detalhe.
+
+| Caminho | Descrição |
+|---|---|
+| `protocolo.sh` | Orquestrador de uma rodada de aplicação do protocolo: isola a máquina, mede residual, isolado (P1/P2) e paralelo, calcula o baseline e sobe o Scaphandre. |
+| `valores.sh` | Variáveis de configuração de `protocolo.sh`: valor do consumo estressores e flags de isolamento/resfriamento. Permitem pular etapas do protocolo medidas. |
+| `agendador_residual.sh` | Bateria de testes para 11 estressores × 15 execuções para medir `R` por método. |
+| `agendador_estressor.sh` | Bateria de testes de 11 estressores × 15 execuções, fase isolada (Consumo Sequencial). |
+| `agendador_estressor_paralelo.sh` | Bateria de testes das 55 duplas × 5 execuções, fase paralela (RAPL e Scaphandre juntos). |
+| `calcular-baseline.ipynb` | Aplica a Equação 3 aos 55 pares paralelos, nos dois cenários de `R`. |
+| `calcular_erro.py` | Equação 5 (erro absoluto do modelo) para o Scaphandre. |
+| `calcular_erro_powerapi.py` | Equação 5 para o PowerAPI. |
+| `requirements.txt` | Dependências Python (`pandas`, `psutil`). |
+| `log.csv` | Log de todas as medições feitas por protocolo.sh (idle, residual, isolado, paralelo, baseline). |
+| `scripts/medicao-idle.py` | Amostra o RAPL por 30 s sem carga. |
+| `scripts/medicao-estressor.py` | Sobe 1 ou 2 estressores e amostra o RAPL durante a execução. Usado nas fases residual, isolada e paralela. |
+| `scripts/calculo-melhor-media-e-std.py` | Reduz uma amostra de medição de energia de 30s para a janela de 10 s mais estável (menor desvio padrão). |
+| `scripts/calculo-consumo-ativo.py` | `Ativo = Consumo_Total − Consumo_Residual`. |
+| `scripts/calculo-baseline.py` | Equação 3 para um único par paralelo (chamado em massa por `calcular-baseline.ipynb`). |
+| `scripts/salvar-residual.py` | Grava `R` no `log.csv`. |
+| `scripts/medicao-scaphandre.py` | Sobe o contêiner do Scaphandre (exportador JSON), dispara os dois estressores e agrega o `Ce` de cada um. |
+| `scripts/calculo-melhor-janela-scaphandre.py` | Reduz a série do Scaphandre a dois escalares:`Consumo_Estimado` de P1 e de P2. |
+| `dados/log-consumo-residual.csv` | Log bruto da bateria de residual. |
+| `dados/log_medicao_sequencial.csv` | Log bruto da bateria isolada. |
+| `dados/log_medicao_paralela.csv`, `dados/paralela.csv` | Log bruto e versão já tratada (método, par) da bateria paralela. |
+| `dados/log_medicao_scaphandre.csv` | `Consumo_Estimado` por aplicação via Scaphandre, para os 55 pares. |
+| `dados/resultados_powerapifinal.csv`, `dados/log_medicao_powerapi.csv` | Saída bruta do PowerAPI e sua conversão para o formato usado pelo Scaphandre. |
+| `dados/filtro.ipynb`, `dados/filtro.py` | Tratamento exploratório dos dados. Gera `paralela.csv`, a conversão do PowerAPI, e os gráficos de dispersão/heatmap de consumo e erro. |
+| `dados/erro-detalhado[-powerapi].csv`, `dados/erro-por-par[-powerapi].csv`, `dados/erro-resumo[-powerapi].csv` | Saídas da Equação 5. |
+| `dados/log_residual_com_frequency_demand.csv`, `dados/residual_ondemand.csv`, `dados/sequencial.csv` | Logs exploratórios de iterações anteriores do protocolo, não usados no resultado final. |
+| `dados/baseline/` | Saída da Equação 3 para os 55 pares, nos dois cenários de `R` (`baseline-Rmin.csv`, `baseline-Rmax.csv`). |
+| `dados/consumo-ativo/` | Consumo ativo isolado/paralelo nos dois cenários de `R`. |
+| `graficos/` | Imagens usadas neste README (potência por estressor/por par, heatmaps de erro). |
+| `tratamento-dados/` | Notebook e gráfico do consumo residual por método (`residual-por-metodo.png`). |
+| `testes/idle/` | Um exemplo de amostra bruta do RAPL (consumo idle). Não usado no resultado final |
+
 # Passos para a execução do protocolo:
 
 **Leia Antes de Executar os Scripts**: Durante a execução do isolamento da máquina, o wifi/tailscale é desativado. Assim, nunca execute o script diretamente em terminal via ssh, pois isso irá causar o encerramento da sessão e a conexão será perdida, sem que a placa de rede e os serviços de rede sejam reativados. Siga [esses passos](#obs-sessões-de-terminais-persistentes) para a execução em ambiente ssh.
