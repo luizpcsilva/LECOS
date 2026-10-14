@@ -142,7 +142,7 @@ Os seguintes serviços do SO são desligados para evitar interrupções de siste
 
 ### Desligamento físico da placa de rede:
 
-Para o desligamento total da conexão wifi, as placas físicas devem ser desligadas. O script `isolamento.sh` as identifica por meio do comando `INTERFACES_FISICAS=$(ls /sys/class/net/ | grep -E '^(en|wl|eth)')` e, em seguida, as desativa por meio de um loop for.
+Para o desligamento total da conexão wifi, as placas físicas devem ser desligadas. A função `isolar_ambiente()` em `protocolo.sh` as identifica por meio do comando `INTERFACES_FISICAS=$(ls /sys/class/net/ | grep -E '^(en|wl|eth)')` e, em seguida, as desativa por meio de um loop for.
 
 ### Desligamento do Turboboost e Hyperthreading
 A desativação do Turbo Boost impede que a frequência do processador exceda o valor base, estabilizando o consumo. A desativação do Hyper‑Threading garante que cada processo seja alocado a um núcleo físico exclusivo, sem concorrência de threads.
