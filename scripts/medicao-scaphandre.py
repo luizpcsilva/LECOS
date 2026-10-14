@@ -12,7 +12,7 @@ from pathlib import Path
 import psutil
 
 """
-Mede o consumo estimado (Ce) de dois estressores em paralelo, pelo exportador JSON
+mede o consumo estimado (Ce) de dois estressores em paralelo, pelo exportador JSON
 do scaphandre.
 """
 

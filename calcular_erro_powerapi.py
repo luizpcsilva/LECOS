@@ -1,12 +1,8 @@
 # calcular_erro_powerapi.py
 """
 Mesma logica de calcular_erro.py (Equacao 5, erro absoluto do modelo nos 55
-pares), aplicada ao PowerAPI em vez do Scaphandre. Unica diferenca real: a
-fonte do termo 1 (Ce) e o prefixo de papel no nome ("powerapi" em vez de
-"scaphandre") -- dados/log_medicao_powerapi.csv e dados/filtro.ipynb que
-converteu resultados_powerapifinal.csv pro mesmo formato. Termo 2 (baseline)
-e C_S (dados/paralela.csv) sao os MESMOS arquivos ja usados pro Scaphandre --
-o baseline e a mesma referencia de verdade pra qualquer modelo avaliado.
+pares), aplicada ao PowerAPI em vez do Scaphandre. Unica diferenca. Termo 2 da equação (baseline)
+e C_S (dados/paralela.csv) sao os MESMOS arquivos ja usados pro Scaphandre.
 """
 import re
 import pandas as pd
@@ -20,10 +16,10 @@ def metodos_em_ordem(nome):
     return re.findall(r'-method-([a-z0-9]+)--t-30', nome)
 
 
-# --------------------- termo 1: Ce/C, nao depende de R ---------------------
+# --------------------- cálculo do termo 1 Ce/C ---------------------
 
 pwr = pd.read_csv("dados/log_medicao_powerapi.csv", names=["nome", "ce_w", "std"])
-#lembre-se que o df de medicao powerapi salva duas linhas por medicao: p1 e p2
+#df de medicao powerapi salva duas linhas p1 e p2 por medicao 
 
 pwr["par"] = pwr["nome"].apply(par_de)
 pwr["papel"] = pwr["nome"].str.extract(r"^powerapi(P1|P2)-")
@@ -44,7 +40,7 @@ if faltando:
     print(f"aviso: {len(faltando)} par(es) sem C_S em paralela.csv, serao ignorados: {faltando}")
 
 
-# ------------- termo 2: baseline_Pi/A_S, ja calculado, um por cenario -------------
+# ------------- cálculo do termo 2 baseline_Pi/A_S -------------
 
 linhas_erro = []
 detalhe = []

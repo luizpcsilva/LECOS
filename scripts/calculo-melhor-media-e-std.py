@@ -4,8 +4,8 @@ import argparse
 import csv
 
 """
-O seguinte algoritmo calcula a melhor média amostral
-de uma série de registros de energia e de tempo, utilizando pandas.
+calcula a melhor média amostral de uma série de registros
+de energia e de tempo, utilizando pandas.
 
 O critério utilizado é selecionar o melhor intervalo de medição de 10 segundos
 em que os valores de energia desse intervalo tenham o menor desvio padrão.

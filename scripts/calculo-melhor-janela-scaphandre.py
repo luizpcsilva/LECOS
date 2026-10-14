@@ -4,16 +4,8 @@ import csv
 import sys
 
 """
-Reduz a serie do scaphandre (testes/scaphandre/*.csv) a dois escalares: o Ce
-medio de P1 e o de P2, em watts.
-
-Equivale ao calculo-melhor-media-e-std.py do caminho RAPL, com uma diferenca: la
-ha uma serie so, entao a janela e escolhida pela estabilidade da propria grandeza
-reportada. Aqui ha duas, e a janela e escolhida pela estabilidade da FRACAO
-ce_p1/(ce_p1+ce_p2).
-
-Imprime os dois valores em linhas separadas, para o protocolo.sh capturar com
-{ read CE_P1; read CE_P2; }
+le o arquivo de dados do scaphandre (testes/scaphandre/*.csv) e calcula
+os dois valores de Ce medio de P1 e o de P2, em watts.
 """
 
 JANELA = 10   #amostras da janela usada no calculo da media

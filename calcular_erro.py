@@ -1,6 +1,6 @@
 # dados/calcular_erro.py
 """
-Aplica a Equacao 5 (erro absoluto do modelo) aos 55 pares.
+Aplica a Equacao 5 (erro absoluto do modelo) aos 55 pares do SCAPHANDRE.
 """
 import re
 import pandas as pd
