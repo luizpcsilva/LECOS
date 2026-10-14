@@ -249,12 +249,9 @@ dados/erro-resumo[-powerapi].csv      uma linha por cenário (média e máximo e
 
 ### Erro medido no LECOS
 
-55 pares, 5 execuções cada, nos dois cenários de `R` (ver "Medição Residual"):
-
-| Cenário de `R` | Scaphandre — erro médio | Scaphandre — erro máximo | PowerAPI — erro médio | PowerAPI — erro máximo |
-|---|---|---|---|---|
-| R mínimo (9,5762 W, `rand`) | 6,51 % | 17,29 % | 8,11 % | 26,13 % |
-| R máximo (11,1111 W, `prod`) | 7,42 % | 19,59 % | 8,90 % | 27,31 % |
+55 pares, 5 execuções cada, nos dois cenários de `R` (ver "Medição Residual"). Os números
+completos estão na tabela de "Comparação com o artigo-base" logo abaixo, que já junta LECOS e
+artigo numa única tabela.
 
 O pior par é diferente para cada modelo. Para o **Scaphandre** é `prod` × `rand` — os dois
 extremos do próprio consumo residual. Para o **PowerAPI** é `fibonacci` × `float`, e não por
@@ -268,22 +265,42 @@ ele consome (71,1 % atribuídos contra 42,7 % esperados no par com `float`, cen�
 
 ### Comparação com o artigo-base
 
-CADOREL; SAINGRE (já citado) reportam, na Seção IV do artigo:
+CADOREL; SAINGRE (já citado) avaliam o protocolo em duas máquinas (Small Intel e Dahu).
 
-| Cenário do artigo | PowerAPI | Scaphandre |
-|---|---|---|
-| SMALL INTEL — erro médio | 3,12 % | 3,15 % |
-| SMALL INTEL — erro máximo | 11,7 % | 11,7 % |
-| DAHU — erro médio | 16,23 % | 2,7 % |
-| DAHU — erro máximo | 49,1 % | 17,4 % |
+| Nome | Descrição |
+|---|---|
+| SMALL INTEL | 6 núcleos (12 lógicos) Intel(R) Xeon(R) W-2133 CPU, 32GB de RAM, SSD de 256GB |
+| DAHU | 32 núcleos (64 lógicos) Intel Xeon Gold 6130 CPUs, 192GB de RAM, SSD de 240GB |
+| LECOS | 6 núcleos (12 lógicos) Intel(R) Core(TM) i5-12400 de 12ª geração, 16GB de RAM, SSD NVMe de 256GB |
+
+Erro (Equação 5) relatado pelos autores em cada máquina, contra o erro medido no LECOS. A
+faixa de valores é decorrente dos dois cenários do Consumo Residual `R` (máximo ou mínimo):
+
+| Fonte | Scaphandre médio | Scaphandre máx. | PowerAPI médio | PowerAPI máx. |
+|---|---|---|---|---|
+| CADOREL; SAINGRE — Small Intel | 3,15 % | 11,7 % | 3,12 % | 11,7 % |
+| CADOREL; SAINGRE — Dahu | 2,7 % | 17,4 % | 16,23 % | 49,1 % |
+| **LECOS** | **6,51 – 7,42 %** | **17,29 – 19,59 %** | **8,11 – 8,90 %** | **26,13 – 27,31 %** |
 
 Os valores absolutos do LECOS e do artigo **não são diretamente comparáveis**, pois o hardware é
-diferente e utilizamos uma faixa de `R` (Consumo Residual) em vez de um `R` único . O que se repete é a **direção do efeito**: nos dois, o PowerAPI erra mais que o
-Scaphandre (no LECOS, 1,20×–1,25× em média e 1,39×–1,51× no máximo; no artigo essa diferença
-vai de quase empatada na SMALL INTEL a ~6× em média na DAHU). A causa específica também se
-repete: os autores relatam o PowerAPI subestimando `float64` quando ele é, isoladamente, um
-dos métodos que mais consomem (Seção IV-A, Fig. 8, p. 79-80) — o mesmo padrão aparece no LECOS
-no par `fibonacci`/`float`.
+diferente e utilizamos uma faixa de `R` (Consumo Residual) em vez de um `R` único . 
+
+Percebe-se que o modelo PowerAPI erra mais que o
+Scaphandre. A causa do erro também se
+repete. Os autores relatam o PowerAPI subestimando estressor`float64` quando ele é, isoladamente, um
+dos métodos que mais consomem (o mesmo padrão aparece no LECOS, no par `fibonacci`/`float`.)
+
+No Scaphandre, o par de estressores envolvido no maior erro se repete. O artigo aponta
+que o erro máximo ocorre nos pares que juntam fibonacci — (a função menos consumidora) com
+uma das mais consumidoras (matrixprod, int64float ou jmp). No LECOS, esses mesmos
+estressores aparecem nos piores pares do Scaphandre.
+O pior par absoluto no LECOS,
+porém, é prod × rand, não prod × fibonacci — porque, nesta máquina, rand é o
+estressor de menor consumo real, mais baixo até que fibonacci (ver tabela de postos
+acima). Dos 8 piores pares de Scaphandre no LECOS, 6 envolvem rand; os outros 2 trocam
+rand por outro parceiro de prod (fibonacci e int64). Ou seja, o princípio do
+artigo, onde o menor consumidor pareado com um dos maiores é o que gera o pior caso também no
+LECOS.
 
 ### Gráficos complementares
 
