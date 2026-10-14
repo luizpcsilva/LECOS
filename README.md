@@ -6,11 +6,16 @@ O seguinte repositório contém os algoritmos necessários para executar o proto
 
 * CADOREL, Emile; SAINGRE, Dimitri. A protocol to assess the accuracy of process-level power models. In: 2024 IEEE International Conference on Cluster Computing (CLUSTER). IEEE, 2024. p. 74-84
 
+Esta branch (`code/protocolo-avaliacao-power-models`) implementa e automatiza esse protocolo, implementando as etapas de: isolamento do ambiente bare-metal, coleta do consumo real via RAPL, coleta do consumo estimado por dois modelos de rateio de energia por processo (**Scaphandre** e **PowerAPI**) e o cálculo do erro (Equação 5 do artigo) para os dois, nos 55 pares possíveis entre as 11 cargas de teste do `stress-ng` usadas como aplicações. 
+
+As etapas implementadas e os resultados obtidos foram apresentados na **15º Semana de Integração Acadêmica (SIAC) da Universidade Federal do Rio de Janeiro (UFRJ)**, durante a Sessão Oral de Segurança da Informação, Arquitetura de Sistemas e Redes..
+
+
 Inicialmente, utilizaremos um ambiente bare-metal com Ubuntu Server e processador 12th Gen Intel(R) Core(TM) i5-12400
 
 # Passos para a execução do protocolo:
 
-**Leia Antes de Executar os Scripts**: Durante a execução do isolamento da máquina, o wifi/tailscale é desativado. Assim, nunca execute o script diretamente no terminal do ssh, pois isso irá causar o encerramento da sessão e a conexão será perdida, sem que a placa de rede e os serviços de rede sejam reativados. Siga [esses passos](#obs-sessões-de-terminais-persistentes) para a execução em ambiente ssh.
+**Leia Antes de Executar os Scripts**: Durante a execução do isolamento da máquina, o wifi/tailscale é desativado. Assim, nunca execute o script diretamente em terminal via ssh, pois isso irá causar o encerramento da sessão e a conexão será perdida, sem que a placa de rede e os serviços de rede sejam reativados. Siga [esses passos](#obs-sessões-de-terminais-persistentes) para a execução em ambiente ssh.
 
 ## 0. Configurações Iniciais:
 
@@ -19,9 +24,16 @@ Inicialmente, utilizaremos um ambiente bare-metal com Ubuntu Server e processado
 git clone --single-branch --branch code/protocolo-avaliacao-power-models https://github.com/luizpcsilva/LECOS.git
 ```
 
-### 2. Dê permissão de execução para protocolo.sh
+### 2. Crie o ambiente virtual e instale as dependências
 ```bash
 cd LECOS
+python3 -m venv venv
+venv/bin/pip install -r requirements.txt
+```
+Todos os scripts Python do protocolo são chamados via `venv/bin/python` (ver `protocolo.sh`). As dependências são só `pandas` e `psutil` (`requirements.txt`).
+
+### 3. Dê permissão de execução para protocolo.sh
+```bash
 sudo chmod +x protocolo.sh
 ```
 
@@ -37,30 +49,32 @@ Os seguintes serviços do SO são desligados para evitar interrupções de siste
 
 1. `cron`: Evita a execução de tarefas agendadas do SO e rotinas de manutenção inesperadas.
 2. `snapd` e `snapd.socket`: Interrompem a verificação e o download de atualizações automáticas do SO.
-4. `ModemManager`, `wpa_supplicant` e `tailscaled`: Silencial o gerenciamento de conexões de rede e Wi-Fi, garantindo que o sistema não gaste energia tentando reestabelecer conexões derrubadas
+3. `docker` e `docker.socket`: desliga o daemon do Docker. Ele é religado explicitamente mais adiante, só para a fase de medição com o Scaphandre (o contêiner do Scaphandre depende dele) — ver "Medição com o Scaphandre".
+4. `ModemManager`, `wpa_supplicant` e `tailscaled`: Silencia o gerenciamento de conexões de rede e Wi-Fi, garantindo que o sistema não gaste energia tentando reestabelecer conexões derrubadas.
 5. `udisks2`, `upower` e `multipathd`: Desativam o monitoramento dos discos e de energia.
-9. `unattended-upgrades`: Bloqueia a instalação silenciosa de pacotes de segurança.
+6. `prometheus`: desliga o serviço de monitoramento instalado na máquina de testes, para que ele não dispute recursos durante a medição.
+7. `unattended-upgrades`: Bloqueia a instalação silenciosa de pacotes de segurança.
 
 ### Desligamento físico da placa de rede:
 
 Para o desligamento total da conexão wifi, as placas físicas devem ser desligadas. O script `isolamento.sh` as identifica por meio do comando `INTERFACES_FISICAS=$(ls /sys/class/net/ | grep -E '^(en|wl|eth)')` e, em seguida, as desativa por meio de um loop for.
 
 ### Desligamento do Turboboost e Hyperthreading
-A desativação do Turbo Boost impede que a frequência do processador exceda o valor base, estabilizando o consumo. A desativação do Hyper‑Threading garante que cada processo seja alocado a um núcleo físico exclusivo.
+A desativação do Turbo Boost impede que a frequência do processador exceda o valor base, estabilizando o consumo. A desativação do Hyper‑Threading garante que cada processo seja alocado a um núcleo físico exclusivo, sem concorrência de threads.
 ```bash
 echo "1" > /sys/devices/system/cpu/intel_pstate/no_turbo   # desativa Turbo Boost
 echo off > /sys/devices/system/cpu/smt/control              # desativa Hyper‑Threading
 ```
 
 ### Restauração Automática:
-A função `restaurar_ambiente()` é chamada ao final do script (ou em caso de erro/SIGINT) para:
+A função `restaurar_ambiente()` é chamada ao final do script (ou em caso de erro) para:
 1. Religar as placas de rede.
 2. Reativar o Turbo Boost e o Hyper‑Threading.
 3. Reiniciar os serviços desligados.
 
 ### OBS: Sessões de Terminais Persistentes
 
-Como os scripts serão executados via ssh, é importante que sejam utilizadas sessões de terminais persistentes para que, ao interromper os serviços de rede, a execução do script não seja abortada pelo fim da conexão ssh.
+Caso os scripts sejam executados via ssh, é importante que sejam utilizadas sessões de terminais persistentes para que, ao interromper os serviços de rede, a execução do script não seja abortada pelo fim da conexão ssh.
 
 Assim, deve-se utilizar ferramentas conhecidas como multiplexadores de terminal. No caso, utilizaremos o `tmux`. Execute `tmux` no terminal ao logar no ssh para abrir o terminal tmux, identificado por uma barra verde no canto inferior da tela. Utilize-o como um terminal comum.
 
@@ -89,6 +103,12 @@ Isso gera carga em apenas um núcleo (core 0) por 30 s. O script mede o consumo 
 
 O valor é salvo no log.csv pelo script scripts/salvar-residual.py
 
+**OBS:** o artigo não especifica com qual estressor medir `R`. `agendador_residual.sh` resolve isso medindo com os 11 estressores do protocolo (15 execuções cada, 165 medições no total), alternando `ESTRESSOR_RESIDUAL` em `valores.sh` a cada passo. O resultado, em `dados/log-consumo-residual.csv`, mostra que `R` varia visivelmente por método:
+
+![Potência residual por método do stress-ng](graficos/residual-por-metodo.png)
+
+Portanto, decidimos não escolher um valor arbritário de consumo residual e, no restante da execução, existirão os **dois cenários**  extremos observados  **R mínimo = 9,5762 W** (método `rand`) e **R máximo = 11,1111 W** (método `prod`). 
+
 ## Medição das Aplicações Isoladas
 Para cada aplicação a ser avaliada (ex: stress-ng --cpu 6, stress-ng --matrix 6), o script:
 
@@ -100,39 +120,64 @@ CONSUMO_ATIVO_P1 = CONSUMO_TOTAL_P1 - CONSUMO_RESIDUAL
 CONSUMO_ATIVO_P2 = CONSUMO_TOTAL_P2 - CONSUMO_RESIDUAL
 ``` 
 
-## Medição Paralela
-Executa as duas aplicações simultaneamente, mas com metade da quantidade de workes cada para evitar concorrência:
+**Testagem em Massa:** `agendador_estressor.sh` percorre os mesmos 11 estressores, 15 execuções cada (165 medições), e grava o resultado em `dados/log_medicao_sequencial.csv`:
 
-```bash
-sudo stress-ng --cpu 3 -t 30
-sudo stress-ng --matrix 3 -t 30
-``` 
+![Potência média do consumo sequencial por estressor](graficos/sequencial-por-estressor.png)
+
+## Medição Paralela
+Executa as duas aplicações simultaneamente, mas com metade da quantidade de workers cada para evitar concorrência.
 
 O consumo total paralelo (`CONSUMO_TOTAL_P1_P2`) é medido e o consumo ativo paralelo é calculado subtraindo o residual.
+
+**Testagem em Massa:** `agendador_estressor_paralelo.sh` percorre as 55 duplas possíveis entre os 11 estressores realizando 5 medições para cada dupla (275 medições no total), gravando em `dados/log_medicao_paralela.csv`. `dados/paralela.csv` é a versão já tratada desse log, usada pelas próximas etapas:
+
+![Potência média do consumo paralelo por dupla de estressores](graficos/consumo-paralelo.png)
+![Potência média do consumo paralelo por par de métodos](graficos/consumo-paralelo-heatmap.png)
+
+## Consumo Ativo nos Dois Cenários de Residual (R mínimo e máximo)
+
+Como visto em "Medição Residual", o cálculo do consumo ativo (`A = C − R`) é realizado para os
+dois cenários de `R` (mínimo e máximo), em vez de um valor único. Mais detalhes da decisão em
+[`dados/consumo-ativo/README.md`](dados/consumo-ativo/README.md).
+
+`dados/consumo-ativo/gerar_consumo_ativo.ipynb` subtrai cada um dos dois valores de `R` do
+consumo medido na fase paralela (`dados/paralela.csv`) e na fase isolada
+(`dados/log_medicao_sequencial.csv`), depois agrega por método (isolado) e por par (paralelo):
+
+Os valores calculados de consumo ativo estão dispostos da seguinte forma no repositório:
+```
+dados/consumo-ativo/ativo-R{min,max}-sequencial.csv    # consumo ativo por execução, isolado
+dados/consumo-ativo/ativo-R{min,max}-paralelo.csv      # consumo ativo por execução, em par
+dados/consumo-ativo/media_sequencial_{min,max}.csv     # média por método (11 linhas)
+dados/consumo-ativo/media_paralelo_{min,max}.csv       # média por par (55 linhas)
+```
 
 ## Cálculo do Baseline
 O script scripts/calculo-baseline.py recebe:
 * `CONSUMO_ATIVO_P1_P2`: consumo ativo total no cenário paralelo.
 * `CONSUMO_ATIVO_P1` e `CONSUMO_ATIVO_P2`: consumos ativos individuais.
 
-E calcula a divisão proporcional esperada, com base na equação 3 do artigo:
+E calcula a divisão proporcional esperada, com base na equação 3 do artigo (CADOREL; SAINGRE, já citado):
 
 ```
 baseline_p1 = consumo_ativo_paralelo * (consumo_ativo_p1 / (consumo_ativo_p1 + consumo_ativo_p2))
 baseline_p2 = consumo_ativo_paralelo * (consumo_ativo_p2 / (consumo_ativo_p1 + consumo_ativo_p2))
 ```
-Esses valores são impressos e salvos no `log.csv`.
+Esses valores são impressos e salvos no `log.csv` numa rodada isolada do `protocolo.sh`.
+
+**Cálculo em Massa** para os 55 pares, `calcular-baseline.ipynb` chama esse mesmo script uma vez por par, em cada um dos dois cenários de `R`, usando as médias geradas no passo anterior (`dados/consumo-ativo/media_sequencial_*.csv` e `media_paralelo_*.csv`). O resultado é salvo em `dados/baseline/baseline-Rmin.csv` e `dados/baseline/baseline-Rmax.csv`, e é esse par de arquivos que a Equação 5 usa como referência (ver "Cálculo do Erro").
 
 ## Medição com o Scaphandre
 
 Roda **o mesmo cenário paralelo** da etapa anterior (`ESTRESSOR_1_PAR` e `ESTRESSOR_2_PAR`),
 desta vez com o Scaphandre medindo, para obter o consumo **estimado pelo modelo** (`Ce`) de
-cada aplicação. É contra esses valores que o baseline será comparado.
+cada aplicação. É contra esses valores que o baseline será comparado. Como a fase paralela,
+essa medição roda dentro do mesmo `agendador_estressor_paralelo.sh` com os dados salvos em `dados/log_medicao_scaphandre.csv`.
 
 O `scripts/medicao-scaphandre.py` sobe o contêiner do Scaphandre com o **exportador JSON**,
-dispara os dois estressores e agrega o consumo de cada um. Ele **não aplica equação nenhuma do
-protocolo** — reporta o que o Scaphandre atribuiu a cada aplicação, e a redução a escalar fica
-com o `scripts/calculo-melhor-janela-scaphandre.py`, como no caminho RAPL:
+dispara os dois estressores e agrega o consumo de cada um.
+
+Segue abaixo a chamada do scaphandre utilizada no script
 
 ```bash
 docker run --rm --name scaphandre_json --privileged \
@@ -141,65 +186,121 @@ docker run --rm --name scaphandre_json --privileged \
     hubblo/scaphandre json -s 1 --max-top-consumers 50 --resources
 ```
 
-Decisões que sustentam a validade da medição:
-
-* **Exportador JSON, não prometheus.** No exportador prometheus a janela de medição é definida
-  por *quem faz a requisição*: a primeira volta zerada, um segundo consumidor desalinha as
-  demais e, sob carga total, o contêiner é preterido e o contador congela. O exportador JSON
-  amostra no próprio timer (`--step`), então o consumidor sai do caminho crítico.
-* **Sem `-f`**, o relatório sai no `stdout` do contêiner, que o script redireciona para um
-  arquivo em `/dev/shm` (tmpfs, que é RAM) — nada é escrito em disco dentro da janela medida.
-  Redirecionar em vez de usar `subprocess.PIPE` evita o buffer de 64 KiB do pipe, que faria o
-  Scaphandre bloquear no `write` e parar de medir no meio da janela.
-* **`--max-top-consumers 50`**: o default de 10 cortaria workers do `stress-ng` (3+3 workers
-  mais os dois pais já são 8, e há daemons disputando o ranking).
-* **Sem `--process-regex`**: preservar todos os consumidores mantém a coluna `soma_todos_uw`,
-  que é o que testa a premissa da Equação 4 (o modelo divide o *total*?).
-* **Separação por árvore de PIDs**, não por `cmdline`: o `stress-ng` apaga o método dos seus
-  workers, e em 10 dos 12 testes do artigo os dois lados são `--cpu-method` com string
-  idêntica. Filtrar por label seria impossível.
-
-A série bruta vai para `testes/scaphandre/<cenário>-<timestamp>.csv`. Além de `ce_p1_uw` e
-`ce_p2_uw`, o CSV traz colunas de diagnóstico:
+Os dados brutos vão para `testes/scaphandre/<cenário>-<timestamp>.csv`. Além de `ce_p1_uw` e
+`ce_p2_uw`, o CSV traz demais colunas:
 
 | Coluna | Para que serve |
 |---|---|
 | `socket0_uw` | domínio *package* — **mesma base** que o protocolo lê do RAPL em `intel-rapl:0` |
 | `host_uw` | consumo do host; é PSYS quando a placa expõe esse domínio |
 | `soma_todos_uw` | `soma_todos / socket0` testa a premissa da Equação 4 |
-| `cpu_p1_pct` / `cpu_p2_pct` | se `ce_p1/ce_p2 == cpu_p1/cpu_p2`, está demonstrado que a chave de rateio é tempo de CPU |
-| `delta_t_s` | espaçamento entre amostras; desvios indicam que o agente foi preterido |
+| `cpu_p1_pct` / `cpu_p2_pct` | se `ce_p1/ce_p2 == cpu_p1/cpu_p2`, está demonstrado que a chave da divisão é tempo de CPU |
+| `delta_t_s` | espaçamento de tempo entre amostras|
 | `n_pids_p1` / `n_pids_p2` | quantos PIDs de cada árvore entraram na amostra |
 
-Como nas demais etapas, a média sai da janela de 10 amostras mais estável — aqui, a de menor
-desvio padrão **da fração** `ce_p1 / (ce_p1 + ce_p2)`, não do total: numa deriva
-anticorrelacionada o total fica plano justamente quando a divisão muda mais rápido.
+Como nas demais etapas, a média sai da janela de 10 amostras mais estável.
 
-## Testes
+## Medição com o PowerAPI
 
-A fase 3 tem bateria automatizada em `tests/`, que **não precisa de root, de Docker nem de
-RAPL** — roda na máquina de desenvolvimento:
+A coleta com o PowerAPI **não é automatizada neste repositório**. Ela foi feita manualmente, fora
+deste código, rodando o PowerAPI sobre os mesmos 55 pares de estressores (5 execuções cada). O
+resultado é `dados/resultados_powerapifinal.csv` (275 linhas; colunas `stressor_1`,
+`stressor_2`, `data_hora`, `potencia_media_1_w`, `potencia_media_2_w`, `desvio_fracao`).
 
-```bash
-venv/bin/python -m unittest discover -s tests -v
+Uma célula de `dados/filtro.ipynb` converte esse CSV para o mesmo formato usado pelo
+Scaphandre, para que o cálculo da Equação 5 (próxima seção) trate os dois modelos com o mesmo
+código:
+
+## Cálculo do Erro (Equação 5)
+
+`calcular_erro.py` (Scaphandre) e `calcular_erro_powerapi.py` (PowerAPI), ambos na raiz do
+repositório, aplicam a Equação 5 do artigo (CADOREL; SAINGRE, já citado) aos 55 pares, em cada
+um dos dois cenários de `R`:
+
+```
+            Σ |Ce_Pi/C_S  −  A_Pi/(A_Pi+A_Pj)|
+   AE_S  =  ─────────────────────────────────
+                    dim(S) × T_S
 ```
 
-`tests/fake_scaphandre.py` emula o exportador JSON (array incremental, cadência própria, PIDs
-reais lidos de `/proc`, schema completo) com modos de falha injetáveis, e `tests/bin/docker` é
-um shim que intercepta `run`/`stop`/`rm`. Os estressores são `stress-ng` de verdade, então a
-separação por árvore de PIDs é exercitada contra processos reais. Como o emulador reporta 5 W
-por consumidor, os testes conferem a agregação na mão: `ce_p1 == n_pids_p1 × 5 W`.
+Os dois termos vêm de fontes diferentes:
+
+* **`Ce_Pi/C_S`** (o que o modelo atribuiu): `Ce_Pi` vem de `dados/log_medicao_scaphandre.csv`
+  ou `dados/log_medicao_powerapi.csv` (médias de 5 execuções); `C_S` é aproximado pela potência
+  média da própria fase paralela, em `dados/paralela.csv`.
+* **`A_Pi/(A_Pi+A_Pj)`** (o que deveria ter sido atribuído): vem direto de
+  `dados/baseline/baseline-Rmin.csv` / `baseline-Rmax.csv` (seção anterior).
+
+Cada script calcula `|termo1 − termo2|` por par e por cenário, salva o detalhe e o resumo, e
+imprime o pior par de cada cenário.
+
+Os scripts de calculo de erro salvam, ao fim da execução, os seguintes arquivos de dados:
+
+```
+dados/erro-detalhado[-powerapi].csv   uma linha por (par, método, cenário) (comparação completa)
+dados/erro-por-par[-powerapi].csv     uma linha por (par, cenário) (média entre P1 e P2)
+dados/erro-resumo[-powerapi].csv      uma linha por cenário (média e máximo entre os 55 pares)
+```
+
+## Resultados
+
+> Resultados apresentados na SIAC. Os números abaixo foram obtidos dos CSVs deste repositório (`dados/erro-resumo.csv`, `dados/erro-resumo-powerapi.csv`,
+> `dados/erro-por-par.csv`, `dados/erro-por-par-powerapi.csv`).
+
+### Erro medido no LECOS
+
+55 pares, 5 execuções cada, nos dois cenários de `R` (ver "Medição Residual"):
+
+| Cenário de `R` | Scaphandre — erro médio | Scaphandre — erro máximo | PowerAPI — erro médio | PowerAPI — erro máximo |
+|---|---|---|---|---|
+| R mínimo (9,5762 W, `rand`) | 6,51 % | 17,29 % | 8,11 % | 26,13 % |
+| R máximo (11,1111 W, `prod`) | 7,42 % | 19,59 % | 8,90 % | 27,31 % |
+
+O pior par é diferente para cada modelo. Para o **Scaphandre** é `prod` × `rand` — os dois
+extremos do próprio consumo residual. Para o **PowerAPI** é `fibonacci` × `float`, e não por
+acaso: nos 10 pares em que `fibonacci` participa, o PowerAPI **sempre** sobrestima o quanto
+ele consome (71,1 % atribuídos contra 42,7 % esperados no par com `float`, cenário R mínimo).
+
+![Erro (Equação 5) por par de métodos — Scaphandre, R mínimo](graficos/erro-heatmap-min.png)
+![Erro (Equação 5) por par de métodos — Scaphandre, R máximo](graficos/erro-heatmap-max.png)
+![Erro (Equação 5) por par de métodos — PowerAPI, R mínimo](graficos/erro-powerapi-heatmap-min.png)
+![Erro (Equação 5) por par de métodos — PowerAPI, R máximo](graficos/erro-powerapi-heatmap-max.png)
+
+### Comparação com o artigo-base
+
+CADOREL; SAINGRE (já citado) reportam, na Seção IV do artigo:
+
+| Cenário do artigo | PowerAPI | Scaphandre |
+|---|---|---|
+| SMALL INTEL — erro médio | 3,12 % | 3,15 % |
+| SMALL INTEL — erro máximo | 11,7 % | 11,7 % |
+| DAHU — erro médio | 16,23 % | 2,7 % |
+| DAHU — erro máximo | 49,1 % | 17,4 % |
+
+Os valores absolutos do LECOS e do artigo **não são diretamente comparáveis**, pois o hardware é
+diferente e utilizamos uma faixa de `R` (Consumo Residual) em vez de um `R` único . O que se repete é a **direção do efeito**: nos dois, o PowerAPI erra mais que o
+Scaphandre (no LECOS, 1,20×–1,25× em média e 1,39×–1,51× no máximo; no artigo essa diferença
+vai de quase empatada na SMALL INTEL a ~6× em média na DAHU). A causa específica também se
+repete: os autores relatam o PowerAPI subestimando `float64` quando ele é, isoladamente, um
+dos métodos que mais consomem (Seção IV-A, Fig. 8, p. 79-80) — o mesmo padrão aparece no LECOS
+no par `fibonacci`/`float`.
+
+### Gráficos complementares
+
+* [`graficos/residual-por-metodo.png`](graficos/residual-por-metodo.png) — ver "Medição Residual".
+* [`graficos/sequencial-por-estressor.png`](graficos/sequencial-por-estressor.png) — ver "Medição das Aplicações Isoladas".
+* [`graficos/consumo-paralelo.png`](graficos/consumo-paralelo.png) e [`graficos/consumo-paralelo-heatmap.png`](graficos/consumo-paralelo-heatmap.png) — ver "Medição Paralela".
 
 ## TODO
 
-O script ainda não implementa:
+~~Coleta de estimativas do PowerAPI~~ e ~~aplicação da Equação 5 (cálculo do erro)~~ —
+concluídos. Ver "Medição com o PowerAPI", "Cálculo do Erro (Equação 5)" e "Resultados".
 
-1. Coleta de estimativas do PowerAPI para comparação com o baseline. A do Scaphandre já
-está implementada em `scripts/medicao-scaphandre.py`, via exportador JSON.
+Falta alinhar o protocolo às práticas mais recentes de validação:
 
-1. Aplicação da Equação 5 (cálculo do erro)
+* Desativação de C-states (estados ociosos profundos), que afetam o consumo do pacote.
+* Frequência de uncore fixa.
+* Variação de co-runners e cargas memory-bound.
+* Análise por domínio RAPL (PKG vs. DRAM), em vez de só o pacote inteiro.
 
-2. Alinhar o protocolo às práticas mais recentes de validação (ver Bellal et al., 2025) -> Fixação da frequência da CPU (governor userspace), recomendada para eliminar variações de DVFS -> Desativação de C‑states (estados ociosos profundos), que afetam o consumo do pacote -> Variação de co‑runners e cargas memory‑bound..
-
-    
-
+* BELLAL, Z. et al. Investigating the Potential of Kepler Toward Power Observability for Sustainable Cloud Computing. IEEE Transactions on Green Communications and Networking, v. 10, 2026, p. 2118-2135.
